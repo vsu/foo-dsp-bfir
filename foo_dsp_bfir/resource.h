@@ -1,0 +1,125 @@
+//{{NO_DEPENDENCIES}}
+// Microsoft Visual C++ generated include file.
+// Used by foo_dsp_bfir.rc
+//
+#define IDD_CONFIG                      101
+#define IDC_SLIDER_16KHZ                1001
+#define IDC_SLIDER_LABEL_P10DB          1002
+#define IDC_SLIDER_LABEL_P0DB2          1003
+#define IDC_SLIDER_LABEL_M10DB2         1004
+#define IDC_SLIDER_8KHZ                 1005
+#define IDC_SLIDER_4KHZ                 1006
+#define IDC_SLIDER_2KHZ                 1007
+#define IDC_SLIDER_1KHZ                 1008
+#define IDC_SLIDER_500HZ                1009
+#define IDC_SLIDER_250HZ                1010
+#define IDC_SLIDER_31HZ                 1011
+#define IDC_SLIDER_EQ1                  1011
+#define IDC_SLIDER_63HZ                 1012
+#define IDC_SLIDER_EQ2                  1012
+#define IDC_SLIDER_EQ_LEVEL             1013
+#define IDC_SLIDER_LABEL_31HZ           1014
+#define IDC_SLIDER_LABEL_20HZ           1015
+#define IDC_SLIDER_LABEL_125HZ          1016
+#define IDC_SLIDER_LABEL_250HZ          1017
+#define IDC_SLIDER_LABEL_500HZ          1018
+#define IDC_SLIDER_LABEL_1KHZ           1019
+#define IDC_SLIDER_LABEL_2KHZ           1020
+#define IDC_SLIDER_LABEL_4KHZ           1021
+#define IDC_SLIDER_LABEL_8KHZ           1022
+#define IDC_SLIDER_LABEL_16KHZ          1023
+#define IDC_SLIDER_125HZ                1024
+#define IDC_SLIDER_EQ3                  1024
+#define IDC_LABEL_FILE1                 1025
+#define IDC_LABEL_LEVEL1                1026
+#define IDC_SLIDER_LABEL_LEVEL1         1027
+#define IDC_LABEL_FILE2                 1028
+#define IDC_LABEL_LEVEL2                1029
+#define IDC_SLIDER_LABEL_LEVEL2         1030
+#define IDC_LABEL_FILE3                 1031
+#define IDC_LABEL_LEVEL3                1032
+#define IDC_SLIDER_LABEL_LEVEL3         1033
+#define IDC_SLIDER_LABEL_31HZ2          1034
+#define IDC_SLIDER_LABEL_EQ_LEVEL       1034
+#define IDC_SLIDER_EQ4                  1035
+#define IDC_SLIDER_EQ5                  1036
+#define IDC_SLIDER_EQ6                  1037
+#define IDC_SLIDER_EQ7                  1038
+#define IDC_SLIDER_EQ8                  1039
+#define IDC_SLIDER_EQ9                  1040
+#define IDC_SLIDER_EQ10                 1041
+#define IDC_SLIDER_EQ11                 1042
+#define IDC_SLIDER_EQ12                 1043
+#define IDC_SLIDER_EQ13                 1044
+#define IDC_SLIDER_EQ14                 1045
+#define IDC_SLIDER_EQ15                 1046
+#define IDC_SLIDER_EQ16                 1047
+#define IDC_SLIDER_EQ17                 1048
+#define IDC_SLIDER_EQ18                 1049
+#define IDC_SLIDER_EQ19                 1050
+#define IDC_SLIDER_EQ20                 1051
+#define IDC_SLIDER_EQ21                 1052
+#define IDC_SLIDER_EQ22                 1053
+#define IDC_SLIDER_EQ23                 1054
+#define IDC_CHECK_EQ                    1055
+#define IDC_CHECK_FILE1                 1056
+#define IDC_CHECK_FILE2                 1057
+#define IDC_CHECK_FILE3                 1058
+#define IDC_SLIDER_EQ24                 1059
+#define IDRESET                         1060
+#define IDC_SLIDER_EQ25                 1061
+#define IDC_SLIDER_EQ26                 1062
+#define IDC_SLIDER_EQ27                 1063
+#define IDC_SLIDER_LEVEL1               1064
+#define IDC_SLIDER_LEVEL2               1065
+#define IDBROWSE1                       1066
+#define IDBROWSE2                       1067
+#define IDC_SLIDER_LEVEL3               1068
+#define IDC_EDIT_FILE1                  1069
+#define IDC_EDIT_FILE2                  1070
+#define IDBROWSE3                       1071
+#define IDC_EDIT_FILE3                  1072
+#define IDC_CHECK_OVERFLOW              1073
+#define IDC_SLIDER_EQ28                 1074
+#define IDC_SLIDER_EQ29                 1075
+#define IDC_SLIDER_EQ30                 1076
+#define IDC_SLIDER_EQ31                 1077
+#define IDSAVE                          1078
+#define IDLOAD                          1079
+#define IDC_SLIDER_LABEL_31_5HZ         1080
+#define IDC_SLIDER_LABEL_25HZ           1081
+#define IDC_SLIDER_LABEL_40HZ           1082
+#define IDC_SLIDER_LABEL_50HZ           1083
+#define IDC_SLIDER_LABEL_63HZ           1084
+#define IDC_LABEL_INFO1                 1085
+#define IDC_LABEL_INFO2                 1086
+#define IDC_SLIDER_LABEL_80HZ           1087
+#define IDC_SLIDER_LABEL_100HZ          1088
+#define IDC_SLIDER_LABEL_160HZ          1089
+#define IDC_SLIDER_LABEL_200HZ          1090
+#define IDC_SLIDER_LABEL_315HZ          1091
+#define IDC_SLIDER_LABEL_400HZ          1092
+#define IDC_SLIDER_LABEL_630HZ          1093
+#define IDC_SLIDER_LABEL_800HZ          1094
+#define IDC_SLIDER_LABEL_1_25KHZ        1095
+#define IDC_SLIDER_LABEL_1_6KHZ         1096
+#define IDC_SLIDER_LABEL_2_5KHZ         1097
+#define IDC_SLIDER_LABEL_3_15KHZ        1098
+#define IDC_SLIDER_LABEL_5KHZ           1099
+#define IDC_SLIDER_LABEL_6_3KHZ         1100
+#define IDC_SLIDER_LABEL_10KHZ          1101
+#define IDC_SLIDER_LABEL_12_5KHZ        1102
+#define IDC_SLIDER_LABEL_20KHZ          1103
+#define IDC_LABEL_FILE6                 1104
+#define IDC_LABEL_INFO3                 1104
+
+// Next default values for new objects
+// 
+#ifdef APSTUDIO_INVOKED
+#ifndef APSTUDIO_READONLY_SYMBOLS
+#define _APS_NEXT_RESOURCE_VALUE        107
+#define _APS_NEXT_COMMAND_VALUE         40001
+#define _APS_NEXT_CONTROL_VALUE         1105
+#define _APS_NEXT_SYMED_VALUE           101
+#endif
+#endif

@@ -1,0 +1,192 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_CONFIG DIALOGEX 0, 0, 448, 302
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "DSP Configuration"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,312,281,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,366,281,50,14
+    CTEXT           "+10dB",IDC_SLIDER_LABEL_P10DB,411,18,30,8
+    CTEXT           "+0dB",IDC_SLIDER_LABEL_P0DB2,411,60,30,8
+    CTEXT           "-10dB",IDC_SLIDER_LABEL_M10DB2,411,102,30,8
+    CONTROL         "",IDC_SLIDER_EQ1,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,36,18,13,90
+    CTEXT           "20",IDC_SLIDER_LABEL_20HZ,30,108,24,8
+    CTEXT           "125",IDC_SLIDER_LABEL_125HZ,126,108,24,8
+    CTEXT           "250",IDC_SLIDER_LABEL_250HZ,162,120,24,8
+    CTEXT           "500",IDC_SLIDER_LABEL_500HZ,198,108,24,8
+    CTEXT           "1k",IDC_SLIDER_LABEL_1KHZ,234,120,24,8
+    CTEXT           "2k",IDC_SLIDER_LABEL_2KHZ,270,108,24,8
+    CTEXT           "4k",IDC_SLIDER_LABEL_4KHZ,306,120,24,8
+    CTEXT           "8k",IDC_SLIDER_LABEL_8KHZ,342,108,24,8
+    CTEXT           "16k",IDC_SLIDER_LABEL_16KHZ,378,120,24,8
+    CONTROL         "Enable equalizer",IDC_CHECK_EQ,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,6,68,10
+    CONTROL         "Enable",IDC_CHECK_FILE1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,144,37,10
+    LTEXT           "Impulse file:",IDC_LABEL_FILE1,48,144,42,8
+    PUSHBUTTON      "Reset",IDRESET,258,281,50,14
+    LTEXT           "Level adjust:",IDC_LABEL_LEVEL1,306,144,43,8
+    CONTROL         "",IDC_SLIDER_LEVEL1,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,306,156,120,15
+    CTEXT           "0 dB",IDC_SLIDER_LABEL_LEVEL1,348,174,30,8
+    PUSHBUTTON      "...",IDBROWSE1,276,156,15,14
+    EDITTEXT        IDC_EDIT_FILE1,48,156,228,14,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "Enable",IDC_CHECK_FILE2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,187,37,10
+    LTEXT           "Impulse file:",IDC_LABEL_FILE2,48,187,42,8
+    LTEXT           "Level adjust:",IDC_LABEL_LEVEL2,306,187,43,8
+    CONTROL         "",IDC_SLIDER_LEVEL2,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,306,198,120,15
+    CTEXT           "0 dB",IDC_SLIDER_LABEL_LEVEL2,348,216,30,8
+    PUSHBUTTON      "...",IDBROWSE2,276,198,15,14
+    EDITTEXT        IDC_EDIT_FILE2,48,198,228,14,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "Enable",IDC_CHECK_FILE3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,228,37,10
+    LTEXT           "Impulse file:",IDC_LABEL_FILE3,48,228,42,8
+    LTEXT           "Level adjust:",IDC_LABEL_LEVEL3,306,228,43,8
+    CONTROL         "",IDC_SLIDER_LEVEL3,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,306,240,120,15
+    CTEXT           "0 dB",IDC_SLIDER_LABEL_LEVEL3,348,259,30,8
+    PUSHBUTTON      "...",IDBROWSE3,276,240,15,14
+    EDITTEXT        IDC_EDIT_FILE3,48,240,228,14,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "",IDC_SLIDER_EQ_LEVEL,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,12,18,12,90
+    CTEXT           "0 dB",IDC_SLIDER_LABEL_EQ_LEVEL,0,108,30,8
+    CONTROL         "Show overflow warnings on console",IDC_CHECK_OVERFLOW,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,270,128,10
+    CONTROL         "",IDC_SLIDER_EQ2,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,48,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ3,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,60,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ4,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,72,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ5,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,84,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ6,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,96,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ7,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,108,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ8,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,120,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ9,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,132,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ10,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,144,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ11,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,156,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ12,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,168,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ13,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,180,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ14,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,192,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ15,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,204,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ16,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,216,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ17,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,228,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ18,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,240,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ19,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,252,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ20,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,264,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ21,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,276,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ22,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,288,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ23,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,300,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ24,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,312,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ25,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,324,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ26,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,336,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ27,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,348,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ28,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,360,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ29,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,372,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ30,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,384,18,13,90
+    CONTROL         "",IDC_SLIDER_EQ31,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,396,18,13,90
+    PUSHBUTTON      "Save",IDSAVE,204,281,50,14
+    PUSHBUTTON      "Load",IDLOAD,150,281,50,14
+    CTEXT           "25",IDC_SLIDER_LABEL_25HZ,42,120,24,8
+    CTEXT           "40",IDC_SLIDER_LABEL_40HZ,66,120,24,8
+    CTEXT           "50",IDC_SLIDER_LABEL_50HZ,78,108,24,8
+    CTEXT           "63",IDC_SLIDER_LABEL_63HZ,90,120,24,8
+    CTEXT           "80",IDC_SLIDER_LABEL_80HZ,102,108,24,8
+    CTEXT           "100",IDC_SLIDER_LABEL_100HZ,114,120,24,8
+    CTEXT           "160",IDC_SLIDER_LABEL_160HZ,138,120,24,8
+    CTEXT           "200",IDC_SLIDER_LABEL_200HZ,150,108,24,8
+    CTEXT           "315",IDC_SLIDER_LABEL_315HZ,174,108,24,8
+    CTEXT           "400",IDC_SLIDER_LABEL_400HZ,186,120,24,8
+    CTEXT           "630",IDC_SLIDER_LABEL_630HZ,210,120,24,8
+    CTEXT           "800",IDC_SLIDER_LABEL_800HZ,222,108,24,8
+    CTEXT           "1.25k",IDC_SLIDER_LABEL_1_25KHZ,246,108,24,8
+    CTEXT           "1.6k",IDC_SLIDER_LABEL_1_6KHZ,258,120,24,8
+    CTEXT           "2.5k",IDC_SLIDER_LABEL_2_5KHZ,282,120,24,8
+    CTEXT           "3.15k",IDC_SLIDER_LABEL_3_15KHZ,294,108,28,8
+    CTEXT           "5k",IDC_SLIDER_LABEL_5KHZ,318,108,24,8
+    CTEXT           "6.3k",IDC_SLIDER_LABEL_6_3KHZ,330,120,24,8
+    CTEXT           "10k",IDC_SLIDER_LABEL_10KHZ,354,120,24,8
+    CTEXT           "12.5k",IDC_SLIDER_LABEL_12_5KHZ,366,108,24,8
+    CTEXT           "20k",IDC_SLIDER_LABEL_20KHZ,390,108,24,8
+    CTEXT           "31.5",IDC_SLIDER_LABEL_31_5HZ,54,108,24,8
+    LTEXT           "",IDC_LABEL_INFO1,96,144,180,8
+    LTEXT           "",IDC_LABEL_INFO2,96,186,180,8
+    LTEXT           "",IDC_LABEL_INFO3,96,228,180,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_CONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 441
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 295
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
