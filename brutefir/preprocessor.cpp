@@ -136,8 +136,9 @@ namespace preprocessor
                 status = true;
                 for (n = 0; n < filter_blocks; n++)
                 {
-                    status &= (filter->run(&(((uint8_t *)inbuf)[n * filter_length]), 
-                                           &(((uint8_t *)outbuf)[n * filter_length])) == 0);
+                    status &= (filter->run(&(((uint8_t *)inbuf)[n * filter_length * g_channels * realsize]), 
+                                           &(((uint8_t *)outbuf)[n * filter_length * g_channels * realsize])) 
+                                           == 0);
                 }
 
                 // free coefficients
@@ -311,7 +312,9 @@ namespace preprocessor
         // run the filter
         for (n = 0; n < filter_blocks; n++)
         {
-            if (filter->run(&(((uint8_t *)inbuf)[n * filter_length]), outbuf) == 0)
+            if (filter->run(&(((uint8_t *)inbuf)[n * filter_length * *n_channels * realsize]), 
+                            outbuf)
+                            == 0)
             {   
                 // find the largest value in the output
                 realbuf = (numunion_t *)outbuf;
