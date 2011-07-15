@@ -12,14 +12,17 @@
 namespace buffer
 {
     // Loads the given sound file into an interlaced buffer.
+    //
     // Parameters:
-    //   filename      sound filename
+    //   filename      the sound filename
     //   n_channels    returns the number of channels
     //   n_frames      returns the number of frames
     //   realsize      the "float" size
     //   max_frames    the maximum number of frames
     //   pad           true to pad data with zeros to max_frames
-    // Returns buffer with sound file data.
+    //
+    // Returns:
+    //   buffer with sound file data.
     void *
     load_from_snd_file(const wchar_t *filename,
                        int *n_channels,
@@ -27,7 +30,7 @@ namespace buffer
                        int realsize,
                        int max_frames,
                        bool_t pad)
-    {  
+    {
         void *buffer;
         sf_count_t frames_read;
         SNDFILE *snd_file;
@@ -86,13 +89,14 @@ namespace buffer
     }
 
     // Saves the given interlaced buffer to a WAV sound file.
+    //
     // Parmeters:
-    //   filename       sound filename
+    //   filename       specifies the sound filename
     //   buffer         data buffer
-    //   n_channels     number of channels
-    //   n_frames       number of frames
+    //   n_channels     the number of channels
+    //   n_frames       the number of frames
     //   realsize       the "float" size
-    //   sampling_rate  sampling rate 
+    //   sampling_rate  the sampling rate
     void
     save_to_snd_file(const wchar_t *filename,
                      void *buffer,
@@ -118,7 +122,7 @@ namespace buffer
 
         snd_file = sf_open(filename_mbs, SFM_WRITE, &sf_info);
 
-        if (snd_file != NULL) 
+        if (snd_file != NULL)
         {
             if (realsize == 4)
             {
@@ -135,11 +139,14 @@ namespace buffer
 
 
     // Queries parameters from the specified sound file.
+    //
     // Parameters:
     //   n_channels      returns number of channels
     //   n_frames        returns number of frames
     //   sampliing_rate  returns sampling rate
-    // Returns true if successful, false otherwise.
+    //
+    // Returns:
+    //   true if successful, false otherwise.
     bool_t
     get_snd_file_params(const wchar_t *filename,
                         int *n_channels,
@@ -153,8 +160,8 @@ namespace buffer
          // convert filename to char
         int size = wcstombs(NULL, filename, 0);
         char *filename_mbs = (char *) _alloca((size + 1) * sizeof(char));
-        wcstombs(filename_mbs, filename, size + 1); 
-        
+        wcstombs(filename_mbs, filename, size + 1);
+
         // open the sound file
         sf_info.format = 0;
         snd_file = sf_open(filename_mbs, SFM_READ, &sf_info);
@@ -167,7 +174,7 @@ namespace buffer
         *n_channels = sf_info.channels;
         *sampling_rate = sf_info.samplerate;
         *n_frames = (int)sf_info.frames;
-        
+
         sf_close(snd_file);
         return true;
     }
@@ -175,7 +182,7 @@ namespace buffer
     // Checks if the specified sound file has the given number
     // of channels and sampling rate.
     bool_t
-    check_snd_file(const wchar_t *filename, 
+    check_snd_file(const wchar_t *filename,
                    int n_channels,
                    int sampling_rate)
     {
@@ -185,25 +192,29 @@ namespace buffer
         int file_frames;
 
         // get the sound file parameters
-        if (get_snd_file_params(filename, 
-                                &file_channels, 
+        if (get_snd_file_params(filename,
+                                &file_channels,
                                 &file_frames,
                                 &file_sampling_rate))
         {
             result = ((file_channels == n_channels) &&
-                      (file_sampling_rate == sampling_rate));    
+                      (file_sampling_rate == sampling_rate));
         }
 
         return result;
     }
 
-    // Deinterlaces the specified buffer.
+    // Deinterlaces the specified buffer into separate buffers
+    // for each channel.
+    //
     // Parameters:
     //   buffer        data buffer
     //   n_channels    number of channels
     //   n_frames      sampling rate
     //   realsize      the "float" size
-    // Returns deinterlaced buffer.
+    //
+    // Returns:
+    //   Separate buffers for each channel.
     void **
     deinterlace(void *buffer,
                 int n_channels,
@@ -222,24 +233,24 @@ namespace buffer
 
             if (realsize == 4)
             {
-                raw2real::raw2realf(bufs[n], 
-                                    &(((uint8_t *)buffer)[n * realsize]), 
-                                    realsize, 
-                                    0, 
-                                    true, 
-                                    n_channels, 
-                                    false, 
+                raw2real::raw2realf(bufs[n],
+                                    &(((uint8_t *)buffer)[n * realsize]),
+                                    realsize,
+                                    0,
+                                    true,
+                                    n_channels,
+                                    false,
                                     n_frames);
             }
             else
             {
-                raw2real::raw2reald(bufs[n], 
-                                    &(((uint8_t *)buffer)[n * realsize]), 
-                                    realsize, 
-                                    0, 
-                                    true, 
-                                    n_channels, 
-                                    false, 
+                raw2real::raw2reald(bufs[n],
+                                    &(((uint8_t *)buffer)[n * realsize]),
+                                    realsize,
+                                    0,
+                                    true,
+                                    n_channels,
+                                    false,
                                     n_frames);
             }
         }
@@ -247,13 +258,17 @@ namespace buffer
         return bufs;
     }
 
-    // Interlaces the specified buffers.
+    // Interlaces the specified buffers for each channel into
+    // a single buffer.
+    //
     // Parameters:
     //   buffers     interlaced buffers
     //   n_channels  number of channels
     //   n_frames    number of frames
     //   realsize    the "float" size
-    // Returns interlaced buffer.
+    //
+    // Returns:
+    //   A single interlaced buffer.
     void *
     interlace(void **buffers,
               int n_channels,
@@ -271,30 +286,30 @@ namespace buffer
         {
             if (realsize == 4)
             {
-                real2raw::real2rawf_no_dither(&(((uint8_t *)buf)[n * realsize]), 
-                                              buffers[n], 
-                                              0, 
-                                              realsize, 
-                                              0, 
-                                              true, 
-                                              n_channels, 
-                                              false, 
-                                              n_frames, 
-                                              &overflow, 
+                real2raw::real2rawf_no_dither(&(((uint8_t *)buf)[n * realsize]),
+                                              buffers[n],
+                                              0,
+                                              realsize,
+                                              0,
+                                              true,
+                                              n_channels,
+                                              false,
+                                              n_frames,
+                                              &overflow,
                                               NULL);
             }
             else
             {
-                real2raw::real2rawd_no_dither(&(((uint8_t *)buf)[n * realsize]), 
-                                              buffers[n], 
-                                              0, 
-                                              realsize, 
-                                              0, 
-                                              true, 
-                                              n_channels, 
-                                              false, 
-                                              n_frames, 
-                                              &overflow, 
+                real2raw::real2rawd_no_dither(&(((uint8_t *)buf)[n * realsize]),
+                                              buffers[n],
+                                              0,
+                                              realsize,
+                                              0,
+                                              true,
+                                              n_channels,
+                                              false,
+                                              n_frames,
+                                              &overflow,
                                               NULL);
             }
         }
@@ -303,11 +318,14 @@ namespace buffer
     }
 
     // Loads random full scale white noise into an interlaced buffer.
+    //
     // Parameters:
     //   n_channels  number of channels
     //   n_frames    number of frames
     //   realsize    the "float" size
-    // Returns buffer with noise data.
+    //
+    // Returns:
+    //   A buffer with noise data.
     void *
     load_white_noise(int n_channels,
                      int n_frames,
@@ -317,15 +335,15 @@ namespace buffer
 
         buffer = _aligned_malloc(n_channels * n_frames * realsize, ALIGNMENT);
 
-	    // Define a uniform random number distribution which produces "float"
-	    // values between -1 and 1 (-1 inclusive, 1 exclusive).
+        // Define a uniform random number distribution which produces "float"
+        // values between -1 and 1 (-1 inclusive, 1 exclusive).
         if (realsize == 4)
         {
-	        typedef boost::uniform_real<float> fdistribution_type;
+            typedef boost::uniform_real<float> fdistribution_type;
             typedef boost::variate_generator<base_generator_type&, fdistribution_type> fgen_type;
-            
+
             fdistribution_type uni_dist(-1.0f, 1.0f);
-	        fgen_type uni(generator, uni_dist);
+            fgen_type uni(generator, uni_dist);
 
             std::vector<float> samples(n_channels * n_frames);
             std::generate_n(samples.begin(), n_channels * n_frames, uni);
@@ -336,9 +354,9 @@ namespace buffer
         {
             typedef boost::uniform_real<double> ddistribution_type;
             typedef boost::variate_generator<base_generator_type&, ddistribution_type> dgen_type;
-            
+
             ddistribution_type uni_dist(-1.0f, 1.0f);
-	        dgen_type uni(generator, uni_dist);
+            dgen_type uni(generator, uni_dist);
 
             std::vector<double> samples(n_channels * n_frames);
             std::generate_n(samples.begin(), n_channels * n_frames, uni);

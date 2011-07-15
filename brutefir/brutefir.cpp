@@ -18,10 +18,10 @@
 #include "pinfo.h"
 
 // Constructor for the class.
-brutefir::brutefir(int filter_length, 
-                   int filter_blocks, 
+brutefir::brutefir(int filter_length,
+                   int filter_blocks,
                    int realsize,
-                   int channels, 
+                   int channels,
                    int in_format,
                    int out_format,
                    int sampling_rate,
@@ -42,7 +42,7 @@ brutefir::brutefir(int filter_length,
         }
     }
 }
-   
+
 // Destructor for the class.
 brutefir::~brutefir()
 {
@@ -62,6 +62,9 @@ brutefir::~brutefir()
 }
 
 // Returns a value indicating whether the filter is initialized.
+//
+// Returns:
+//   True if initialized, false otherwise.
 bool_t
 brutefir::is_initialized()
 {
@@ -73,9 +76,15 @@ brutefir::is_initialized()
 // Supported formats are any that the libsndfile library
 // can process.
 //
-// Returns the number of channels extracted, or
-// -1 if incompatible file
-// -2 if coefficients could not be loaded
+// Parameters:
+//   filename      the coefficient filename
+//   coeff_blocks  the number of coefficient blocks
+//   scale         the scaling factor
+//
+// Returns:
+//   the number of channels extracted
+//    -1 if incompatible file
+//    -2 if coefficients could not be loaded
 int
 brutefir::set_coeff(const wchar_t *filename,
                     int coeff_blocks,
@@ -100,7 +109,7 @@ brutefir::set_coeff(const wchar_t *filename,
     // load the coefficients
     coeffs = coeff::load_snd_coeff(filename,
                                    &length,
-                                   bfconf->realsize, 
+                                   bfconf->realsize,
                                    coeff_blocks * bfconf->filter_length,
                                    &n_coeffs);
 
@@ -122,11 +131,11 @@ brutefir::set_coeff(const wchar_t *filename,
     {
         // preprocess coefficients
         bfconf->coeffs[n].data = coeff::preprocess_coeff(m_convolver,
-                                                         coeffs[n], 
-                                                         bfconf->filter_length, 
-                                                         coeff_blocks, 
+                                                         coeffs[n],
+                                                         bfconf->filter_length,
+                                                         coeff_blocks,
                                                          length,
-                                                         bfconf->realsize, 
+                                                         bfconf->realsize,
                                                          scale);
 
         _aligned_free(coeffs[n]);
@@ -157,9 +166,16 @@ brutefir::set_coeff(const wchar_t *filename,
 
 // Overload function to set coefficients from the given data array.
 //
-// Returns
-//  0 if successful
-// -1 if coefficients could not be loaded
+// Parameters:
+//   coeffs        buffers of coefficients
+//   n_coeffs      the number of coefficient buffers
+//   length        the length of each buffer
+//   coeff_blocks  the number of coefficient blocks
+//   scale         the scaling factor
+//
+// Returns:
+//    0 if successful
+//   -1 if coefficients could not be loaded
 int
 brutefir::set_coeff(void **coeffs,
                     int n_coeffs,
@@ -181,11 +197,11 @@ brutefir::set_coeff(void **coeffs,
     {
         // preprocess coefficients
         bfconf->coeffs[n].data = coeff::preprocess_coeff(m_convolver,
-                                                        coeffs[n], 
-                                                        bfconf->filter_length, 
-                                                        coeff_blocks, 
+                                                        coeffs[n],
+                                                        bfconf->filter_length,
+                                                        coeff_blocks,
                                                         length,
-                                                        bfconf->realsize, 
+                                                        bfconf->realsize,
                                                         scale);
 
         if (bfconf->coeffs[n].data == NULL)
@@ -212,13 +228,19 @@ brutefir::set_coeff(void **coeffs,
 }
 
 // Performs filter processing on the specified input buffer.
-// Filtered data is returns in the output buffer.
-// Input and output buffer must be of the size specified
-// in the convolver initialization.
 //
-// Returns
-//  0 if successful
-// -1 if invalid values are detected
+// Filtered data is returned in the output buffer.
+//
+// Input and output buffers must be of the size specified
+// in the constructor.
+//
+// Parameters:
+//   inbuf   the input buffer
+//   outbuf  the output buffer
+//
+// Returns:
+//    0 if successful
+//   -1 if invalid values are detected
 int
 brutefir::run(void *inbuf,
               void *outbuf)
@@ -320,7 +342,7 @@ brutefir::run(void *inbuf,
     return 0;
 }
 
-// Resets filter state.
+// Resets the filter state.
 void
 brutefir::reset()
 {
@@ -344,7 +366,7 @@ brutefir::reset()
     blockcounter = 0;
 }
 
-// Check for overflow and print on any change.
+// Checks for overflow and print on any change.
 void
 brutefir::check_overflows()
 {
@@ -365,30 +387,53 @@ brutefir::check_overflows()
     }
 }
 
-// Get full scale value.
+// Gets the full scale value for specified sample size.
+//
+// Parameters:
+//   bytes  the sample size in bytes (integer type samples)
+//
+// Returns:
+//   The full scale value.
 double
 brutefir::get_full_scale(int bytes)
 {
     return (double)(1 << ((bytes << 3) - 1));
 }
 
-// Get normalized scale value.
+// Gets the normalizing value for specified sample size.
+//
+// Parameters:
+//   bytes  the sample size in bytes (integer type samples)
+//
+// Returns:
+//   The normalizing value.
 double
 brutefir::get_normalized_scale(int bytes)
 {
     return 1.0 / get_full_scale(bytes);
 }
 
-// Get maximum value.
+// Gets the maximum value for specified sample size.
+//
+// Parameters:
+//   bytes  the sample size in bytes (integer type samples)
+//
+// Returns:
+//   The maximum value.
 double
 brutefir::get_max(int bytes)
 {
     return get_full_scale(bytes) - 1;
 }
 
-// Populate sample format structure.
+// Populates the sample format structure.
+//
+// Parameters:
+//   format      the sample format code
+//   sf          the sample format structure
+//   normalized  true if sample scale should be normalized
 void
-brutefir::setup_sample_format(int format, 
+brutefir::setup_sample_format(int format,
                               struct sample_format_t *sf,
                               bool_t normalized)
 {
@@ -401,7 +446,7 @@ brutefir::setup_sample_format(int format,
         sf->sbytes = 1;
         sf->isfloat = false;
         sf->swap = false;
-        sf->scale = normalized 
+        sf->scale = normalized
             ? get_normalized_scale(sf->bytes) : get_full_scale(sf->bytes);
         break;
 
@@ -410,7 +455,7 @@ brutefir::setup_sample_format(int format,
         sf->sbytes = 2;
         sf->isfloat = false;
         sf->swap = false;
-        sf->scale = normalized 
+        sf->scale = normalized
             ? get_normalized_scale(sf->bytes) : get_full_scale(sf->bytes);
         break;
 
@@ -419,7 +464,7 @@ brutefir::setup_sample_format(int format,
         sf->sbytes = 2;
         sf->isfloat = false;
         sf->swap = true;
-        sf->scale = normalized 
+        sf->scale = normalized
             ? get_normalized_scale(sf->bytes) : get_full_scale(sf->bytes);
         break;
 
@@ -428,7 +473,7 @@ brutefir::setup_sample_format(int format,
         sf->sbytes = 3;
         sf->isfloat = false;
         sf->swap = false;
-        sf->scale = normalized 
+        sf->scale = normalized
             ? get_normalized_scale(sf->bytes) : get_full_scale(sf->bytes);
         break;
 
@@ -437,7 +482,7 @@ brutefir::setup_sample_format(int format,
         sf->sbytes = 3;
         sf->isfloat = false;
         sf->swap = true;
-        sf->scale = normalized 
+        sf->scale = normalized
             ? get_normalized_scale(sf->bytes) : get_full_scale(sf->bytes);
         break;
 
@@ -446,7 +491,7 @@ brutefir::setup_sample_format(int format,
         sf->sbytes = 4;
         sf->isfloat = false;
         sf->swap = false;
-        sf->scale = normalized 
+        sf->scale = normalized
             ? get_normalized_scale(sf->bytes) : get_full_scale(sf->bytes);
         break;
 
@@ -455,7 +500,7 @@ brutefir::setup_sample_format(int format,
         sf->sbytes = 4;
         sf->isfloat = false;
         sf->swap = true;
-        sf->scale = normalized 
+        sf->scale = normalized
             ? get_normalized_scale(sf->bytes) : get_full_scale(sf->bytes);
         break;
 
@@ -494,6 +539,10 @@ brutefir::setup_sample_format(int format,
 }
 
 // Sets up channel input parameters.
+//
+// Parameters:
+//   index   the input channel index
+//   format  the sample format code
 void
 brutefir::setup_input(int index,
                       int format)
@@ -510,6 +559,11 @@ brutefir::setup_input(int index,
 }
 
 // Sets up channel output parameters.
+//
+// Parameters:
+//   index         the output channel index
+//   format        the sample format code
+//   apply_dither  true to apply dither (integer type samples only)
 void
 brutefir::setup_output(int index,
                        int format,
@@ -552,7 +606,7 @@ brutefir::print_overflows(void)
     for (n = 0; n < bfconf->n_channels; n++)
     {
         peak = overflow[n].largest;
-        
+
         if (peak < (double)overflow[n].intlargest)
         {
             peak = (double)overflow[n].intlargest;
@@ -576,9 +630,16 @@ brutefir::print_overflows(void)
 
 // Initializes channels.
 //
-// Returns 
-//  0 if successful
-// -1 if channel limit is exceeded
+// Parameters:
+//   n_channels     the number of channels
+//   in_format      the input format code
+//   out_format     the output format code
+//   sampling_rate  the sampling rate
+//   apply_dither   true to apply dither to output
+//
+// Returns:
+//    0 if successful
+//   -1 if channel limit is exceeded
 int
 brutefir::init_channels(int n_channels,
                         int in_format,
@@ -627,9 +688,14 @@ brutefir::init_channels(int n_channels,
 
 // Initializes the convolver.
 //
-// Returns
-//  0 if successful
-// -1 if convolved cannot be initialized
+// Parameters:
+//   filter_length  the filter block length
+//   filter_blocks  the number of filter blocks
+//   realsize       the "float" size
+//
+// Returns:
+//    0 if successful
+//   -1 if convolved cannot be initialized
 int
 brutefir::init_convolver(int filter_length,
                          int filter_blocks,
@@ -650,7 +716,7 @@ brutefir::init_convolver(int filter_length,
     // initialize convolver
     try
     {
-        m_convolver = new fftw_convolver(bfconf->filter_length, 
+        m_convolver = new fftw_convolver(bfconf->filter_length,
                                          bfconf->realsize,
                                          m_dither);
     }
@@ -666,9 +732,9 @@ brutefir::init_convolver(int filter_length,
 
 // Initializes buffers.
 //
-// Returns
-//  0 if successful
-// -1 if no channels are defined
+// Returns:
+//    0 if successful
+//   -1 if no channels are defined
 int
 brutefir::init_buffers()
 {
@@ -681,7 +747,7 @@ brutefir::init_buffers()
         pinfo("No channels defined.");
         return -1;
     }
-        
+
     // allocate void *cbuf[n_channels][n_blocks]
     for (n = 0; n < bfconf->n_channels; n++)
     {

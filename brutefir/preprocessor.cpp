@@ -23,6 +23,12 @@
 namespace preprocessor
 {
     // Convolves a set of impulse responses into a single one.
+    //
+    // Parameters:
+    //   impulse_info   the set of impulse responses
+    //   filter_length  the convolution filter length
+    //   realsize       the "float" size
+    //
     // Returns the name of the processed file or empty on error.
     std::wstring
     convolve_impulses(std::vector<struct impulse_info> impulse_info,
@@ -44,7 +50,7 @@ namespace preprocessor
 
         brutefir *filter;
         bool_t status;
- 
+
         void **coeffs;
         void *inbuf;
         void *outbuf;
@@ -83,10 +89,10 @@ namespace preprocessor
         hash_code = DJBHash((char *)fn_concat.c_str(), fn_concat.size());
 
         out << "file-" << std::hex << hash_code
-            << "-" << std::dec << g_frames 
+            << "-" << std::dec << g_frames
             << "-" << realsize
-            << "-" << g_channels 
-            << "-" << g_sampling_rate 
+            << "-" << g_channels
+            << "-" << g_sampling_rate
             << ".wav";
 
         m_out_filename.assign(app_path::append_temp_path(out.str()));
@@ -96,17 +102,17 @@ namespace preprocessor
         {
             // instantiate filter
             filter = new brutefir(
-                filter_length, 
-                filter_blocks, 
+                filter_length,
+                filter_blocks,
                 realsize,
-                g_channels, 
-                (realsize == 4) ? BF_SAMPLE_FORMAT_FLOAT_LE : BF_SAMPLE_FORMAT_FLOAT64_LE, 
-                (realsize == 4) ? BF_SAMPLE_FORMAT_FLOAT_LE : BF_SAMPLE_FORMAT_FLOAT64_LE, 
-                g_sampling_rate, 
+                g_channels,
+                (realsize == 4) ? BF_SAMPLE_FORMAT_FLOAT_LE : BF_SAMPLE_FORMAT_FLOAT64_LE,
+                (realsize == 4) ? BF_SAMPLE_FORMAT_FLOAT_LE : BF_SAMPLE_FORMAT_FLOAT64_LE,
+                g_sampling_rate,
                 false);
 
             // allocate the output buffer
-            outbuf = _aligned_malloc(filter_length * filter_blocks * g_channels * realsize, 
+            outbuf = _aligned_malloc(filter_length * filter_blocks * g_channels * realsize,
                                      ALIGNMENT);
 
             memset(outbuf, 0, filter_length * filter_blocks * g_channels * realsize);
@@ -118,11 +124,11 @@ namespace preprocessor
             for (it = impulse_info.begin(); it < impulse_info.end(); it++)
             {
                 // load the sound file into the input buffer
-                inbuf = buffer::load_from_snd_file(it->filename.c_str(), 
+                inbuf = buffer::load_from_snd_file(it->filename.c_str(),
                                                    &n_channels,
                                                    &n_frames,
                                                    realsize,
-                                                   filter_length * filter_blocks, 
+                                                   filter_length * filter_blocks,
                                                    true);
 
                 // break on error
@@ -136,8 +142,8 @@ namespace preprocessor
                 status = true;
                 for (n = 0; n < filter_blocks; n++)
                 {
-                    status &= (filter->run(&(((uint8_t *)inbuf)[n * filter_length * g_channels * realsize]), 
-                                           &(((uint8_t *)outbuf)[n * filter_length * g_channels * realsize])) 
+                    status &= (filter->run(&(((uint8_t *)inbuf)[n * filter_length * g_channels * realsize]),
+                                           &(((uint8_t *)outbuf)[n * filter_length * g_channels * realsize]))
                                            == 0);
                 }
 
@@ -160,15 +166,15 @@ namespace preprocessor
                 // the output buffer becomes the coefficients for the next iteration
                 if (status)
                 {
-                    coeffs = buffer::deinterlace(outbuf, 
-                                                 g_channels, 
-                                                 filter_length * filter_blocks, 
+                    coeffs = buffer::deinterlace(outbuf,
+                                                 g_channels,
+                                                 filter_length * filter_blocks,
                                                  realsize);
 
-                    filter->set_coeff(coeffs, 
-                                        g_channels, 
-                                        filter_length, 
-                                        filter_blocks, 
+                    filter->set_coeff(coeffs,
+                                        g_channels,
+                                        filter_length,
+                                        filter_blocks,
                                         it->scale);
                 }
 
@@ -190,9 +196,9 @@ namespace preprocessor
             if (!m_out_filename.empty())
             {
                 // write the final output buffer to the output file
-                buffer::save_to_snd_file(m_out_filename.c_str(), 
-                                         outbuf, g_channels, 
-                                         g_frames, 
+                buffer::save_to_snd_file(m_out_filename.c_str(),
+                                         outbuf, g_channels,
+                                         g_frames,
                                          realsize,
                                          g_sampling_rate);
             }
@@ -223,13 +229,23 @@ namespace preprocessor
             delete filter;
         }
 
-
-
         return m_out_filename;
     }
 
     // Calculates the attenuation in dB for an impulse response
     // to avoid clipping.
+    //
+    // Parameters:
+    //   filename       the name of impulse response file
+    //   filter_length  the length of convolution filter
+    //   realsize       the "float" size
+    //   attenuation    returns the attenuation in dB
+    //   n_channels     returns the number of channels in the file
+    //   n_frames       returns the number of frames in the file
+    //   sampling_rate  returns the sampling rate of the file
+    //
+    // Returns:
+    //   true if successful, false otherwise.
     bool_t
     calculate_attenuation(std::wstring filename,
                           int filter_length,
@@ -255,8 +271,8 @@ namespace preprocessor
         *attenuation = 0;
 
         // get impulse response file parameters
-        if (!buffer::get_snd_file_params(filename.c_str(), 
-                                        n_channels, 
+        if (!buffer::get_snd_file_params(filename.c_str(),
+                                        n_channels,
                                         n_frames,
                                         sampling_rate))
         {
@@ -269,13 +285,13 @@ namespace preprocessor
 
         // instantiate filter
         filter = new brutefir(
-            filter_length, 
-            filter_blocks, 
+            filter_length,
+            filter_blocks,
             realsize,
-            *n_channels, 
-            (realsize == 4) ? BF_SAMPLE_FORMAT_FLOAT_LE : BF_SAMPLE_FORMAT_FLOAT64_LE, 
-            (realsize == 4) ? BF_SAMPLE_FORMAT_FLOAT_LE : BF_SAMPLE_FORMAT_FLOAT64_LE, 
-            *sampling_rate, 
+            *n_channels,
+            (realsize == 4) ? BF_SAMPLE_FORMAT_FLOAT_LE : BF_SAMPLE_FORMAT_FLOAT64_LE,
+            (realsize == 4) ? BF_SAMPLE_FORMAT_FLOAT_LE : BF_SAMPLE_FORMAT_FLOAT64_LE,
+            *sampling_rate,
             false);
 
         // allocate the output buffer
@@ -283,9 +299,9 @@ namespace preprocessor
         memset(outbuf, 0, filter_length * *n_channels * realsize);
 
         // load the impulse response from sound file
-        coeffs = coeff::load_snd_coeff(filename.c_str(), 
-                                       &length, 
-                                       realsize, 
+        coeffs = coeff::load_snd_coeff(filename.c_str(),
+                                       &length,
+                                       realsize,
                                        filter_length * filter_blocks,
                                        &n_coeffs);
 
@@ -293,7 +309,7 @@ namespace preprocessor
         {
             goto exit;
         }
-        
+
         filter->set_coeff(coeffs, *n_channels, filter_length, filter_blocks, 1.0);
 
         float max_valuef = 0;
@@ -301,7 +317,7 @@ namespace preprocessor
 
         // load full scale white noise into the input buffer
         inbuf = buffer::load_white_noise(*n_channels,
-                                         filter_length * filter_blocks, 
+                                         filter_length * filter_blocks,
                                          realsize);
 
         if (inbuf == NULL)
@@ -312,17 +328,17 @@ namespace preprocessor
         // run the filter
         for (n = 0; n < filter_blocks; n++)
         {
-            if (filter->run(&(((uint8_t *)inbuf)[n * filter_length * *n_channels * realsize]), 
+            if (filter->run(&(((uint8_t *)inbuf)[n * filter_length * *n_channels * realsize]),
                             outbuf)
                             == 0)
-            {   
+            {
                 // find the largest value in the output
                 realbuf = (numunion_t *)outbuf;
 
                 for (i = 0; i < filter_length * *n_channels; i++)
                 {
                     if (realsize == 4)
-                    {                        
+                    {
                         if (fabs(realbuf->r32[i]) > max_valuef)
                         {
                             max_valuef = fabs(realbuf->r32[i]);
@@ -338,7 +354,7 @@ namespace preprocessor
                 }
             }
         }
-        
+
         if (realsize == 4)
         {
             if (max_valuef > 1)

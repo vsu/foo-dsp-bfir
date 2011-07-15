@@ -14,6 +14,13 @@
 
 namespace app_path
 {
+    // Expands the tilde (~) character into the user's home directory.
+    //
+    // Parameters:
+    //   path   the file path
+    //
+    // Returns:
+    //   The expanded path.
     std::wstring
     tilde_expansion(const std::wstring path)
     {
@@ -29,9 +36,9 @@ namespace app_path
         }
 
         home_dir = _wgetenv(L"USERPROFILE");
-    
+
         // return path if no home directory
-        if (home_dir == NULL) 
+        if (home_dir == NULL)
         {
             return path;
         }
@@ -52,6 +59,10 @@ namespace app_path
         return full_path;
     }
 
+    // Sets the application file path.
+    //
+    // Parameters:
+    //   path  the file path
     void
     set_path(const std::wstring path)
     {
@@ -62,6 +73,13 @@ namespace app_path
         }
     }
 
+    // Appends the application file path to the filename.
+    //
+    // Parameters:
+    //   filename  the name of the file
+    //
+    // Returns:
+    //   The filename appended to the application file path.
     std::wstring
     append_path(const std::wstring filename)
     {
@@ -91,6 +109,13 @@ namespace app_path
         return full_path;
     }
 
+    // Appends the application temporary file path to the filename.
+    //
+    // Parameters:
+    //   filename  the name of the file
+    //
+    // Returns:
+    //   The filename appended to the application temporary file path.
     std::wstring
     append_temp_path(std::wstring filename)
     {
@@ -123,6 +148,9 @@ namespace app_path
         return full_path;
     }
 
+    // Cleans up the application temporary file path.
+    // Returns:
+    //   True if successful, false otherwise.
     bool_t
     clean_path()
     {

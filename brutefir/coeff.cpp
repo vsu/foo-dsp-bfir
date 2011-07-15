@@ -21,6 +21,14 @@
 namespace coeff
 {
     // Returns a coefficient set representing a dirac impulse.
+    //
+    // Parameters:
+    //   n_channels  the number of channels
+    //   length      the desired number of samples
+    //   realsize    the "float" size
+    //
+    // Returns:
+    //   Buffers representing a dirac impulse for each channel.
     void **
     load_dirac_coeff(int n_channels,
                      int length,
@@ -30,7 +38,7 @@ namespace coeff
         void **coeffs;
 
         coeffs = (void **)_aligned_malloc(n_channels * sizeof(void *), ALIGNMENT);
-        
+
         for (n = 0; n < n_channels; n++)
         {
             // Create a dirac impulse
@@ -52,10 +60,19 @@ namespace coeff
 
     // Returns a coefficient set stored in the given floating point
     // text format file.
+    //
+    // Parameters:
+    //   filename    the filename to load
+    //   length      returns the number of samples
+    //   realsize    the "float" size
+    //   max_length  specifies the maximum number of samples
+    //
+    // Returns:
+    //   A buffer containing coefficients loaded from the file.
     void *
     load_text_coeff(const wchar_t *filename,
                     int *length,
-                    int realsize,                                                                                                                                                                                                                           
+                    int realsize,
                     int max_length)
     {
         char str[1024], *p, *s;
@@ -123,11 +140,21 @@ namespace coeff
     }
 
     // Returns a coefficient set stored in the given raw format binary file.
+    //
+    // Parameters:
+    //   filename    the filename to load
+    //   length      returns the number of samples
+    //   realsize    the "float" size
+    //   max_length  specifies the maximum number of samples
+    //   sf          specifies the sample format of the data
+    //
+    // Returns:
+    //   A buffer containing coefficients loaded from the file.
     void *
     load_raw_coeff(const wchar_t *filename,
                    int *length,
                    int realsize,
-                   int max_length,                                                                                                                                                                                                                                                  
+                   int max_length,
                    struct sample_format_t *sf)
     {
         int n_items;
@@ -205,6 +232,16 @@ namespace coeff
     //
     // Supported formats are any that the libsndfile library
     // can process.
+    //
+    // Parameters:
+    //   filename    the filename to load
+    //   length      returns the number of samples per buffer
+    //   realsize    the "float" size
+    //   max_length  specifies the maximum number of samples
+    //   n_coeffs    returns the number of coefficients
+    //
+    // Returns:
+    //   Buffers containing coefficients loaded from the file.
     void **
     load_snd_coeff(const wchar_t *filename,
                    int *length,
@@ -217,13 +254,13 @@ namespace coeff
         void *buffer;
         void **coeffs = NULL;
 
-        buffer = buffer::load_from_snd_file(filename, 
+        buffer = buffer::load_from_snd_file(filename,
                                             &n_channels,
-                                            &n_frames, 
-                                            realsize, 
-                                            max_length, 
+                                            &n_frames,
+                                            realsize,
+                                            max_length,
                                             false);
-    
+
         if (buffer != NULL)
         {
             coeffs = buffer::deinterlace(buffer, n_channels, n_frames, realsize);
@@ -239,7 +276,19 @@ namespace coeff
         return coeffs;
     }
 
-    // Preprocesses a coefficient set.
+    // Preprocesses a coefficient set in preparation for convolution.
+    //
+    // Parameters:
+    //   convolver      an instance of the convolver to use
+    //   *coeffs        a buffer of coefficient samples to process
+    //   filter_length  the length of filter blocks to split coefficients into
+    //   coeff_blocks   the number of blocks to split coefficients into
+    //   coeff_length   the total number of coefficient samples
+    //   realsize       the "float" size
+    //   scale          the scale factor to apply
+    //
+    // Returns:
+    //   Buffers containing preprocessed coefficient blocks.
     void **
     preprocess_coeff(fftw_convolver *convolver,
                      void *coeffs,
