@@ -57,7 +57,7 @@ public:
                      void *rest,
                      int subdelay);
 
-    bool_t
+    bool
     subsample_init(fftw_convolver *convolver,
                    int step_count,
                    int half_filter_length,

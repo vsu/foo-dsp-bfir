@@ -18,9 +18,9 @@ namespace raw2real
               void *_rawbuf,
               int bytes,
               int shift,
-              bool_t isfloat,
+              bool isfloat,
               int spacing,
-              bool_t swap,
+              bool swap,
               int n_samples)
     {
         numunion_t *realbuf, *rawbuf, sample;
@@ -223,9 +223,9 @@ namespace raw2real
               void *_rawbuf,
               int bytes,
               int shift,
-              bool_t isfloat,
+              bool isfloat,
               int spacing,
-              bool_t swap,
+              bool swap,
               int n_samples)
     {
         numunion_t *realbuf, *rawbuf, sample;

@@ -109,10 +109,10 @@ fftw_convolver::fftw_convolver(int length,
 
     pinfo("Creating 4 FFTW plans of size %d.", 1 << fft_order);
 
-    create_fft_plan(fft_order, false, false);
-    create_fft_plan(fft_order, false, true);
-    create_fft_plan(fft_order, true, false);
-    create_fft_plan(fft_order, true, true);
+    create_fft_plan(fft_order, 0, 0);
+    create_fft_plan(fft_order, 0, 1);
+    create_fft_plan(fft_order, 1, 0);
+    create_fft_plan(fft_order, 1, 1);
 
     // Wisdom is cumulative, save it each time (and get wiser)
     if ((err = _wfopen_s(&stream, filename.c_str(), L"wt+")) != 0)
@@ -143,10 +143,10 @@ fftw_convolver::~fftw_convolver()
     // Clean up plans
     for (fft_order = 0; fft_order < 32; fft_order++)
     {
-        destroy_fft_plan(fft_order, false, false);
-        destroy_fft_plan(fft_order, false, true);
-        destroy_fft_plan(fft_order, true, false);
-        destroy_fft_plan(fft_order, true, true);
+        destroy_fft_plan(fft_order, 0, 0);
+        destroy_fft_plan(fft_order, 0, 1);
+        destroy_fft_plan(fft_order, 1, 0);
+        destroy_fft_plan(fft_order, 1, 1);
     }
 
     m_dither = NULL;
@@ -405,7 +405,7 @@ void
 fftw_convolver::convolver_cbuf2raw(void *cbuf,
                                    void *outbuf,
                                    struct buffer_format_t *bf,
-                                   bool_t apply_dither,
+                                   bool apply_dither,
                                    struct dither_state_t *dither_state,
                                    struct bfoverflow_t *overflow)
 {
@@ -565,7 +565,7 @@ fftw_convolver::convolver_runtime_coeffs2cbuf(void *src,  // nfft / 2
     convolver_mixnscale(&tmp, dest, &scale, 1, CONVOLVER_MIXMODE_INPUT);
 }
 
-bool_t
+bool
 fftw_convolver::convolver_verify_cbuf(void *cbufs[],
                                       int n_cbufs)
 {
@@ -722,8 +722,8 @@ fftw_convolver::convolver_td_new(void *coeffs,
 
     memset(tdc, 0, sizeof(td_conv_t));
 
-    tdc->fftplan = create_fft_plan(log2_get(blocklen) + 1, false, true);
-    tdc->ifftplan = create_fft_plan(log2_get(blocklen) + 1, true, true);
+    tdc->fftplan = create_fft_plan(log2_get(blocklen) + 1, 0, 1);
+    tdc->ifftplan = create_fft_plan(log2_get(blocklen) + 1, 1, 1);
     tdc->coeffs = _aligned_malloc(2 * blocklen * realsize, ALIGNMENT);
     tdc->blocklen = blocklen;
 
@@ -777,8 +777,8 @@ fftw_convolver::convolver_td_convolve(td_conv_t *tdc,
 
 void *
 fftw_convolver::get_fft_plan(int length,
-                             bool_t inplace,
-                             bool_t invert)
+                             int inplace,
+                             int invert)
 {
     void *plan, *buf[2];
 
@@ -786,7 +786,7 @@ fftw_convolver::get_fft_plan(int length,
     memset(buf[0], 0, length * realsize);
     buf[1] = buf[0];
 
-    if (!inplace)
+    if (inplace == 0)
     {
         buf[1] = _aligned_malloc(length * realsize, ALIGNMENT);
         memset(buf[1], 0, length * realsize);
@@ -795,19 +795,19 @@ fftw_convolver::get_fft_plan(int length,
     if (realsize == 4)
     {
         plan = fftwf_plan_r2r_1d(length, (float *)buf[0], (float *)buf[1],
-                                 invert ? FFTW_HC2R : FFTW_R2HC,
+                                 (invert != 0) ? FFTW_HC2R : FFTW_R2HC,
                                  FFTW_MEASURE);
     }
     else
     {
         plan = fftw_plan_r2r_1d(length, (double *)buf[0], (double *)buf[1],
-                                invert ? FFTW_HC2R : FFTW_R2HC,
+                                (invert != 0) ? FFTW_HC2R : FFTW_R2HC,
                                 FFTW_MEASURE);
     }
 
     _aligned_free(buf[0]);
 
-    if (!inplace)
+    if (inplace == 0)
     {
         _aligned_free(buf[1]);
     }

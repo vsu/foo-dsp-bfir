@@ -38,8 +38,8 @@ extern "C" {
 
 struct sample_format_t
 {
-    bool_t isfloat;
-    bool_t swap;
+    bool isfloat;
+    bool swap;
     int bytes;
     int sbytes;
     double scale;
@@ -57,7 +57,7 @@ struct bfchannel_t
 {
     int intname;
     struct buffer_format_t bf;
-    bool_t apply_dither;
+    bool apply_dither;
 };
 
 struct dither_state_t

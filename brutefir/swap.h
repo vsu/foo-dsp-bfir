@@ -15,7 +15,7 @@ extern "C" {
 
 #ifdef __LITTLE_ENDIAN__
 
-#include <winsock.h>
+#include <winsock2.h>
 
 #define SWAP32(x) ntohl((uint32_t)(x))
 #define SWAP16(x) ntohs((uint16_t)(x))

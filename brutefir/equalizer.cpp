@@ -182,7 +182,7 @@ equalizer::make_filename(int n_bands,
     return filename;
 }
 
-sfloat
+float
 equalizer::cosine_int_f(float mag1,
                         float mag2,
                         float freq1,

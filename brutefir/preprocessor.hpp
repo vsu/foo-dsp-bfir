@@ -23,7 +23,7 @@ namespace preprocessor
                       int filter_length,
                       int realsize);
    
-    bool_t
+    bool
     calculate_attenuation(std::wstring filename,
                           int filter_length,
                           int realsize,

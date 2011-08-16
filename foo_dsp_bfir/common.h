@@ -7,32 +7,44 @@
 #ifndef _COMMON_H_
 #define _COMMON_H_
 
-#include "equalizer.hpp"
+#include <winsock2.h>
+#include <foobar2000.h>
+#include "../ATLHelpers/ATLHelpers.h"
+#include "resource.h"
 
-#define COMPONENT_NAME     "BruteFIR DSP"
-#define COMPONENT_VERSION  "0.1"
-#define REALSIZE           8
-#define FILTER_LEN         1024
-#define EQ_FILTER_BLOCKS   64
-#define PATH_MAX           1024
+#define COMPONENT_NAME           "BruteFIR"
+#define COMPONENT_VERSION        "0.1"
+#define REALSIZE                 8
+#define FILTER_LEN               1024
+#define EQ_FILTER_BLOCKS         64
+#define PATH_MAX                 1024
 
-struct file_param_t
-{
-    int enabled;
-    int slider_level;  
-    int n_channels;
-    int n_frames;
-    int sampling_rate;
-    wchar_t filename[PATH_MAX];
-};
+#define EQ_MAG_STEPS_PER_DB      1
+#define EQ_LEVEL_STEPS_PER_DB    10
 
-struct dsp_bfir_param_t
-{
-    double mag[BAND_COUNT];
-    int eq_enabled;
-    int eq_slider_level;
-    int overflow_warnings;
-    struct file_param_t file[3];
-};
+#define FILE_LEVEL_STEPS_PER_DB  10
+
+extern cfg_int cfg_cli_port;
+extern cfg_int cfg_overflow_enable;
+
+extern cfg_int cfg_eq_enable;
+extern cfg_int cfg_eq_level;
+extern cfg_string cfg_eq_mag;
+
+extern cfg_int cfg_file1_enable;
+extern cfg_int cfg_file2_enable;
+extern cfg_int cfg_file3_enable;
+
+extern cfg_int cfg_file1_level;
+extern cfg_int cfg_file2_level;
+extern cfg_int cfg_file3_level;
+
+extern cfg_string cfg_file1_filename;
+extern cfg_string cfg_file2_filename;
+extern cfg_string cfg_file3_filename;
+
+extern cfg_string cfg_file1_metadata;
+extern cfg_string cfg_file2_metadata;
+extern cfg_string cfg_file3_metadata;
 
 #endif

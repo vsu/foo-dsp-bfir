@@ -8,6 +8,7 @@
 #include "raw2real.hpp"
 #include "real2raw.hpp"
 #include "buffer.hpp"
+#include "util.hpp"
 
 namespace buffer
 {
@@ -29,21 +30,19 @@ namespace buffer
                        int *n_frames,
                        int realsize,
                        int max_frames,
-                       bool_t pad)
+                       bool pad)
     {
         void *buffer;
         sf_count_t frames_read;
         SNDFILE *snd_file;
         SF_INFO sf_info;
 
-        // convert filename to char
-        int size = wcstombs(NULL, filename, 0);
-        char *filename_mbs = (char *) _alloca((size + 1) * sizeof(char));
-        wcstombs(filename_mbs, filename, size + 1);
+        // convert filename to char string
+        std::string filename_mbs = util::wstr2str(filename);
 
         // open the sound file
         sf_info.format = 0;
-        snd_file = sf_open(filename_mbs, SFM_READ, &sf_info);
+        snd_file = sf_open(filename_mbs.c_str(), SFM_READ, &sf_info);
 
         if (snd_file == NULL)
         {
@@ -108,10 +107,8 @@ namespace buffer
         SNDFILE *snd_file;
         SF_INFO sf_info;
 
-        // convert filename to char
-        int size = wcstombs(NULL, filename, 0);
-        char *filename_mbs = (char *) _alloca((size + 1) * sizeof(char));
-        wcstombs(filename_mbs, filename, size + 1);
+        // convert filename to char string
+        std::string filename_mbs = util::wstr2str(filename);
 
         sf_info.channels = n_channels;
         sf_info.format = (realsize == 4)
@@ -120,7 +117,7 @@ namespace buffer
         sf_info.frames = n_frames;
         sf_info.samplerate = sampling_rate;
 
-        snd_file = sf_open(filename_mbs, SFM_WRITE, &sf_info);
+        snd_file = sf_open(filename_mbs.c_str(), SFM_WRITE, &sf_info);
 
         if (snd_file != NULL)
         {
@@ -147,24 +144,22 @@ namespace buffer
     //
     // Returns:
     //   true if successful, false otherwise.
-    bool_t
+    bool
     get_snd_file_params(const wchar_t *filename,
                         int *n_channels,
                         int *n_frames,
                         int *sampling_rate)
     {
-        bool_t result = false;
+        bool result = false;
         SNDFILE *snd_file;
         SF_INFO sf_info;
 
-         // convert filename to char
-        int size = wcstombs(NULL, filename, 0);
-        char *filename_mbs = (char *) _alloca((size + 1) * sizeof(char));
-        wcstombs(filename_mbs, filename, size + 1);
+        // convert filename to char string
+        std::string filename_mbs = util::wstr2str(filename);
 
         // open the sound file
         sf_info.format = 0;
-        snd_file = sf_open(filename_mbs, SFM_READ, &sf_info);
+        snd_file = sf_open(filename_mbs.c_str(), SFM_READ, &sf_info);
 
         if (snd_file == NULL)
         {
@@ -181,12 +176,12 @@ namespace buffer
 
     // Checks if the specified sound file has the given number
     // of channels and sampling rate.
-    bool_t
+    bool
     check_snd_file(const wchar_t *filename,
                    int n_channels,
                    int sampling_rate)
     {
-        bool_t result = false;
+        bool result = false;
         int file_channels;
         int file_sampling_rate;
         int file_frames;

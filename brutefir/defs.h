@@ -14,13 +14,6 @@ extern "C" {
 
 #include "sysarch.h"
 
-#define true ((bool_t)1)
-#define false ((bool_t)0)
-typedef int bool_t;
-
-typedef unsigned long long ull_t;
-typedef long long ll_t;
-
 #define inline __inline
 
 #define PATH_SEPARATOR_CHAR L'\\'

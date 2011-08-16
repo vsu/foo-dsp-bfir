@@ -2,23 +2,19 @@
 // Microsoft Visual C++ generated include file.
 // Used by foo_dsp_bfir.rc
 //
-#define IDD_CONFIG                      101
-#define IDC_SLIDER_16KHZ                1001
-#define IDC_SLIDER_LABEL_P10DB          1002
+#define IDD_EQUALIZER                   101
+#define IDD_IMPULSE_FILE                107
+#define IDD_FILE                        107
+#define IDD_GENERAL                     108
+#define IDC_SLIDER_LABEL_P10DB2         1002
 #define IDC_SLIDER_LABEL_P0DB2          1003
 #define IDC_SLIDER_LABEL_M10DB2         1004
-#define IDC_SLIDER_8KHZ                 1005
-#define IDC_SLIDER_4KHZ                 1006
-#define IDC_SLIDER_2KHZ                 1007
-#define IDC_SLIDER_1KHZ                 1008
-#define IDC_SLIDER_500HZ                1009
-#define IDC_SLIDER_250HZ                1010
-#define IDC_SLIDER_31HZ                 1011
+#define IDC_SLIDER_LABEL_P10DB1         1005
+#define IDC_SLIDER_LABEL_P0DB1          1006
+#define IDC_SLIDER_LABEL_M10DB1         1007
 #define IDC_SLIDER_EQ1                  1011
-#define IDC_SLIDER_63HZ                 1012
 #define IDC_SLIDER_EQ2                  1012
 #define IDC_SLIDER_EQ_LEVEL             1013
-#define IDC_SLIDER_LABEL_31HZ           1014
 #define IDC_SLIDER_LABEL_20HZ           1015
 #define IDC_SLIDER_LABEL_125HZ          1016
 #define IDC_SLIDER_LABEL_250HZ          1017
@@ -28,19 +24,14 @@
 #define IDC_SLIDER_LABEL_4KHZ           1021
 #define IDC_SLIDER_LABEL_8KHZ           1022
 #define IDC_SLIDER_LABEL_16KHZ          1023
-#define IDC_SLIDER_125HZ                1024
 #define IDC_SLIDER_EQ3                  1024
-#define IDC_LABEL_FILE1                 1025
+#define IDC_SLIDER_LABEL_EQ_LEVEL       1025
 #define IDC_LABEL_LEVEL1                1026
 #define IDC_SLIDER_LABEL_LEVEL1         1027
-#define IDC_LABEL_FILE2                 1028
 #define IDC_LABEL_LEVEL2                1029
 #define IDC_SLIDER_LABEL_LEVEL2         1030
-#define IDC_LABEL_FILE3                 1031
 #define IDC_LABEL_LEVEL3                1032
 #define IDC_SLIDER_LABEL_LEVEL3         1033
-#define IDC_SLIDER_LABEL_31HZ2          1034
-#define IDC_SLIDER_LABEL_EQ_LEVEL       1034
 #define IDC_SLIDER_EQ4                  1035
 #define IDC_SLIDER_EQ5                  1036
 #define IDC_SLIDER_EQ6                  1037
@@ -66,26 +57,26 @@
 #define IDC_CHECK_FILE2                 1057
 #define IDC_CHECK_FILE3                 1058
 #define IDC_SLIDER_EQ24                 1059
-#define IDRESET                         1060
+#define IDC_LABEL_CLI_PORT              1060
 #define IDC_SLIDER_EQ25                 1061
 #define IDC_SLIDER_EQ26                 1062
 #define IDC_SLIDER_EQ27                 1063
 #define IDC_SLIDER_LEVEL1               1064
 #define IDC_SLIDER_LEVEL2               1065
-#define IDBROWSE1                       1066
-#define IDBROWSE2                       1067
+#define IDC_BROWSE1                     1066
+#define IDC_BROWSE2                     1067
 #define IDC_SLIDER_LEVEL3               1068
 #define IDC_EDIT_FILE1                  1069
 #define IDC_EDIT_FILE2                  1070
-#define IDBROWSE3                       1071
+#define IDC_BROWSE3                     1071
 #define IDC_EDIT_FILE3                  1072
 #define IDC_CHECK_OVERFLOW              1073
 #define IDC_SLIDER_EQ28                 1074
 #define IDC_SLIDER_EQ29                 1075
 #define IDC_SLIDER_EQ30                 1076
 #define IDC_SLIDER_EQ31                 1077
-#define IDSAVE                          1078
-#define IDLOAD                          1079
+#define IDC_SAVE                        1078
+#define IDC_LOAD                        1079
 #define IDC_SLIDER_LABEL_31_5HZ         1080
 #define IDC_SLIDER_LABEL_25HZ           1081
 #define IDC_SLIDER_LABEL_40HZ           1082
@@ -110,16 +101,20 @@
 #define IDC_SLIDER_LABEL_10KHZ          1101
 #define IDC_SLIDER_LABEL_12_5KHZ        1102
 #define IDC_SLIDER_LABEL_20KHZ          1103
-#define IDC_LABEL_FILE6                 1104
 #define IDC_LABEL_INFO3                 1104
+#define IDC_EDIT_CLI_PORT               1105
+#define IDC_STATIC_FILE1                1106
+#define IDC_STATIC_FILE2                1107
+#define IDC_STATIC_FILE3                1108
+#define IDC_LABEL_NOTE                  1109
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        107
+#define _APS_NEXT_RESOURCE_VALUE        109
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1105
+#define _APS_NEXT_CONTROL_VALUE         1110
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

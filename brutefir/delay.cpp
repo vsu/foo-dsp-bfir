@@ -179,7 +179,7 @@ delay::subsample_update(fftw_convolver *convolver,
     t2 -= t1;
 }
 
-bool_t
+bool
 delay::subsample_init(fftw_convolver *convolver,
                       int step_count,
                       int half_filter_length,

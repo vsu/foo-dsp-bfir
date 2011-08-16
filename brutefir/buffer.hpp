@@ -24,7 +24,7 @@ namespace buffer
                        int *n_frames,
                        int realsize,
                        int max_frames,
-                       bool_t pad);
+                       bool pad);
 
     void
     save_to_snd_file(const wchar_t *filename,
@@ -34,13 +34,13 @@ namespace buffer
                      int realsize,
                      int sampling_rate);
 
-    bool_t
+    bool
     get_snd_file_params(const wchar_t *filename,
                         int *n_channels,
                         int *n_frames,
                         int *sampling_rate);
 
-    bool_t
+    bool
     check_snd_file(const wchar_t *filename, 
                    int n_channels,
                    int sampling_rate);

@@ -151,10 +151,10 @@ namespace app_path
     // Cleans up the application temporary file path.
     // Returns:
     //   True if successful, false otherwise.
-    bool_t
+    bool
     clean_path()
     {
-        bool_t status = true;
+        bool status = true;
         std::wstring full_path;
 
         if (app_file_path.empty())

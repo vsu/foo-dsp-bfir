@@ -110,7 +110,7 @@ public:
     convolver_cbuf2raw(void *cbuf,
                        void *outbuf,
                        struct buffer_format_t *bf,
-                       bool_t apply_dither,
+                       bool apply_dither,
                        struct dither_state_t *dither_state,
                        struct bfoverflow_t *overflow);
 
@@ -133,7 +133,7 @@ public:
                                   void *dest);
 
     // Make a quick sanity check
-    bool_t
+    bool
     convolver_verify_cbuf(void *cbufs[],
                           int n_cbufs);
 
@@ -168,8 +168,8 @@ public:
 private:
     void *
     get_fft_plan(int length,
-                 bool_t inplace,
-                 bool_t invert);
+                 int inplace,
+                 int invert);
 
     void
     convolve_inplace_ordered(void *cbuf,

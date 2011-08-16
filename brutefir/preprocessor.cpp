@@ -49,7 +49,7 @@ namespace preprocessor
         std::wstring m_out_filename;
 
         brutefir *filter;
-        bool_t status;
+        bool status;
 
         void **coeffs;
         void *inbuf;
@@ -246,7 +246,7 @@ namespace preprocessor
     //
     // Returns:
     //   true if successful, false otherwise.
-    bool_t
+    bool
     calculate_attenuation(std::wstring filename,
                           int filter_length,
                           int realsize,
@@ -261,7 +261,7 @@ namespace preprocessor
         int n_coeffs;
 
         brutefir * filter;
-        bool_t status = false;
+        bool status = false;
 
         void **coeffs;
         void *inbuf;

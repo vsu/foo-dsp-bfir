@@ -22,11 +22,11 @@ public:
              int in_format,
              int out_format,
              int sampling_rate,
-             bool_t apply_dither);
+             bool apply_dither);
     
     ~brutefir();
 
-    bool_t
+    bool
     is_initialized();
 
     int
@@ -64,7 +64,7 @@ private:
     void
     setup_sample_format(int format,  
                         struct sample_format_t *sf, 
-                        bool_t normalized);
+                        bool normalized);
 
     void
     setup_input(int index,
@@ -73,7 +73,7 @@ private:
     void
     setup_output(int index,
                  int format,
-                 bool_t apply_dither);
+                 bool apply_dither);
 
     void
     print_overflows();
@@ -88,7 +88,7 @@ private:
                   int in_format,
                   int out_format,
                   int sampling_rate,
-                  bool_t apply_dither);
+                  bool apply_dither);
 
     int
     init_buffers();
@@ -99,7 +99,7 @@ private:
     void
     free_coeff();
 
-    bool_t m_initialized;
+    bool m_initialized;
 
     fftw_convolver *m_convolver;
     dither *m_dither;

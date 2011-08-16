@@ -25,7 +25,7 @@ brutefir::brutefir(int filter_length,
                    int in_format,
                    int out_format,
                    int sampling_rate,
-                   bool_t apply_dither)
+                   bool apply_dither)
     : m_initialized(false), bfconf(NULL), baseptr(NULL), m_convolver(NULL), m_dither(NULL)
 {
     bfconf = (struct bfconf_t *) malloc(sizeof(struct bfconf_t));
@@ -65,7 +65,7 @@ brutefir::~brutefir()
 //
 // Returns:
 //   True if initialized, false otherwise.
-bool_t
+bool
 brutefir::is_initialized()
 {
     return m_initialized;
@@ -435,7 +435,7 @@ brutefir::get_max(int bytes)
 void
 brutefir::setup_sample_format(int format,
                               struct sample_format_t *sf,
-                              bool_t normalized)
+                              bool normalized)
 {
     sf->format = format;
 
@@ -567,7 +567,7 @@ brutefir::setup_input(int index,
 void
 brutefir::setup_output(int index,
                        int format,
-                       bool_t apply_dither)
+                       bool apply_dither)
 {
     struct buffer_format_t *bf;
 
@@ -585,7 +585,7 @@ brutefir::setup_output(int index,
 void
 brutefir::print_overflows(void)
 {
-    bool_t is_overflow = false;
+    bool is_overflow = false;
     double peak;
     int n;
 
@@ -645,7 +645,7 @@ brutefir::init_channels(int n_channels,
                         int in_format,
                         int out_format,
                         int sampling_rate,
-                        bool_t apply_dither)
+                        bool apply_dither)
 {
     int n;
 

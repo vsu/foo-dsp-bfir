@@ -14,12 +14,12 @@ extern "C" {
 
 #include "global.h"
 
-static inline bool_t
+static inline bool
 bit_isset(const uint32_t bitset[],
           int pos)
 {
     int n = pos >> 5;
-    return bitset[n] & 1 << (pos - (n << 5));
+    return (bitset[n] & 1 << (pos - (n << 5))) != 0;
 }
 
 static inline void
@@ -38,12 +38,12 @@ bit_clr(uint32_t bitset[],
     bitset[n] = bitset[n] & ~(1 << (pos - (n << 5)));
 }
 
-static inline bool_t
+static inline bool
 bit_isset_volatile(volatile const uint32_t bitset[],
                    int pos)
 {
     int n = pos >> 5;
-    return bitset[n] & 1 << (pos - (n << 5));
+    return (bitset[n] & 1 << (pos - (n << 5))) != 0;
 }
 
 static inline void

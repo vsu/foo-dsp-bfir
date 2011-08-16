@@ -41,6 +41,12 @@ namespace util
     std::vector<std::wstring> 
     split(const std::wstring &s, 
           wchar_t delim);
+
+    std::wstring 
+    str2wstr(std::string str);
+
+    std::string 
+    wstr2str(std::wstring wstr);
 }
 
 #endif

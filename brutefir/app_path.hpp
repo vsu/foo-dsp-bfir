@@ -27,7 +27,7 @@ namespace app_path
     std::wstring
     append_temp_path(const std::wstring filename);
 
-    bool_t
+    bool
     clean_path();
 }
 
