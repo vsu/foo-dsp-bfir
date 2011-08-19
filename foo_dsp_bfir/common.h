@@ -21,9 +21,19 @@
 
 #define EQ_MAG_STEPS_PER_DB      1
 #define EQ_LEVEL_STEPS_PER_DB    10
-
 #define FILE_LEVEL_STEPS_PER_DB  10
 
+enum
+{
+    EQMagRangeMin = -10 * EQ_MAG_STEPS_PER_DB,
+    EQMagRangeMax = 10 * EQ_MAG_STEPS_PER_DB,
+    EQLevelRangeMin = -10 * EQ_LEVEL_STEPS_PER_DB,
+    EQLevelRangeMax = 10 * EQ_LEVEL_STEPS_PER_DB,
+    FileLevelRangeMin = -20 * FILE_LEVEL_STEPS_PER_DB,
+    FileLevelRangeMax = 20 * FILE_LEVEL_STEPS_PER_DB
+};
+
+extern cfg_int cfg_cli_enable;
 extern cfg_int cfg_cli_port;
 extern cfg_int cfg_overflow_enable;
 

@@ -24,97 +24,97 @@ BOOL prefs_eq::OnInitDialog(CWindow, LPARAM)
     m_slider_eq_level.SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
     m_slider_eq[0] = GetDlgItem(IDC_SLIDER_EQ1);
-    m_slider_eq[0].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[0].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[1] = GetDlgItem(IDC_SLIDER_EQ2);
-    m_slider_eq[1].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[1].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[2] = GetDlgItem(IDC_SLIDER_EQ3);
-    m_slider_eq[2].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[2].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[3] = GetDlgItem(IDC_SLIDER_EQ4);
-    m_slider_eq[3].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[3].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[4] = GetDlgItem(IDC_SLIDER_EQ5);
-    m_slider_eq[4].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[4].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[5] = GetDlgItem(IDC_SLIDER_EQ6);
-    m_slider_eq[5].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[5].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[6] = GetDlgItem(IDC_SLIDER_EQ7);
-    m_slider_eq[6].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[6].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[7] = GetDlgItem(IDC_SLIDER_EQ8);
-    m_slider_eq[7].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[7].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[8] = GetDlgItem(IDC_SLIDER_EQ9);
-    m_slider_eq[8].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[8].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[9] = GetDlgItem(IDC_SLIDER_EQ10);
-    m_slider_eq[9].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[9].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[10] = GetDlgItem(IDC_SLIDER_EQ11);
-    m_slider_eq[10].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[10].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[11] = GetDlgItem(IDC_SLIDER_EQ12);
-    m_slider_eq[11].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[11].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[12] = GetDlgItem(IDC_SLIDER_EQ13);
-    m_slider_eq[12].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[12].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[13] = GetDlgItem(IDC_SLIDER_EQ14);
-    m_slider_eq[13].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[13].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[14] = GetDlgItem(IDC_SLIDER_EQ15);
-    m_slider_eq[14].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[14].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[15] = GetDlgItem(IDC_SLIDER_EQ16);
-    m_slider_eq[15].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[15].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[16] = GetDlgItem(IDC_SLIDER_EQ17);
-    m_slider_eq[16].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[16].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[17] = GetDlgItem(IDC_SLIDER_EQ18);
-    m_slider_eq[17].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[17].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[18] = GetDlgItem(IDC_SLIDER_EQ19);
-    m_slider_eq[18].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[18].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[19] = GetDlgItem(IDC_SLIDER_EQ20);
-    m_slider_eq[19].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[19].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[20] = GetDlgItem(IDC_SLIDER_EQ21);
-    m_slider_eq[20].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[20].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[21] = GetDlgItem(IDC_SLIDER_EQ22);
-    m_slider_eq[21].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[21].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[22] = GetDlgItem(IDC_SLIDER_EQ23);
-    m_slider_eq[22].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[22].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[23] = GetDlgItem(IDC_SLIDER_EQ24);
-    m_slider_eq[23].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[23].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[24] = GetDlgItem(IDC_SLIDER_EQ25);
-    m_slider_eq[24].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[24].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[25] = GetDlgItem(IDC_SLIDER_EQ26);
-    m_slider_eq[25].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[25].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[26] = GetDlgItem(IDC_SLIDER_EQ27);
-    m_slider_eq[26].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[26].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[27] = GetDlgItem(IDC_SLIDER_EQ28);
-    m_slider_eq[27].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[27].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[28] = GetDlgItem(IDC_SLIDER_EQ29);
-    m_slider_eq[28].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[28].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[29] = GetDlgItem(IDC_SLIDER_EQ30);
-    m_slider_eq[29].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[29].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     m_slider_eq[30] = GetDlgItem(IDC_SLIDER_EQ31);
-    m_slider_eq[30].SetRange(EQRangeMin, EQRangeMax);
+    m_slider_eq[30].SetRange(EQMagRangeMin, EQMagRangeMax);
 
     LoadSettings();
 
@@ -418,8 +418,6 @@ void prefs_eq::apply()
     }
 
     cfg_eq_mag.set_string(out.str().c_str());
-
-    //g_apply_preferences();
 
     OnChanged(); //our dialog content has not changed but the flags have - our currently shown values now match the settings so the apply button can be disabled
 }

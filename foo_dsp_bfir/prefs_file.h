@@ -78,12 +78,6 @@ public:
     // dialog resource ID
     enum { IDD = IDD_FILE };
 
-    enum
-    {
-        FileLevelRangeMin = -20 * FILE_LEVEL_STEPS_PER_DB,
-        FileLevelRangeMax = 20 * FILE_LEVEL_STEPS_PER_DB
-    };
-
     // preferences_page_instance methods (not all of them - get_wnd() is supplied by preferences_page_impl helpers)
     t_uint32 get_state();
     void apply();

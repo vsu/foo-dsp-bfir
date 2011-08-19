@@ -10,5 +10,6 @@
 void g_cli_server_thread_worker();
 void g_start_server();
 void g_stop_server();
+void g_apply_preferences();
 
 #endif

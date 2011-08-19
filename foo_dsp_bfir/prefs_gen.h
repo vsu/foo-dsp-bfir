@@ -9,9 +9,14 @@
 
 #include "common.h"
 
+#define default_cfg_cli_enable       0
 #define default_cfg_cli_port         3000
 #define default_cfg_overflow_enable  0
- 
+
+// {D902F8AB-AB37-4322-B723-9F685B559DD4}
+static const GUID guid_cfg_cli_enable =
+{ 0xD902F8AB, 0xAB37, 0x4322, { 0xB7, 0x23, 0x9F, 0x68, 0x5B, 0x55, 0x9D, 0xD4 } };
+
 // {C65C32AC-E647-4C21-A483-17DD06F6D8B6}
 static const GUID guid_cfg_cli_port =
 { 0xC65C32AC, 0xE647, 0x4C21, { 0xA4, 0x83, 0x17, 0xDD, 0x06, 0xF6, 0xD8, 0xB6 } };
@@ -41,7 +46,8 @@ public:
     // WTL message map
     BEGIN_MSG_MAP(prefs_gen)
         MSG_WM_INITDIALOG(OnInitDialog)
-		COMMAND_HANDLER_EX(IDC_EDIT_CLI_PORT, EN_CHANGE, OnFieldChange)
+		COMMAND_HANDLER_EX(IDC_CHECK_CLI_ENABLE, BN_CLICKED, OnButtonClick)
+        COMMAND_HANDLER_EX(IDC_EDIT_CLI_PORT, EN_CHANGE, OnFieldChange)
 		COMMAND_HANDLER_EX(IDC_CHECK_OVERFLOW, BN_CLICKED, OnButtonClick)
     END_MSG_MAP()
 

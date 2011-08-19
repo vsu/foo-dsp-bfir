@@ -5,7 +5,9 @@
  *
  */
 #include "prefs_gen.h"
+#include "foo_dsp_bfir.h"
 
+cfg_int cfg_cli_enable(guid_cfg_cli_enable, default_cfg_cli_enable);
 cfg_int cfg_cli_port(guid_cfg_cli_port, default_cfg_cli_port);
 cfg_int cfg_overflow_enable(guid_cfg_overflow_enable, default_cfg_overflow_enable);
 
@@ -38,6 +40,7 @@ t_uint32 prefs_gen::get_state()
 
 void prefs_gen::reset()
 {
+    CheckDlgButton(IDC_CHECK_CLI_ENABLE, default_cfg_cli_enable);
     SetDlgItemInt(IDC_EDIT_CLI_PORT, default_cfg_cli_port, FALSE);
     CheckDlgButton(IDC_CHECK_OVERFLOW, default_cfg_overflow_enable);
 
@@ -46,10 +49,11 @@ void prefs_gen::reset()
 
 void prefs_gen::apply()
 {
+    cfg_cli_enable = IsDlgButtonChecked(IDC_CHECK_CLI_ENABLE);
     cfg_cli_port = GetDlgItemInt(IDC_EDIT_CLI_PORT, NULL, FALSE);
     cfg_overflow_enable = IsDlgButtonChecked(IDC_CHECK_OVERFLOW);
 
-    //g_apply_preferences();
+    g_apply_preferences();
 
     OnChanged(); //our dialog content has not changed but the flags have - our currently shown values now match the settings so the apply button can be disabled
 }
@@ -57,6 +61,7 @@ void prefs_gen::apply()
 bool prefs_gen::HasChanged()
 {
     return
+        (IsDlgButtonChecked(IDC_CHECK_CLI_ENABLE) != cfg_cli_enable) ||
         (GetDlgItemInt(IDC_EDIT_CLI_PORT, NULL, FALSE) != cfg_cli_port) ||
         (IsDlgButtonChecked(IDC_CHECK_OVERFLOW) != cfg_overflow_enable);
 }

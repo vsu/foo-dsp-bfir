@@ -39,14 +39,6 @@ public:
     // dialog resource ID
     enum { IDD = IDD_EQUALIZER };
 
-    enum
-    {
-        EQRangeMin = -10 * EQ_MAG_STEPS_PER_DB,
-        EQRangeMax = 10 * EQ_MAG_STEPS_PER_DB,
-        EQLevelRangeMin = -10 * EQ_LEVEL_STEPS_PER_DB,
-        EQLevelRangeMax = 10 * EQ_LEVEL_STEPS_PER_DB
-    };
-
     // preferences_page_instance methods (not all of them - get_wnd() is supplied by preferences_page_impl helpers)
     t_uint32 get_state();
     void apply();

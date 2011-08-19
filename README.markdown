@@ -50,6 +50,29 @@ Note that the FFTW DLL's (libfftw3-3.dll and libfftw3f-3.dll)
 and the libsndfile DLL (libsndfile-1.dll) must be in the same 
 directory as the plug-in DLL for proper operation.
 
+The plug-in features a command-line interface server for
+remote control of settings.  Commands consist of an
+operation code and data string separated by a space
+and terminated by a carriage return.  If no data string 
+is present, the current setting is returned.  If a data 
+string is present, the current setting is updated and 
+"OK" or "ERR" is returned depending on if the update was 
+successful.  The supported commands are:
+
+EQMx <-10..10>    get/set EQ magnitude where x is the band number (0..30)
+EQEN <0 | 1>      get/set EQ enable
+F1EN <0 | 1>      get/set file 1 enable
+F2EN <0 | 1>      get/set file 2 enable
+F3EN <0 | 1>      get/set file 3 enable
+EQLV <-100..100>  get/set EQ level
+F1LV <-200..200>  get/set file 1 level
+F2LV <-200..200>  get/set file 2 level
+F3LV <-200..200>  get/set file 3 level
+F1FN <file path>  get/set file 1 filename
+F2FN <file path>  get/set file 2 filename
+F3FN <file path>  get/set file 3 filename
+CLOSE             close client connection
+
 
 Compilation
 -----------
@@ -57,7 +80,9 @@ Compilation
 You will need:
 
 Foobar2000 SDK (http://www.foobar2000.org/SDK)
-Include files from the Windows Template Library (http://sourceforge.net/projects/wtl/
+
+Include files from the Windows Template Library (http://sourceforge.net/projects/wtl/)
+
 Boost C++ libraries (www.boost.org) (You can find pre-built binaries at boostpro.com)
 
 The JSON Spirit, FFTW and libsndfile libraries are present in the solution

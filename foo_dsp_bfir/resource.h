@@ -107,6 +107,8 @@
 #define IDC_STATIC_FILE2                1107
 #define IDC_STATIC_FILE3                1108
 #define IDC_LABEL_NOTE                  1109
+#define IDC_CHECK1                      1111
+#define IDC_CHECK_CLI_ENABLE            1111
 
 // Next default values for new objects
 // 
@@ -114,7 +116,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        109
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1110
+#define _APS_NEXT_CONTROL_VALUE         1112
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

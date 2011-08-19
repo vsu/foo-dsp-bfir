@@ -266,8 +266,6 @@ void prefs_file::apply()
     GetDlgItemText(IDC_LABEL_INFO3, (LPTSTR)wstr, sizeof(wstr));
     cfg_file3_metadata.set_string((util::wstr2str(wstr)).c_str());
     
-    //g_apply_preferences();
-
     OnChanged(); //our dialog content has not changed but the flags have - our currently shown values now match the settings so the apply button can be disabled
 }
 

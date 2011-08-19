@@ -21,6 +21,7 @@
 #include "..\brutefir\preprocessor.hpp"
 #include "..\brutefir\util.hpp"
 
+
 namespace cli
 {
 namespace server
@@ -66,11 +67,17 @@ void connection::handle_command(command& cmd)
         {
             std::vector<std::string> mags = util::split(cfg_eq_mag.get_ptr(), ',');
 
+            if (band < 0) band = 0;
+            if (band > (int)mags.size() - 1) band = (int)mags.size() - 1;
+
             if (!cmd.data.empty())
             {
                 if (parse_int(cmd.data, val))
                 {
-                    mags[band] = cmd.data;
+                    if (val < EQMagRangeMin) val = EQMagRangeMin;
+                    if (val > EQMagRangeMax) val = EQMagRangeMax;
+
+                    mags[band] = boost::lexical_cast<std::string>(val);
                     
                     // reassemble the magnitudes string
                     std::string str;
@@ -108,6 +115,9 @@ void connection::handle_command(command& cmd)
         {
             if (parse_int(cmd.data, val))
             {
+                if (val < 0) val = 0;
+                if (val > 1) val = 1;
+
                 cfg_eq_enable = val;
                 send_data("OK");
             }
@@ -128,6 +138,9 @@ void connection::handle_command(command& cmd)
         {
             if (parse_int(cmd.data, val))
             {
+                if (val < 0) val = 0;
+                if (val > 1) val = 1;
+
                 cfg_file1_enable = val;
                 send_data("OK");
             }
@@ -148,6 +161,9 @@ void connection::handle_command(command& cmd)
         {
             if (parse_int(cmd.data, val))
             {
+                if (val < 0) val = 0;
+                if (val > 1) val = 1;
+
                 cfg_file2_enable = val;
                 send_data("OK");
             }
@@ -168,6 +184,9 @@ void connection::handle_command(command& cmd)
         {
             if (parse_int(cmd.data, val))
             {
+                if (val < 0) val = 0;
+                if (val > 1) val = 1;
+
                 cfg_file3_enable = val;
                 send_data("OK");
             }
@@ -188,6 +207,9 @@ void connection::handle_command(command& cmd)
         {
             if (parse_int(cmd.data, val))
             {
+                if (val < EQLevelRangeMin) val = EQLevelRangeMin;
+                if (val > EQLevelRangeMax) val = EQLevelRangeMax;
+
                 cfg_eq_level = val;
                 send_data("OK");
             }
@@ -208,6 +230,9 @@ void connection::handle_command(command& cmd)
         {
             if (parse_int(cmd.data, val))
             {
+                if (val < FileLevelRangeMin) val = FileLevelRangeMin;
+                if (val > FileLevelRangeMax) val = FileLevelRangeMax;
+
                 cfg_file1_level = val;
                 send_data("OK");
             }
@@ -228,6 +253,9 @@ void connection::handle_command(command& cmd)
         {
             if (parse_int(cmd.data, val))
             {
+                if (val < FileLevelRangeMin) val = FileLevelRangeMin;
+                if (val > FileLevelRangeMax) val = FileLevelRangeMax;
+
                 cfg_file2_level = val;
                 send_data("OK");
             }
@@ -248,6 +276,9 @@ void connection::handle_command(command& cmd)
         {
             if (parse_int(cmd.data, val))
             {
+                if (val < FileLevelRangeMin) val = FileLevelRangeMin;
+                if (val > FileLevelRangeMax) val = FileLevelRangeMax;
+
                 cfg_file3_level = val;
                 send_data("OK");
             }
