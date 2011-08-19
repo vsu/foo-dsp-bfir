@@ -60,19 +60,19 @@ string is present, the current setting is updated and
 "OK" or "ERR" is returned depending on if the update was 
 successful.  The supported commands are:
 
-EQMx <-10..10>    get/set EQ magnitude where x is the band number (0..30)
-EQEN <0 | 1>      get/set EQ enable
-F1EN <0 | 1>      get/set file 1 enable
-F2EN <0 | 1>      get/set file 2 enable
-F3EN <0 | 1>      get/set file 3 enable
-EQLV <-100..100>  get/set EQ level
-F1LV <-200..200>  get/set file 1 level
-F2LV <-200..200>  get/set file 2 level
-F3LV <-200..200>  get/set file 3 level
-F1FN <file path>  get/set file 1 filename
-F2FN <file path>  get/set file 2 filename
-F3FN <file path>  get/set file 3 filename
-CLOSE             close client connection
+    EQMx <-10..10>    get/set EQ magnitude where x is the band number (0..30)  
+    EQEN <0 | 1>      get/set EQ enable  
+    F1EN <0 | 1>      get/set file 1 enable  
+    F2EN <0 | 1>      get/set file 2 enable  
+    F3EN <0 | 1>      get/set file 3 enable  
+    EQLV <-100..100>  get/set EQ level  
+    F1LV <-200..200>  get/set file 1 level  
+    F2LV <-200..200>  get/set file 2 level  
+    F3LV <-200..200>  get/set file 3 level  
+    F1FN <file path>  get/set file 1 filename  
+    F2FN <file path>  get/set file 2 filename  
+    F3FN <file path>  get/set file 3 filename  
+    CLOSE             close client connection  
 
 
 Compilation
@@ -80,11 +80,9 @@ Compilation
 
 You will need:
 
-Foobar2000 SDK (http://www.foobar2000.org/SDK)
-
-Include files from the Windows Template Library (http://sourceforge.net/projects/wtl/)
-
-Boost C++ libraries (www.boost.org) (You can find pre-built binaries at boostpro.com)
+Foobar2000 SDK (http://www.foobar2000.org/SDK)  
+Include files from the Windows Template Library (http://sourceforge.net/projects/wtl/)  
+Boost C++ libraries (www.boost.org) (You can find pre-built binaries at boostpro.com)  
 
 The JSON Spirit, FFTW and libsndfile libraries are present in the solution
 directory or may be obtained from:
