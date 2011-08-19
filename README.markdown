@@ -1,4 +1,5 @@
 Foobar2000 BruteFIR DSP plug-in
+===============================
 
 Description
 -----------
