@@ -72,6 +72,9 @@ successful.  The supported commands are:
     F1FN <file path>  get/set file 1 filename  
     F2FN <file path>  get/set file 2 filename  
     F3FN <file path>  get/set file 3 filename  
+    F1MD              get file 1 metadata
+    F2MD              get file 2 metadata
+    F3MD              get file 3 metadata
     CLOSE             close client connection  
 
 

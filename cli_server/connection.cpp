@@ -434,6 +434,18 @@ void connection::handle_command(command& cmd)
             send_data(cmd.op + " " + cfg_file3_filename.get_ptr());
         }
     }
+    else if (cmd.op == "F1MD")
+    {
+        send_data(cmd.op + " " + cfg_file1_metadata.get_ptr());
+    }
+    else if (cmd.op == "F2MD")
+    {
+        send_data(cmd.op + " " + cfg_file2_metadata.get_ptr());
+    }
+    else if (cmd.op == "F3MD")
+    {
+        send_data(cmd.op + " " + cfg_file3_metadata.get_ptr());
+    }
     else if (cmd.op == "CLOSE")
     {
         disconnect_client();
