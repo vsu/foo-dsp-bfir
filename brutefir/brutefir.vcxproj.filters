@@ -71,13 +71,13 @@
     <ClInclude Include="raw2real.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="app_path.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="util.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="buffer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bfir_path.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -118,13 +118,13 @@
     <ClCompile Include="raw2real.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="app_path.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="util.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="buffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bfir_path.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

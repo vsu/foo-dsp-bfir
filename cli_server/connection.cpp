@@ -18,6 +18,10 @@
 #include <boost/lexical_cast.hpp>
 #include <string>
 #include <sstream>
+#include <iostream>
+#include <iterator>
+#include <vector>
+#include <algorithm>
 #include "..\brutefir\preprocessor.hpp"
 #include "..\brutefir\util.hpp"
 
@@ -28,9 +32,11 @@ namespace server
 {
 
 connection::connection(boost::asio::io_service& io_service,
-                       connection_manager& manager)
+                       connection_manager& manager,
+                       const std::string& default_dir)
     : socket_(io_service),
-      connection_manager_(manager)
+      connection_manager_(manager),
+      current_dir_(default_dir)
 {
 }
 
@@ -74,8 +80,8 @@ void connection::handle_command(command& cmd)
             {
                 if (parse_int(cmd.data, val))
                 {
-                    if (val < EQMagRangeMin) val = EQMagRangeMin;
-                    if (val > EQMagRangeMax) val = EQMagRangeMax;
+                    if (val < EQLevelRangeMin) val = EQLevelRangeMin;
+                    if (val > EQLevelRangeMax) val = EQLevelRangeMax;
 
                     mags[band] = boost::lexical_cast<std::string>(val);
                     
@@ -445,6 +451,97 @@ void connection::handle_command(command& cmd)
     else if (cmd.op == "F3MD")
     {
         send_data(cmd.op + " " + cfg_file3_metadata.get_ptr());
+    }
+    else if (cmd.op == "CD")
+    {
+        if (!cmd.data.empty())
+        {
+            if (boost::filesystem::exists(cmd.data) &&
+                boost::filesystem::is_directory(cmd.data))
+            {
+                current_dir_ = cmd.data;
+                send_data("OK");
+            }
+            else
+            {
+                send_data("ERR");
+            }
+        }
+        else
+        {
+            send_data(cmd.op + " " + current_dir_);
+        }
+    }
+    else if (cmd.op == "DIR")
+    {
+        std:: stringstream out;
+
+        try
+        {
+            if (boost::filesystem::exists(current_dir_))
+            {
+                if (boost::filesystem::is_regular_file(current_dir_))
+                {
+                    // regular file: just list the file
+                    out << current_dir_;
+                }
+                else if (boost::filesystem::is_directory(current_dir_))
+                {
+                    // directory: iterate and list
+
+                    // store paths to sort later
+                    typedef std::vector<boost::filesystem::path> vec;
+                    vec v;
+
+                    std::copy(
+                        boost::filesystem::directory_iterator(current_dir_), 
+                        boost::filesystem::directory_iterator(), 
+                        std::back_inserter(v));
+
+                    // sort since directory iteration may not be ordered
+                    std::sort(v.begin(), v.end());
+
+                    std::vector<std::string> list;
+
+                    // iterate and mark directories
+                    for (vec::const_iterator it(v.begin()), it_end(v.end()); it != it_end; ++it)
+                    {
+                        if (boost::filesystem::is_directory(*it))
+                        {
+                            list.push_back("..." + it->filename().generic_string());
+                        }
+                        else if (boost::filesystem::is_regular_file(*it))
+                        {
+                            list.push_back(it->filename().generic_string());
+                        }
+                    }
+
+                    // sort directories first
+                    std::sort(list.begin(), list.end());
+
+                    // concatenate to output string
+                    std::vector<std::string>::const_iterator iter;
+                    for (iter = list.begin(); iter < list.end(); ++iter)
+                    {
+                        out << *iter << "|";
+                    }
+                }
+                else
+                {
+                    send_data("ERR");
+                }
+            }
+            else
+            {
+                send_data("ERR");
+            }
+        }
+        catch (const boost::filesystem::filesystem_error&)
+        {
+            send_data("ERR");
+        }    
+
+        send_data(cmd.op + " " + out.str());
     }
     else if (cmd.op == "CLOSE")
     {

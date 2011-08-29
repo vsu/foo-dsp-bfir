@@ -28,7 +28,8 @@ class server
 {
 public:
     /// Construct the server to listen on the specified TCP address and port.
-    explicit server(const std::string& address, const int port);
+    explicit server(const std::string& address, const int port, 
+                    const std::string& default_dir);
 
     /// Run the server's io_service loop.
     void run();
@@ -54,6 +55,9 @@ private:
 
     /// The next connection to be accepted.
     connection_ptr new_connection_;
+
+    /// The default directory.
+    std::string default_dir_;
 };
 
 } // namespace server

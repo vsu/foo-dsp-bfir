@@ -4,13 +4,13 @@
  * This program is open source. For license terms, see the LICENSE file.
  *
  */
-#ifndef _APP_PATH_HPP_
-#define _APP_PATH_HPP_
+#ifndef _BFIR_PATH_HPP_
+#define _BFIR_PATH_HPP_
 
 #include <string>
 #include "defs.h"
 
-namespace app_path
+namespace bfir_path
 {
     const std::wstring default_file_path = L"~\\brutefir";
     static std::wstring app_file_path = L"";

@@ -15,7 +15,7 @@
 #include "preprocessor.hpp"
 #include "coeff.hpp"
 #include "buffer.hpp"
-#include "app_path.hpp"
+#include "bfir_path.hpp"
 #include "util.hpp"
 #include "hash.h"
 #include "numunion.h"
@@ -95,7 +95,7 @@ namespace preprocessor
             << "-" << g_sampling_rate
             << ".wav";
 
-        m_out_filename.assign(app_path::append_temp_path(out.str()));
+        m_out_filename.assign(bfir_path::append_temp_path(out.str()));
 
         // run the impulse convolver if the output file does not already exist
         if (!boost::filesystem::exists(m_out_filename))

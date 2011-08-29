@@ -18,113 +18,150 @@ cfg_int cfg_eq_enable(guid_cfg_eq_enable, default_cfg_eq_enable);
 cfg_int cfg_eq_level(guid_cfg_eq_level, default_cfg_eq_level);
 cfg_string cfg_eq_mag(guid_cfg_eq_mag, default_cfg_eq_mag);
 
+std::string eq_freq_label[] =
+{
+    "20 Hz",
+    "25 Hz",
+    "31.5 Hz",
+    "40 Hz",
+    "50 Hz",
+    "63 Hz",
+    "80 Hz",
+    "100 Hz",
+    "125 Hz",
+    "160 Hz",
+    "200 Hz",
+    "250 Hz",
+    "315 Hz",
+    "400 Hz",
+    "500 Hz",
+    "630 Hz",
+    "800 Hz",
+    "1 kHz",
+    "1.25 kHz",
+    "1.6 kHz",
+    "2 kHz",
+    "2.5 kHz",
+    "3.15 kHz",
+    "4 kHz",
+    "5 kHz",
+    "6.3 kHz",
+    "8 kHz",
+    "10 kHz",
+    "12.5 kHz",
+    "16 kHz",
+    "20 kHz"
+};
+
 BOOL prefs_eq::OnInitDialog(CWindow, LPARAM)
 {
     m_slider_eq_level = GetDlgItem(IDC_SLIDER_EQ_LEVEL);
     m_slider_eq_level.SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[0] = GetDlgItem(IDC_SLIDER_EQ1);
-    m_slider_eq[0].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[0] = GetDlgItem(IDC_SLIDER_EQ1);
+    m_slider_eq_mag[0].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[1] = GetDlgItem(IDC_SLIDER_EQ2);
-    m_slider_eq[1].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[1] = GetDlgItem(IDC_SLIDER_EQ2);
+    m_slider_eq_mag[1].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[2] = GetDlgItem(IDC_SLIDER_EQ3);
-    m_slider_eq[2].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[2] = GetDlgItem(IDC_SLIDER_EQ3);
+    m_slider_eq_mag[2].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[3] = GetDlgItem(IDC_SLIDER_EQ4);
-    m_slider_eq[3].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[3] = GetDlgItem(IDC_SLIDER_EQ4);
+    m_slider_eq_mag[3].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[4] = GetDlgItem(IDC_SLIDER_EQ5);
-    m_slider_eq[4].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[4] = GetDlgItem(IDC_SLIDER_EQ5);
+    m_slider_eq_mag[4].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[5] = GetDlgItem(IDC_SLIDER_EQ6);
-    m_slider_eq[5].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[5] = GetDlgItem(IDC_SLIDER_EQ6);
+    m_slider_eq_mag[5].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[6] = GetDlgItem(IDC_SLIDER_EQ7);
-    m_slider_eq[6].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[6] = GetDlgItem(IDC_SLIDER_EQ7);
+    m_slider_eq_mag[6].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[7] = GetDlgItem(IDC_SLIDER_EQ8);
-    m_slider_eq[7].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[7] = GetDlgItem(IDC_SLIDER_EQ8);
+    m_slider_eq_mag[7].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[8] = GetDlgItem(IDC_SLIDER_EQ9);
-    m_slider_eq[8].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[8] = GetDlgItem(IDC_SLIDER_EQ9);
+    m_slider_eq_mag[8].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[9] = GetDlgItem(IDC_SLIDER_EQ10);
-    m_slider_eq[9].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[9] = GetDlgItem(IDC_SLIDER_EQ10);
+    m_slider_eq_mag[9].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[10] = GetDlgItem(IDC_SLIDER_EQ11);
-    m_slider_eq[10].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[10] = GetDlgItem(IDC_SLIDER_EQ11);
+    m_slider_eq_mag[10].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[11] = GetDlgItem(IDC_SLIDER_EQ12);
-    m_slider_eq[11].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[11] = GetDlgItem(IDC_SLIDER_EQ12);
+    m_slider_eq_mag[11].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[12] = GetDlgItem(IDC_SLIDER_EQ13);
-    m_slider_eq[12].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[12] = GetDlgItem(IDC_SLIDER_EQ13);
+    m_slider_eq_mag[12].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[13] = GetDlgItem(IDC_SLIDER_EQ14);
-    m_slider_eq[13].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[13] = GetDlgItem(IDC_SLIDER_EQ14);
+    m_slider_eq_mag[13].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[14] = GetDlgItem(IDC_SLIDER_EQ15);
-    m_slider_eq[14].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[14] = GetDlgItem(IDC_SLIDER_EQ15);
+    m_slider_eq_mag[14].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[15] = GetDlgItem(IDC_SLIDER_EQ16);
-    m_slider_eq[15].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[15] = GetDlgItem(IDC_SLIDER_EQ16);
+    m_slider_eq_mag[15].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[16] = GetDlgItem(IDC_SLIDER_EQ17);
-    m_slider_eq[16].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[16] = GetDlgItem(IDC_SLIDER_EQ17);
+    m_slider_eq_mag[16].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[17] = GetDlgItem(IDC_SLIDER_EQ18);
-    m_slider_eq[17].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[17] = GetDlgItem(IDC_SLIDER_EQ18);
+    m_slider_eq_mag[17].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[18] = GetDlgItem(IDC_SLIDER_EQ19);
-    m_slider_eq[18].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[18] = GetDlgItem(IDC_SLIDER_EQ19);
+    m_slider_eq_mag[18].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[19] = GetDlgItem(IDC_SLIDER_EQ20);
-    m_slider_eq[19].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[19] = GetDlgItem(IDC_SLIDER_EQ20);
+    m_slider_eq_mag[19].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[20] = GetDlgItem(IDC_SLIDER_EQ21);
-    m_slider_eq[20].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[20] = GetDlgItem(IDC_SLIDER_EQ21);
+    m_slider_eq_mag[20].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[21] = GetDlgItem(IDC_SLIDER_EQ22);
-    m_slider_eq[21].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[21] = GetDlgItem(IDC_SLIDER_EQ22);
+    m_slider_eq_mag[21].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[22] = GetDlgItem(IDC_SLIDER_EQ23);
-    m_slider_eq[22].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[22] = GetDlgItem(IDC_SLIDER_EQ23);
+    m_slider_eq_mag[22].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[23] = GetDlgItem(IDC_SLIDER_EQ24);
-    m_slider_eq[23].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[23] = GetDlgItem(IDC_SLIDER_EQ24);
+    m_slider_eq_mag[23].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[24] = GetDlgItem(IDC_SLIDER_EQ25);
-    m_slider_eq[24].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[24] = GetDlgItem(IDC_SLIDER_EQ25);
+    m_slider_eq_mag[24].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[25] = GetDlgItem(IDC_SLIDER_EQ26);
-    m_slider_eq[25].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[25] = GetDlgItem(IDC_SLIDER_EQ26);
+    m_slider_eq_mag[25].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[26] = GetDlgItem(IDC_SLIDER_EQ27);
-    m_slider_eq[26].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[26] = GetDlgItem(IDC_SLIDER_EQ27);
+    m_slider_eq_mag[26].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[27] = GetDlgItem(IDC_SLIDER_EQ28);
-    m_slider_eq[27].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[27] = GetDlgItem(IDC_SLIDER_EQ28);
+    m_slider_eq_mag[27].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[28] = GetDlgItem(IDC_SLIDER_EQ29);
-    m_slider_eq[28].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[28] = GetDlgItem(IDC_SLIDER_EQ29);
+    m_slider_eq_mag[28].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[29] = GetDlgItem(IDC_SLIDER_EQ30);
-    m_slider_eq[29].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[29] = GetDlgItem(IDC_SLIDER_EQ30);
+    m_slider_eq_mag[29].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
-    m_slider_eq[30] = GetDlgItem(IDC_SLIDER_EQ31);
-    m_slider_eq[30].SetRange(EQMagRangeMin, EQMagRangeMax);
+    m_slider_eq_mag[30] = GetDlgItem(IDC_SLIDER_EQ31);
+    m_slider_eq_mag[30].SetRange(EQLevelRangeMin, EQLevelRangeMax);
 
     LoadSettings();
+
+    SetDlgItemText(IDC_LABEL_ADJUST, L"");
 
     return FALSE;
 }
 
 void prefs_eq::LoadSettings()
-{    
+{
     CheckDlgButton(IDC_CHECK_EQ, cfg_eq_enable);
-    
+
     m_slider_eq_level.SetPos(cfg_eq_level);
 
     std::vector<std::string> mags = util::split(cfg_eq_mag.get_ptr(), ',');
@@ -141,15 +178,114 @@ void prefs_eq::LoadSettings()
             slider_level = 0;
         }
 
-        m_slider_eq[ix].SetPos(slider_level);
+        m_slider_eq_mag[ix].SetPos(slider_level);
     }
 
-    RefreshEqLevelLabel();
+    SetDlgItemText(IDC_LABEL_ADJUST, L"");
 }
 
 void prefs_eq::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar pScrollBar)
 {
-    RefreshEqLevelLabel();
+    switch(pScrollBar.GetDlgCtrlID())
+    {
+    case IDC_SLIDER_EQ_LEVEL:
+        ShowEqLevel();
+        break;
+    case IDC_SLIDER_EQ1:
+        ShowEqMag(0);
+        break;
+    case IDC_SLIDER_EQ2:
+        ShowEqMag(1);
+        break;
+    case IDC_SLIDER_EQ3:
+        ShowEqMag(2);
+        break;
+    case IDC_SLIDER_EQ4:
+        ShowEqMag(3);
+        break;
+    case IDC_SLIDER_EQ5:
+        ShowEqMag(4);
+        break;
+    case IDC_SLIDER_EQ6:
+        ShowEqMag(5);
+        break;
+    case IDC_SLIDER_EQ7:
+        ShowEqMag(6);
+        break;
+    case IDC_SLIDER_EQ8:
+        ShowEqMag(7);
+        break;
+    case IDC_SLIDER_EQ9:
+        ShowEqMag(8);
+        break;
+    case IDC_SLIDER_EQ10:
+        ShowEqMag(9);
+        break;
+    case IDC_SLIDER_EQ11:
+        ShowEqMag(10);
+        break;
+    case IDC_SLIDER_EQ12:
+        ShowEqMag(11);
+        break;
+    case IDC_SLIDER_EQ13:
+        ShowEqMag(12);
+        break;
+    case IDC_SLIDER_EQ14:
+        ShowEqMag(13);
+        break;
+    case IDC_SLIDER_EQ15:
+        ShowEqMag(14);
+        break;
+    case IDC_SLIDER_EQ16:
+        ShowEqMag(15);
+        break;
+    case IDC_SLIDER_EQ17:
+        ShowEqMag(16);
+        break;
+    case IDC_SLIDER_EQ18:
+        ShowEqMag(17);
+        break;
+    case IDC_SLIDER_EQ19:
+        ShowEqMag(18);
+        break;
+    case IDC_SLIDER_EQ20:
+        ShowEqMag(19);
+        break;
+    case IDC_SLIDER_EQ21:
+        ShowEqMag(20);
+        break;
+    case IDC_SLIDER_EQ22:
+        ShowEqMag(21);
+        break;
+    case IDC_SLIDER_EQ23:
+        ShowEqMag(22);
+        break;
+    case IDC_SLIDER_EQ24:
+        ShowEqMag(23);
+        break;
+    case IDC_SLIDER_EQ25:
+        ShowEqMag(24);
+        break;
+    case IDC_SLIDER_EQ26:
+        ShowEqMag(25);
+        break;
+    case IDC_SLIDER_EQ27:
+        ShowEqMag(26);
+        break;
+    case IDC_SLIDER_EQ28:
+        ShowEqMag(27);
+        break;
+    case IDC_SLIDER_EQ29:
+        ShowEqMag(28);
+        break;
+    case IDC_SLIDER_EQ30:
+        ShowEqMag(29);
+        break;
+    case IDC_SLIDER_EQ31:
+        ShowEqMag(30);
+        break;
+    }
+
     OnChanged();
 }
 
@@ -170,23 +306,36 @@ void prefs_eq::OnButtonClick(UINT, int id, CWindow)
     OnChanged();
 }
 
-void prefs_eq::RefreshEqLevelLabel()
+void prefs_eq::ShowEqLevel()
 {
     pfc::string_formatter msg;
-    
+
     // The position value and the displayed scale are inverted
     // for vertical scrollbars
     float level = (float)-m_slider_eq_level.GetPos() / EQ_LEVEL_STEPS_PER_DB;
 
     msg.reset();
-    msg << pfc::format_float(level, 0, 1) << "dB";
-    ::uSetDlgItemText(*this, IDC_SLIDER_LABEL_EQ_LEVEL, msg);
+    msg << "Level: " << pfc::format_float(level, 0, 1) << " dB";
+    ::uSetDlgItemText(*this, IDC_LABEL_ADJUST, msg);
+}
+
+void prefs_eq::ShowEqMag(int index)
+{
+    pfc::string_formatter msg;
+
+    // The position value and the displayed scale are inverted
+    // for vertical scrollbars
+    float level = (float)-m_slider_eq_mag[index].GetPos() / EQ_LEVEL_STEPS_PER_DB;
+
+    msg.reset();
+    msg << eq_freq_label[index].c_str() << ": " << pfc::format_float(level, 0, 1) << " dB";
+    ::uSetDlgItemText(*this, IDC_LABEL_ADJUST, msg);
 }
 
 void prefs_eq::LoadFile()
 {
     COMDLG_FILTERSPEC c_rgSaveTypes[] =
-    { 
+    {
         { _T("JSON Files"), L"*.json" },
         { _T("All Files"), L"*.*"}
     };
@@ -199,7 +348,7 @@ void prefs_eq::LoadFile()
                                   IID_PPV_ARGS(&pfd));
     if (SUCCEEDED(hr))
     {
-        // Set the file types to display only. 
+        // Set the file types to display only.
         // Notice that this is a 1-based array.
         hr = pfd->SetFileTypes(ARRAYSIZE(c_rgSaveTypes), c_rgSaveTypes);
         if (SUCCEEDED(hr))
@@ -256,7 +405,7 @@ void prefs_eq::LoadFile()
 void prefs_eq::SaveFile()
 {
     COMDLG_FILTERSPEC c_rgSaveTypes[] =
-    { 
+    {
         { _T("JSON Files"), L"*.json" },
         { _T("All Files"), L"*.*"}
     };
@@ -269,7 +418,7 @@ void prefs_eq::SaveFile()
                                   IID_PPV_ARGS(&pfd));
     if (SUCCEEDED(hr))
     {
-        // Set the file types to display only. 
+        // Set the file types to display only.
         // Notice that this is a 1-based array.
         hr = pfd->SetFileTypes(ARRAYSIZE(c_rgSaveTypes), c_rgSaveTypes);
         if (SUCCEEDED(hr))
@@ -294,7 +443,7 @@ void prefs_eq::SaveFile()
                                                        &pszFilePath);
                         if (SUCCEEDED(hr))
                         {
-                            WriteJson(pszFilePath); 
+                            WriteJson(pszFilePath);
                             CoTaskMemFree(pszFilePath);
                         }
 
@@ -343,7 +492,7 @@ BOOL prefs_eq::ReadJson(PWSTR filename)
         for (json_spirit::Object::size_type i = 0; i != params_obj.size(); ++i)
         {
             const json_spirit::Pair& params_pair = params_obj[i];
-                
+
             const std::string& params_name  = params_pair.name_;
             const json_spirit::Value& params_value = params_pair.value_;
 
@@ -392,11 +541,10 @@ void prefs_eq::reset()
             slider_level = 0;
         }
 
-        m_slider_eq[ix].SetPos(slider_level);
+        m_slider_eq_mag[ix].SetPos(slider_level);
     }
 
-    RefreshEqLevelLabel();
-
+    SetDlgItemText(IDC_LABEL_ADJUST, L"");
     OnChanged();
 }
 
@@ -409,8 +557,8 @@ void prefs_eq::apply()
     std::stringstream out;
     for (int ix = 0; ix < BAND_COUNT; ix++)
     {
-        out << m_slider_eq[ix].GetPos();
-        
+        out << m_slider_eq_mag[ix].GetPos();
+
         if (ix != BAND_COUNT - 1)
         {
             out << ",";
@@ -440,7 +588,7 @@ bool prefs_eq::HasChanged()
             mag = 0;
         }
 
-        if (m_slider_eq[ix].GetPos() != mag)
+        if (m_slider_eq_mag[ix].GetPos() != mag)
         {
             has_changed = true;
             break;
@@ -465,7 +613,7 @@ double prefs_eq::get_scale()
     // for vertical scrollbars
     return FROM_DB((double)(-cfg_eq_level) / EQ_LEVEL_STEPS_PER_DB);
 }
- 
+
 void prefs_eq::get_mag(double *mag)
 {
     std::vector<std::string> mags = util::split(cfg_eq_mag.get_ptr(), ',');
@@ -482,8 +630,8 @@ void prefs_eq::get_mag(double *mag)
             slider_level = 0;
         }
 
-        // The slider level and display scale are inverted 
+        // The slider level and display scale are inverted
         // for vertical scrollbars
-        mag[ix] = (double)(-slider_level) / EQ_MAG_STEPS_PER_DB;
+        mag[ix] = (double)(-slider_level) / EQ_LEVEL_STEPS_PER_DB;
     }
 }

@@ -23,7 +23,7 @@
 #include "dither.hpp"
 #include "raw2real.hpp"
 #include "real2raw.hpp"
-#include "app_path.hpp"
+#include "bfir_path.hpp"
 #include "log2.h"
 #include "bit.h"
 #include "timestamp.h"
@@ -80,7 +80,7 @@ fftw_convolver::fftw_convolver(int length,
 
     // create a wisdom filename from convolver parameters
     out << "wisdom-" << length << "-" << realsize;
-    filename.assign(app_path::append_path(out.str()));
+    filename.assign(bfir_path::append_path(out.str()));
 
     if ((err = _wfopen_s(&stream, filename.c_str(), L"rt")) != 0)
     {

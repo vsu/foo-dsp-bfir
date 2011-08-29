@@ -2,6 +2,9 @@
 #include <string.h>
 
 #include <boost/generator_iterator.hpp>
+
+#include <Windows.h>
+#define ENABLE_SNDFILE_WINDOWS_PROTOTYPES 1
 #include <sndfile.h>
 
 #include "global.h"
@@ -37,12 +40,9 @@ namespace buffer
         SNDFILE *snd_file;
         SF_INFO sf_info;
 
-        // convert filename to char string
-        std::string filename_mbs = util::wstr2str(filename);
-
         // open the sound file
         sf_info.format = 0;
-        snd_file = sf_open(filename_mbs.c_str(), SFM_READ, &sf_info);
+        snd_file = sf_wchar_open(filename, SFM_READ, &sf_info);
 
         if (snd_file == NULL)
         {
@@ -107,9 +107,6 @@ namespace buffer
         SNDFILE *snd_file;
         SF_INFO sf_info;
 
-        // convert filename to char string
-        std::string filename_mbs = util::wstr2str(filename);
-
         sf_info.channels = n_channels;
         sf_info.format = (realsize == 4)
                             ? SF_FORMAT_WAV | SF_FORMAT_FLOAT | SF_ENDIAN_LITTLE
@@ -117,7 +114,7 @@ namespace buffer
         sf_info.frames = n_frames;
         sf_info.samplerate = sampling_rate;
 
-        snd_file = sf_open(filename_mbs.c_str(), SFM_WRITE, &sf_info);
+        snd_file = sf_wchar_open(filename, SFM_WRITE, &sf_info);
 
         if (snd_file != NULL)
         {
@@ -154,12 +151,9 @@ namespace buffer
         SNDFILE *snd_file;
         SF_INFO sf_info;
 
-        // convert filename to char string
-        std::string filename_mbs = util::wstr2str(filename);
-
         // open the sound file
         sf_info.format = 0;
-        snd_file = sf_open(filename_mbs.c_str(), SFM_READ, &sf_info);
+        snd_file = sf_wchar_open(filename, SFM_READ, &sf_info);
 
         if (snd_file == NULL)
         {

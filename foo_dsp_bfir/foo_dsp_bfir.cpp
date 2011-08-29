@@ -14,13 +14,14 @@
 #include <vector>
 #include <malloc.h>
 #include <boost/thread/thread.hpp>
+#include <boost/filesystem.hpp>
 
 #include "../brutefir/brutefir.hpp"
 #include "../brutefir/equalizer.hpp"
 #include "../brutefir/coeff.hpp"
 #include "../brutefir/buffer.hpp"
 #include "../brutefir/preprocessor.hpp"
-#include "../brutefir/app_path.hpp"
+#include "../brutefir/bfir_path.hpp"
 #include "../brutefir/util.hpp"
 #include "../brutefir/pinfo.h"
 #include "../cli_server/server.hpp"
@@ -28,13 +29,14 @@
 cli::server::server * cli_server;
 boost::thread * cli_server_thread = NULL;
 
+std::string app_path;
+
 
 class initquit_bfir : public initquit
 {
     void on_init()
     {
         // Prepare the application file path
-        std::string app_path;
         app_path.append(core_api::get_profile_path());
         app_path.append("\\");
         app_path.append(core_api::get_my_file_name());
@@ -42,8 +44,11 @@ class initquit_bfir : public initquit
         // Remove the "file://" prefix
         app_path.erase(0, 7);
         
-        // Set application file path
-        app_path::set_path(util::str2wstr(app_path));
+        // Create te application file path
+        boost::filesystem::create_directories(app_path);
+
+        // Set BruteFIR file path
+        bfir_path::set_path(util::str2wstr(app_path));
 
         // Set print output callback
         set_print_callback(&console::print);
@@ -60,8 +65,8 @@ class initquit_bfir : public initquit
         // Stop command line interface server
         g_stop_server();
 
-        // Clean up application file path
-        app_path::clean_path();
+        // Clean up BruteFIR file path
+        bfir_path::clean_path();
     }
 };
 
@@ -468,7 +473,7 @@ static preferences_page_factory_t<preferences_page_file> g_preferences_page_bfir
 
 void g_cli_server_thread_worker()
 {
-    cli_server = new cli::server::server("0.0.0.0", cfg_cli_port.get_value());
+    cli_server = new cli::server::server("0.0.0.0", cfg_cli_port.get_value(), app_path);
     cli_server->run();
 }
 

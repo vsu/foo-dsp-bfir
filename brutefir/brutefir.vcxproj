@@ -24,7 +24,7 @@
     <ClInclude Include="hash.h" />
     <ClInclude Include="log2.h" />
     <ClInclude Include="numunion.h" />
-    <ClInclude Include="app_path.hpp" />
+    <ClInclude Include="bfir_path.hpp" />
     <ClInclude Include="pinfo.h" />
     <ClInclude Include="preprocessor.hpp" />
     <ClInclude Include="raw2real.hpp" />
@@ -44,7 +44,7 @@
     <ClCompile Include="fftw_convolver.cpp" />
     <ClCompile Include="firwindow.c" />
     <ClCompile Include="hash.c" />
-    <ClCompile Include="app_path.cpp" />
+    <ClCompile Include="bfir_path.cpp" />
     <ClCompile Include="pinfo.c" />
     <ClCompile Include="preprocessor.cpp" />
     <ClCompile Include="raw2real.cpp" />

@@ -60,7 +60,8 @@ private:
     void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar pScrollBar);
     void OnButtonClick(UINT, int, CWindow);
     void LoadSettings();
-    void RefreshEqLevelLabel();
+    void ShowEqLevel();
+    void ShowEqMag(int index);
     void LoadFile();
     void SaveFile();
     void WriteJson(PWSTR filename);
@@ -69,7 +70,7 @@ private:
     void OnChanged();
 
     const preferences_page_callback::ptr m_callback;
-    CTrackBarCtrl m_slider_eq[BAND_COUNT];
+    CTrackBarCtrl m_slider_eq_mag[BAND_COUNT];
     CTrackBarCtrl m_slider_eq_level;
 };
 

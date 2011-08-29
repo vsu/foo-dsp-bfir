@@ -19,11 +19,13 @@ namespace cli
 namespace server
 {
 
-server::server(const std::string& address, const int port)
+server::server(const std::string& address, const int port, 
+               const std::string& default_dir)
     : io_service_(),
       acceptor_(io_service_),
       connection_manager_(),
-      new_connection_(new connection(io_service_,  connection_manager_))
+      default_dir_(default_dir),
+      new_connection_(new connection(io_service_,  connection_manager_, default_dir))
 {
     std::string port_str;
     std::stringstream out;
@@ -64,7 +66,7 @@ void server::handle_accept(const boost::system::error_code& e)
     if (!e)
     {
         connection_manager_.start(new_connection_);
-        new_connection_.reset(new connection(io_service_, connection_manager_));
+        new_connection_.reset(new connection(io_service_, connection_manager_, default_dir_));
         acceptor_.async_accept(new_connection_->socket(),
                                boost::bind(&server::handle_accept, this,
                                            boost::asio::placeholders::error));

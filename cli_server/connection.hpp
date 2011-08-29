@@ -17,6 +17,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/enable_shared_from_this.hpp>
+#include <boost/filesystem.hpp>
 #include "command.hpp"
 #include "command_parser.hpp"
 
@@ -35,7 +36,8 @@ class connection
 public:
     /// Construct a connection with the given io_service.
     explicit connection(boost::asio::io_service& io_service,
-                        connection_manager& manager);
+                        connection_manager& manager,
+                        const std::string& default_dir);
 
     /// Get the socket associated with the connection.
     boost::asio::ip::tcp::socket& socket();
@@ -84,6 +86,9 @@ private:
 
     /// The underlying native socket.
     SOCKET native_socket_;
+
+    /// The current directory.
+    std::string current_dir_;
 };
 
 typedef boost::shared_ptr<connection> connection_ptr;

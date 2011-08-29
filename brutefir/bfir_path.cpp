@@ -9,10 +9,10 @@
 
 #include <boost/filesystem.hpp>
 
-#include "app_path.hpp"
+#include "bfir_path.hpp"
 #include "defs.h"
 
-namespace app_path
+namespace bfir_path
 {
     // Expands the tilde (~) character into the user's home directory.
     //
@@ -59,7 +59,7 @@ namespace app_path
         return full_path;
     }
 
-    // Sets the application file path.
+    // Sets the BruteFIR file path.
     //
     // Parameters:
     //   path  the file path
@@ -73,7 +73,7 @@ namespace app_path
         }
     }
 
-    // Appends the application file path to the filename.
+    // Appends the BruteFIR file path to the filename.
     //
     // Parameters:
     //   filename  the name of the file
@@ -109,7 +109,7 @@ namespace app_path
         return full_path;
     }
 
-    // Appends the application temporary file path to the filename.
+    // Appends the BruteFIR temporary file path to the filename.
     //
     // Parameters:
     //   filename  the name of the file
@@ -148,7 +148,7 @@ namespace app_path
         return full_path;
     }
 
-    // Cleans up the application temporary file path.
+    // Cleans up the BruteFIR temporary file path.
     // Returns:
     //   True if successful, false otherwise.
     bool

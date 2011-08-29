@@ -232,7 +232,7 @@ enum
 */
 
 #define	SF_STR_FIRST	SF_STR_TITLE
-#define	SF_STR_LAST		SF_STR_LICENSE
+#define	SF_STR_LAST		SF_STR_GENRE
 
 enum
 {	/* True and false */
@@ -652,7 +652,7 @@ void	sf_write_sync	(SNDFILE *sndfile) ;
 **		#including <sndfile.h>
 */
 
-#if ENABLE_SNDFILE_WINDOWS_PROTOTYPES
+#if (defined (ENABLE_SNDFILE_WINDOWS_PROTOTYPES) && ENABLE_SNDFILE_WINDOWS_PROTOTYPES)
 SNDFILE* sf_wchar_open (LPCWSTR wpath, int mode, SF_INFO *sfinfo) ;
 #endif
 

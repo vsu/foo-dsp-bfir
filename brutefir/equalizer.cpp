@@ -16,13 +16,12 @@
 #include <math.h>
 
 #include <fftw3.h>
-#include <sndfile.h>
 
 #include "global.h"
 #include "equalizer.hpp"
 #include "fftw_convolver.hpp"
 #include "buffer.hpp"
-#include "app_path.hpp"
+#include "bfir_path.hpp"
 #include "log2.h"
 #include "hash.h"
 #include "pinfo.h"
@@ -178,7 +177,7 @@ equalizer::make_filename(int n_bands,
         << "-" << m_equalizer.sampling_rate
         << ".wav";
 
-    filename.assign(app_path::append_temp_path(out.str()));
+    filename.assign(bfir_path::append_temp_path(out.str()));
     return filename;
 }
 

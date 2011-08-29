@@ -75,7 +75,13 @@ successful.  The supported commands are:
     F1MD              get file 1 metadata
     F2MD              get file 2 metadata
     F3MD              get file 3 metadata
+    CD                get/set current directory
+    DIR               list current directory
     CLOSE             close client connection  
+
+The directory listing returns a concatenated string with items
+separated by the "|" character.  Directories are prefixed with
+"..." and sorted first.
 
 
 Compilation

@@ -7,11 +7,17 @@
 #define IDD_FILE                        107
 #define IDD_GENERAL                     108
 #define IDC_SLIDER_LABEL_P10DB2         1002
+#define IDC_SLIDER_LABEL_PDB2           1002
 #define IDC_SLIDER_LABEL_P0DB2          1003
+#define IDC_SLIDER_LABEL_ZDB2           1003
 #define IDC_SLIDER_LABEL_M10DB2         1004
+#define IDC_SLIDER_LABEL_NDB2           1004
 #define IDC_SLIDER_LABEL_P10DB1         1005
+#define IDC_SLIDER_LABEL_PDB1           1005
 #define IDC_SLIDER_LABEL_P0DB1          1006
+#define IDC_SLIDER_LABEL_ZDB1           1006
 #define IDC_SLIDER_LABEL_M10DB1         1007
+#define IDC_SLIDER_LABEL_NDB1           1007
 #define IDC_SLIDER_EQ1                  1011
 #define IDC_SLIDER_EQ2                  1012
 #define IDC_SLIDER_EQ_LEVEL             1013
@@ -109,6 +115,7 @@
 #define IDC_LABEL_NOTE                  1109
 #define IDC_CHECK1                      1111
 #define IDC_CHECK_CLI_ENABLE            1111
+#define IDC_LABEL_ADJUST                1112
 
 // Next default values for new objects
 // 
@@ -116,7 +123,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        109
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1112
+#define _APS_NEXT_CONTROL_VALUE         1113
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
