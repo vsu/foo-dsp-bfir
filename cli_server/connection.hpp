@@ -21,6 +21,9 @@
 #include "command.hpp"
 #include "command_parser.hpp"
 
+#define STATUS_OK     "OK"
+#define STATUS_ERROR  "ERR"
+
 namespace cli
 {
 namespace server
@@ -59,8 +62,8 @@ private:
     /// Configures the native socket.
     void configure_socket();
 
-    /// Sends data to the native socket.
-    bool send_data(std::string data);
+    /// Sends command reply to the native socket.
+    bool send_reply(std::string command, std::string data);
 
     /// Disconnects the client connection.
     void disconnect_client();

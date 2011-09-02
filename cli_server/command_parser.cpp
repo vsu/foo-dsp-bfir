@@ -39,7 +39,7 @@ boost::tribool command_parser::consume(command& cmd, char input)
             return boost::indeterminate;
         }
     case op:
-        if (input == ' ')
+        if (input == CMD_DELIM)
         {
             state_ = data_start;
             return boost::indeterminate;
@@ -48,7 +48,7 @@ boost::tribool command_parser::consume(command& cmd, char input)
         {
             return false;
         }
-        else if (input == '\r')
+        else if (input == CMD_TERM)
         {
             return true;
         }
@@ -73,7 +73,7 @@ boost::tribool command_parser::consume(command& cmd, char input)
         {
             return false;
         }
-        else if (input == '\r')
+        else if (input == CMD_TERM)
         {
             return true;
         }

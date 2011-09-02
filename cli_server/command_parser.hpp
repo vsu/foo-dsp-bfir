@@ -11,6 +11,9 @@
 #include <boost/logic/tribool.hpp>
 #include <boost/tuple/tuple.hpp>
 
+#define CMD_DELIM  ' '
+#define CMD_TERM   '\r'
+
 namespace cli
 {
 namespace server

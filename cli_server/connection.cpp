@@ -12,6 +12,7 @@
 #include "..\foo_dsp_bfir\common.h"
 #include "connection.hpp"
 #include "connection_manager.hpp"
+#include "command_parser.hpp"
 #include <boost/bind.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string.hpp>
@@ -98,21 +99,21 @@ void connection::handle_command(command& cmd)
                     }
 
                     cfg_eq_mag.set_string(str.c_str());
-                    send_data("OK");
+                    send_reply(STATUS_OK, "");
                 }
                 else
                 {
-                    send_data("ERR");
+                    send_reply(STATUS_ERROR, "");
                 }
             }
             else
             {
-                send_data(cmd.op + " " + mags[band]);
+                send_reply(cmd.op, mags[band]);
             }
         }
         else
         {
-            send_data("ERR");
+            send_reply(STATUS_ERROR, "");
         }
     }
     else if (cmd.op == "EQEN")
@@ -125,17 +126,16 @@ void connection::handle_command(command& cmd)
                 if (val > 1) val = 1;
 
                 cfg_eq_enable = val;
-                send_data("OK");
+                send_reply(STATUS_OK, "");
             }
             else
             {
-                send_data("ERR");
+                send_reply(STATUS_ERROR, "");
             }
         }
         else
         {
-            send_data(cmd.op + " " + 
-                boost::lexical_cast<std::string>(cfg_eq_enable.get_value()));
+            send_reply(cmd.op, boost::lexical_cast<std::string>(cfg_eq_enable.get_value()));
         }
     }
     else if (cmd.op == "F1EN")
@@ -148,17 +148,16 @@ void connection::handle_command(command& cmd)
                 if (val > 1) val = 1;
 
                 cfg_file1_enable = val;
-                send_data("OK");
+                send_reply(STATUS_OK, "");
             }
             else
             {
-                send_data("ERR");
+                send_reply(STATUS_ERROR, "");
             }
         }
         else
         {
-            send_data(cmd.op + " " + 
-                boost::lexical_cast<std::string>(cfg_file1_enable.get_value()));
+            send_reply(cmd.op, boost::lexical_cast<std::string>(cfg_file1_enable.get_value()));
         }
     }
     else if (cmd.op == "F2EN")
@@ -171,17 +170,16 @@ void connection::handle_command(command& cmd)
                 if (val > 1) val = 1;
 
                 cfg_file2_enable = val;
-                send_data("OK");
+                send_reply(STATUS_OK, "");
             }
             else
             {
-                send_data("ERR");
+                send_reply(STATUS_ERROR, "");
             }
         }
         else
         {
-            send_data(cmd.op + " " + 
-                boost::lexical_cast<std::string>(cfg_file2_enable.get_value()));
+            send_reply(cmd.op, boost::lexical_cast<std::string>(cfg_file2_enable.get_value()));
         }
     }
     else if (cmd.op == "F3EN")
@@ -194,17 +192,16 @@ void connection::handle_command(command& cmd)
                 if (val > 1) val = 1;
 
                 cfg_file3_enable = val;
-                send_data("OK");
+                send_reply(STATUS_OK, "");
             }
             else
             {
-                send_data("ERR");
+                send_reply(STATUS_ERROR, "");
             }
         }
         else
         {
-            send_data(cmd.op + " " + 
-                boost::lexical_cast<std::string>(cfg_file3_enable.get_value()));
+            send_reply(cmd.op, boost::lexical_cast<std::string>(cfg_file3_enable.get_value()));
         }
     }
     else if (cmd.op == "EQLV")
@@ -217,17 +214,16 @@ void connection::handle_command(command& cmd)
                 if (val > EQLevelRangeMax) val = EQLevelRangeMax;
 
                 cfg_eq_level = val;
-                send_data("OK");
+                send_reply(STATUS_OK, "");
             }
             else
             {
-                send_data("ERR");
+                send_reply(STATUS_ERROR, "");
             }
         }
         else
         {
-            send_data(cmd.op + " " + 
-                boost::lexical_cast<std::string>(cfg_eq_level.get_value()));
+            send_reply(cmd.op, boost::lexical_cast<std::string>(cfg_eq_level.get_value()));
         }
     }
     else if (cmd.op == "F1LV")
@@ -240,17 +236,16 @@ void connection::handle_command(command& cmd)
                 if (val > FileLevelRangeMax) val = FileLevelRangeMax;
 
                 cfg_file1_level = val;
-                send_data("OK");
+                send_reply(STATUS_OK, "");
             }
             else
             {
-                send_data("ERR");
+                send_reply(STATUS_ERROR, "");
             }
         }
         else
         {
-            send_data(cmd.op + " " + 
-                boost::lexical_cast<std::string>(cfg_file1_level.get_value()));
+            send_reply(cmd.op, boost::lexical_cast<std::string>(cfg_file1_level.get_value()));
         }
     }
     else if (cmd.op == "F2LV")
@@ -263,17 +258,16 @@ void connection::handle_command(command& cmd)
                 if (val > FileLevelRangeMax) val = FileLevelRangeMax;
 
                 cfg_file2_level = val;
-                send_data("OK");
+                send_reply(STATUS_OK, "");
             }
             else
             {
-                send_data("ERR");
+                send_reply(STATUS_ERROR, "");
             }
         }
         else
         {
-            send_data(cmd.op + " " + 
-                boost::lexical_cast<std::string>(cfg_file2_level.get_value()));
+            send_reply(cmd.op, boost::lexical_cast<std::string>(cfg_file2_level.get_value()));
         }
     }
     else if (cmd.op == "F3LV")
@@ -286,17 +280,16 @@ void connection::handle_command(command& cmd)
                 if (val > FileLevelRangeMax) val = FileLevelRangeMax;
 
                 cfg_file3_level = val;
-                send_data("OK");
+                send_reply(STATUS_OK, "");
             }
             else
             {
-                send_data("ERR");
+                send_reply(STATUS_ERROR, "");
             }
         }
         else
         {
-            send_data(cmd.op + " " + 
-                boost::lexical_cast<std::string>(cfg_file3_level.get_value()));
+            send_reply(cmd.op, boost::lexical_cast<std::string>(cfg_file3_level.get_value()));
         }
     }
     else if (cmd.op == "F1FN")
@@ -329,21 +322,21 @@ void connection::handle_command(command& cmd)
                     cfg_file1_metadata.set_string((util::wstr2str(info.str())).c_str());
                     cfg_file1_level = (int)(attenuation * FILE_LEVEL_STEPS_PER_DB);
                     
-                    send_data("OK");
+                    send_reply(STATUS_OK, "");
                 }
                 else
                 {
-                    send_data("ERR");
+                    send_reply(STATUS_ERROR, "");
                 }
             }
             else
             {
-                send_data("ERR");
+                send_reply(STATUS_ERROR, "");
             }
         }
         else
         {
-            send_data(cmd.op + " " + cfg_file1_filename.get_ptr());
+            send_reply(cmd.op, cfg_file1_filename.get_ptr());
         }
     }
     else if (cmd.op == "F2FN")
@@ -376,21 +369,21 @@ void connection::handle_command(command& cmd)
                     cfg_file2_metadata.set_string((util::wstr2str(info.str())).c_str());
                     cfg_file2_level = (int)(attenuation * FILE_LEVEL_STEPS_PER_DB);
                     
-                    send_data("OK");
+                    send_reply(STATUS_OK, "");
                 }
                 else
                 {
-                    send_data("ERR");
+                    send_reply(STATUS_ERROR, "");
                 }
             }
             else
             {
-                send_data("ERR");
+                send_reply(STATUS_ERROR, "");
             }
         }
         else
         {
-            send_data(cmd.op + " " + cfg_file2_filename.get_ptr());
+            send_reply(cmd.op, cfg_file2_filename.get_ptr());
         }
     }
     else if (cmd.op == "F3FN")
@@ -423,34 +416,34 @@ void connection::handle_command(command& cmd)
                     cfg_file3_metadata.set_string((util::wstr2str(info.str())).c_str());
                     cfg_file3_level = (int)(attenuation * FILE_LEVEL_STEPS_PER_DB);
                     
-                    send_data("OK");
+                    send_reply(STATUS_OK, "");
                 }
                 else
                 {
-                    send_data("ERR");
+                    send_reply(STATUS_ERROR, "");
                 }
             }
             else
             {
-                send_data("ERR");
+                send_reply(STATUS_ERROR, "");
             }
         }
         else
         {
-            send_data(cmd.op + " " + cfg_file3_filename.get_ptr());
+            send_reply(cmd.op, cfg_file3_filename.get_ptr());
         }
     }
     else if (cmd.op == "F1MD")
     {
-        send_data(cmd.op + " " + cfg_file1_metadata.get_ptr());
+        send_reply(cmd.op, cfg_file1_metadata.get_ptr());
     }
     else if (cmd.op == "F2MD")
     {
-        send_data(cmd.op + " " + cfg_file2_metadata.get_ptr());
+        send_reply(cmd.op, cfg_file2_metadata.get_ptr());
     }
     else if (cmd.op == "F3MD")
     {
-        send_data(cmd.op + " " + cfg_file3_metadata.get_ptr());
+        send_reply(cmd.op, cfg_file3_metadata.get_ptr());
     }
     else if (cmd.op == "CD")
     {
@@ -460,16 +453,16 @@ void connection::handle_command(command& cmd)
                 boost::filesystem::is_directory(cmd.data))
             {
                 current_dir_ = cmd.data;
-                send_data("OK");
+                send_reply(STATUS_OK, "");
             }
             else
             {
-                send_data("ERR");
+                send_reply(STATUS_ERROR, "");
             }
         }
         else
         {
-            send_data(cmd.op + " " + current_dir_);
+            send_reply(cmd.op, current_dir_);
         }
     }
     else if (cmd.op == "DIR")
@@ -528,28 +521,29 @@ void connection::handle_command(command& cmd)
                 }
                 else
                 {
-                    send_data("ERR");
+                    send_reply(STATUS_ERROR, "");
                 }
             }
             else
             {
-                send_data("ERR");
+                send_reply(STATUS_ERROR, "");
             }
         }
         catch (const boost::filesystem::filesystem_error&)
         {
-            send_data("ERR");
+            send_reply(STATUS_ERROR, "");
         }    
 
-        send_data(cmd.op + " " + out.str());
+        send_reply(cmd.op, out.str());
     }
     else if (cmd.op == "CLOSE")
     {
+        send_reply(STATUS_OK, "");
         disconnect_client();
     }
     else
     {
-        send_data("ERR");
+        send_reply(STATUS_ERROR, "");
     }
 }
 
@@ -596,9 +590,11 @@ void connection::configure_socket()
     }
 }
 
-bool connection::send_data(std::string data)
+bool connection::send_reply(std::string command, std::string data)
 {
-    bool result = (send(native_socket_, data.c_str(), data.length(), 0) != SOCKET_ERROR);
+    std::string message = command + CMD_DELIM + data + CMD_TERM;
+
+    bool result = (send(native_socket_, message.c_str(), message.length(), 0) != SOCKET_ERROR);
     return result;
 }
 
