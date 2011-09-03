@@ -14,6 +14,11 @@
 #include "../brutefir/equalizer.hpp"
 #include "../json_spirit/json_spirit.h"
 
+// Vertical sliders produce negative values when the position
+// is above center and positive values when the position is
+// below center.  The configuration value for level and magnitudes
+// is the negative of the slider position.
+
 cfg_int cfg_eq_enable(guid_cfg_eq_enable, default_cfg_eq_enable);
 cfg_int cfg_eq_level(guid_cfg_eq_level, default_cfg_eq_level);
 cfg_string cfg_eq_mag(guid_cfg_eq_mag, default_cfg_eq_mag);
@@ -162,7 +167,7 @@ void prefs_eq::LoadSettings()
 {
     CheckDlgButton(IDC_CHECK_EQ, cfg_eq_enable);
 
-    m_slider_eq_level.SetPos(cfg_eq_level);
+    m_slider_eq_level.SetPos(-cfg_eq_level);
 
     std::vector<std::string> mags = util::split(cfg_eq_mag.get_ptr(), ',');
 
@@ -178,7 +183,7 @@ void prefs_eq::LoadSettings()
             slider_level = 0;
         }
 
-        m_slider_eq_mag[ix].SetPos(slider_level);
+        m_slider_eq_mag[ix].SetPos(-slider_level);
     }
 
     SetDlgItemText(IDC_LABEL_ADJUST, L"");
@@ -310,8 +315,6 @@ void prefs_eq::ShowEqLevel()
 {
     pfc::string_formatter msg;
 
-    // The position value and the displayed scale are inverted
-    // for vertical scrollbars
     float level = (float)-m_slider_eq_level.GetPos() / EQ_LEVEL_STEPS_PER_DB;
 
     msg.reset();
@@ -323,8 +326,6 @@ void prefs_eq::ShowEqMag(int index)
 {
     pfc::string_formatter msg;
 
-    // The position value and the displayed scale are inverted
-    // for vertical scrollbars
     float level = (float)-m_slider_eq_mag[index].GetPos() / EQ_LEVEL_STEPS_PER_DB;
 
     msg.reset();
@@ -525,7 +526,7 @@ void prefs_eq::reset()
 {
     CheckDlgButton(IDC_CHECK_EQ, default_cfg_eq_enable);
 
-    m_slider_eq_level.SetPos(default_cfg_eq_level);
+    m_slider_eq_level.SetPos(-default_cfg_eq_level);
 
     std::vector<std::string> mags = util::split(default_cfg_eq_mag, ',');
 
@@ -541,7 +542,7 @@ void prefs_eq::reset()
             slider_level = 0;
         }
 
-        m_slider_eq_mag[ix].SetPos(slider_level);
+        m_slider_eq_mag[ix].SetPos(-slider_level);
     }
 
     SetDlgItemText(IDC_LABEL_ADJUST, L"");
@@ -552,12 +553,12 @@ void prefs_eq::apply()
 {
     cfg_eq_enable = IsDlgButtonChecked(IDC_CHECK_EQ);
 
-    cfg_eq_level = m_slider_eq_level.GetPos();
+    cfg_eq_level = -m_slider_eq_level.GetPos();
 
     std::stringstream out;
     for (int ix = 0; ix < BAND_COUNT; ix++)
     {
-        out << m_slider_eq_mag[ix].GetPos();
+        out << -m_slider_eq_mag[ix].GetPos();
 
         if (ix != BAND_COUNT - 1)
         {
@@ -588,7 +589,7 @@ bool prefs_eq::HasChanged()
             mag = 0;
         }
 
-        if (m_slider_eq_mag[ix].GetPos() != mag)
+        if (-m_slider_eq_mag[ix].GetPos() != mag)
         {
             has_changed = true;
             break;
@@ -598,7 +599,7 @@ bool prefs_eq::HasChanged()
     return
         has_changed ||
         (IsDlgButtonChecked(IDC_CHECK_EQ) != cfg_eq_enable) ||
-        (m_slider_eq_level.GetPos() != cfg_eq_level);
+        (-m_slider_eq_level.GetPos() != cfg_eq_level);
 }
 
 void prefs_eq::OnChanged()
@@ -609,9 +610,7 @@ void prefs_eq::OnChanged()
 
 double prefs_eq::get_scale()
 {
-    // The slider level and display scale are inverted
-    // for vertical scrollbars
-    return FROM_DB((double)(-cfg_eq_level) / EQ_LEVEL_STEPS_PER_DB);
+    return FROM_DB((double)(cfg_eq_level) / EQ_LEVEL_STEPS_PER_DB);
 }
 
 void prefs_eq::get_mag(double *mag)
@@ -630,8 +629,6 @@ void prefs_eq::get_mag(double *mag)
             slider_level = 0;
         }
 
-        // The slider level and display scale are inverted
-        // for vertical scrollbars
-        mag[ix] = (double)(-slider_level) / EQ_LEVEL_STEPS_PER_DB;
+        mag[ix] = (double)(slider_level) / EQ_LEVEL_STEPS_PER_DB;
     }
 }

@@ -13,6 +13,8 @@ cfg_int cfg_overflow_enable(guid_cfg_overflow_enable, default_cfg_overflow_enabl
 
 BOOL prefs_gen::OnInitDialog(CWindow, LPARAM)
 {
+    CheckDlgButton(IDC_CHECK_CLI_ENABLE, cfg_cli_enable);
+
     ::SendMessage(GetDlgItem(IDC_EDIT_CLI_PORT), EM_SETLIMITTEXT, 5, 0 );
     SetDlgItemInt(IDC_EDIT_CLI_PORT, cfg_cli_port, FALSE);
 
