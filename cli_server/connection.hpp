@@ -24,6 +24,11 @@
 #define STATUS_OK     "OK"
 #define STATUS_ERROR  "ERR"
 
+#define FILENAME_NONE ":"
+
+#define DIR_PREFIX    ":"
+#define DIR_DELIM     "|"
+
 namespace cli
 {
 namespace server

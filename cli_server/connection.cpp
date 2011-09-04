@@ -85,7 +85,7 @@ void connection::handle_command(command& cmd)
                     if (val > EQLevelRangeMax) val = EQLevelRangeMax;
 
                     mags[band] = boost::lexical_cast<std::string>(val);
-                    
+
                     // reassemble the magnitudes string
                     std::string str;
                     for (unsigned int ix = 0; ix < mags.size(); ix++)
@@ -296,13 +296,13 @@ void connection::handle_command(command& cmd)
     {
         if (!cmd.data.empty())
         {
-            if (cmd.data == ":")
+            if (cmd.data == FILENAME_NONE)
             {
                 // Special filename indicating no file
                 cfg_file1_filename.set_string("");
                 cfg_file1_metadata.set_string("");
                 cfg_file1_level = default_cfg_file1_level;
-                    
+
                 send_reply(STATUS_OK, "");
             }
             else if (boost::filesystem::exists(cmd.data))
@@ -313,8 +313,8 @@ void connection::handle_command(command& cmd)
                 double attenuation;
 
                 // Calculate the optimum attentuation to prevent clipping
-                if (preprocessor::calculate_attenuation(util::str2wstr(cmd.data), 
-                                                        FILTER_LEN, 
+                if (preprocessor::calculate_attenuation(util::str2wstr(cmd.data),
+                                                        FILTER_LEN,
                                                         REALSIZE,
                                                         &attenuation,
                                                         &n_channels,
@@ -325,12 +325,12 @@ void connection::handle_command(command& cmd)
 
                     info << n_frames << L" samples, "
                          << n_channels << L" channels, "
-                         << sampling_rate << L" Hz"; 
+                         << sampling_rate << L" Hz";
 
                     cfg_file1_filename.set_string(cmd.data.c_str());
                     cfg_file1_metadata.set_string((util::wstr2str(info.str())).c_str());
                     cfg_file1_level = (int)(attenuation * FILE_LEVEL_STEPS_PER_DB);
-                    
+
                     send_reply(STATUS_OK, "");
                 }
                 else
@@ -352,13 +352,13 @@ void connection::handle_command(command& cmd)
     {
         if (!cmd.data.empty())
         {
-            if (cmd.data == ":")
+            if (cmd.data == FILENAME_NONE)
             {
                 // Special filename indicating no file
                 cfg_file2_filename.set_string("");
                 cfg_file2_metadata.set_string("");
                 cfg_file2_level = default_cfg_file2_level;
-                    
+
                 send_reply(STATUS_OK, "");
             }
             else if (boost::filesystem::exists(cmd.data))
@@ -369,8 +369,8 @@ void connection::handle_command(command& cmd)
                 double attenuation;
 
                 // Calculate the optimum attentuation to prevent clipping
-                if (preprocessor::calculate_attenuation(util::str2wstr(cmd.data), 
-                                                        FILTER_LEN, 
+                if (preprocessor::calculate_attenuation(util::str2wstr(cmd.data),
+                                                        FILTER_LEN,
                                                         REALSIZE,
                                                         &attenuation,
                                                         &n_channels,
@@ -381,12 +381,12 @@ void connection::handle_command(command& cmd)
 
                     info << n_frames << L" samples, "
                          << n_channels << L" channels, "
-                         << sampling_rate << L" Hz"; 
+                         << sampling_rate << L" Hz";
 
                     cfg_file2_filename.set_string(cmd.data.c_str());
                     cfg_file2_metadata.set_string((util::wstr2str(info.str())).c_str());
                     cfg_file2_level = (int)(attenuation * FILE_LEVEL_STEPS_PER_DB);
-                    
+
                     send_reply(STATUS_OK, "");
                 }
                 else
@@ -408,13 +408,13 @@ void connection::handle_command(command& cmd)
     {
         if (!cmd.data.empty())
         {
-            if (cmd.data == ":")
+            if (cmd.data == FILENAME_NONE)
             {
                 // Special filename indicating no file
                 cfg_file3_filename.set_string("");
                 cfg_file3_metadata.set_string("");
                 cfg_file3_level = default_cfg_file3_level;
-                    
+
                 send_reply(STATUS_OK, "");
             }
             if (boost::filesystem::exists(cmd.data))
@@ -425,8 +425,8 @@ void connection::handle_command(command& cmd)
                 double attenuation;
 
                 // Calculate the optimum attentuation to prevent clipping
-                if (preprocessor::calculate_attenuation(util::str2wstr(cmd.data), 
-                                                        FILTER_LEN, 
+                if (preprocessor::calculate_attenuation(util::str2wstr(cmd.data),
+                                                        FILTER_LEN,
                                                         REALSIZE,
                                                         &attenuation,
                                                         &n_channels,
@@ -437,12 +437,12 @@ void connection::handle_command(command& cmd)
 
                     info << n_frames << L" samples, "
                          << n_channels << L" channels, "
-                         << sampling_rate << L" Hz"; 
+                         << sampling_rate << L" Hz";
 
                     cfg_file3_filename.set_string(cmd.data.c_str());
                     cfg_file3_metadata.set_string((util::wstr2str(info.str())).c_str());
                     cfg_file3_level = (int)(attenuation * FILE_LEVEL_STEPS_PER_DB);
-                    
+
                     send_reply(STATUS_OK, "");
                 }
                 else
@@ -514,8 +514,8 @@ void connection::handle_command(command& cmd)
                     vec v;
 
                     std::copy(
-                        boost::filesystem::directory_iterator(current_dir_), 
-                        boost::filesystem::directory_iterator(), 
+                        boost::filesystem::directory_iterator(current_dir_),
+                        boost::filesystem::directory_iterator(),
                         std::back_inserter(v));
 
                     // sort since directory iteration may not be ordered
@@ -528,7 +528,7 @@ void connection::handle_command(command& cmd)
                     {
                         if (boost::filesystem::is_directory(*it))
                         {
-                            list.push_back(":" + it->filename().generic_string());
+                            list.push_back(DIR_PREFIX + it->filename().generic_string());
                         }
                         else if (boost::filesystem::is_regular_file(*it))
                         {
@@ -543,7 +543,7 @@ void connection::handle_command(command& cmd)
                     std::vector<std::string>::const_iterator iter;
                     for (iter = list.begin(); iter < list.end(); ++iter)
                     {
-                        out << *iter << "|";
+                        out << *iter << DIR_DELIM;
                     }
                 }
                 else
@@ -559,7 +559,7 @@ void connection::handle_command(command& cmd)
         catch (const boost::filesystem::filesystem_error&)
         {
             send_reply(STATUS_ERROR, "");
-        }    
+        }
 
         send_reply(cmd.op, out.str());
     }
