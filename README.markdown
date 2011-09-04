@@ -79,9 +79,12 @@ successful.  The supported commands are:
     DIR               list current directory
     CLOSE             close client connection  
 
+Setting the filename to ":" (without quotes) indicates no file
+and resets metadata and file level.
+
 The directory listing returns a concatenated string with items
-separated by the "|" character.  Directories are prefixed with
-"..." and sorted first.
+delimited by "|" (without quotes).  Directories are prefixed 
+with ":" (without quotes) and sorted first.
 
 
 Compilation

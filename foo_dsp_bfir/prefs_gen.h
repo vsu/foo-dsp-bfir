@@ -9,10 +9,6 @@
 
 #include "common.h"
 
-#define default_cfg_cli_enable       0
-#define default_cfg_cli_port         3000
-#define default_cfg_overflow_enable  0
-
 // {D902F8AB-AB37-4322-B723-9F685B559DD4}
 static const GUID guid_cfg_cli_enable =
 { 0xD902F8AB, 0xAB37, 0x4322, { 0xB7, 0x23, 0x9F, 0x68, 0x5B, 0x55, 0x9D, 0xD4 } };

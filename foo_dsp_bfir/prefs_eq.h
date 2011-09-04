@@ -10,10 +10,6 @@
 #include "common.h"
 #include "../brutefir/equalizer.hpp"
 
-#define default_cfg_eq_enable   0
-#define default_cfg_eq_level    0 
-#define default_cfg_eq_mag      "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"
-
 // {5E352871-7A63-4036-B774-5CB1FFCBE9EE}
 static const GUID guid_cfg_eq_enable =
 { 0x5E352871, 0x7A63, 0x4036, { 0xB7, 0x74, 0x5C, 0xB1, 0xFF, 0xCB, 0xE9, 0xEE } };

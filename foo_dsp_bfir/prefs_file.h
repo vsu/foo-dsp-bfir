@@ -9,14 +9,6 @@
 
 #include "common.h"
 
-#define default_cfg_file1_enable     0
-#define default_cfg_file2_enable     0
-#define default_cfg_file3_enable     0
- 
-#define default_cfg_file1_level      0
-#define default_cfg_file2_level      0
-#define default_cfg_file3_level      0
-
 // {29CCE08F-CB74-47EF-8EDD-6B823EDF726B}
 static const GUID guid_cfg_file1_enable =
 { 0x29CCE08F, 0xCB74, 0x47EF, { 0x8E, 0xDD, 0x6B, 0x82, 0x3E, 0xDF, 0x72, 0x6B } };

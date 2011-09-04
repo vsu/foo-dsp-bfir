@@ -13,14 +13,30 @@
 #include "resource.h"
 
 #define COMPONENT_NAME           "BruteFIR"
-#define COMPONENT_VERSION        "0.1"
-#define REALSIZE                 8
-#define FILTER_LEN               1024
-#define EQ_FILTER_BLOCKS         64
-#define PATH_MAX                 1024
+#define COMPONENT_VERSION           "0.1"
+#define REALSIZE                     8
+#define FILTER_LEN                   1024
+#define EQ_FILTER_BLOCKS             64
+#define PATH_MAX                     1024
 
-#define EQ_LEVEL_STEPS_PER_DB    10
-#define FILE_LEVEL_STEPS_PER_DB  10
+#define default_cfg_cli_enable       0
+#define default_cfg_cli_port         3000
+#define default_cfg_overflow_enable  0
+
+#define default_cfg_eq_enable        0
+#define default_cfg_eq_level         0 
+#define default_cfg_eq_mag           "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"
+
+#define default_cfg_file1_enable     0
+#define default_cfg_file2_enable     0
+#define default_cfg_file3_enable     0
+ 
+#define default_cfg_file1_level      0
+#define default_cfg_file2_level      0
+#define default_cfg_file3_level      0
+
+#define EQ_LEVEL_STEPS_PER_DB        10
+#define FILE_LEVEL_STEPS_PER_DB      10
 
 enum
 {

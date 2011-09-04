@@ -296,7 +296,16 @@ void connection::handle_command(command& cmd)
     {
         if (!cmd.data.empty())
         {
-            if (boost::filesystem::exists(cmd.data))
+            if (cmd.data == ":")
+            {
+                // Special filename indicating no file
+                cfg_file1_filename.set_string("");
+                cfg_file1_metadata.set_string("");
+                cfg_file1_level = default_cfg_file1_level;
+                    
+                send_reply(STATUS_OK, "");
+            }
+            else if (boost::filesystem::exists(cmd.data))
             {
                 int n_channels;
                 int n_frames;
@@ -343,7 +352,16 @@ void connection::handle_command(command& cmd)
     {
         if (!cmd.data.empty())
         {
-            if (boost::filesystem::exists(cmd.data))
+            if (cmd.data == ":")
+            {
+                // Special filename indicating no file
+                cfg_file2_filename.set_string("");
+                cfg_file2_metadata.set_string("");
+                cfg_file2_level = default_cfg_file2_level;
+                    
+                send_reply(STATUS_OK, "");
+            }
+            else if (boost::filesystem::exists(cmd.data))
             {
                 int n_channels;
                 int n_frames;
@@ -390,6 +408,15 @@ void connection::handle_command(command& cmd)
     {
         if (!cmd.data.empty())
         {
+            if (cmd.data == ":")
+            {
+                // Special filename indicating no file
+                cfg_file3_filename.set_string("");
+                cfg_file3_metadata.set_string("");
+                cfg_file3_level = default_cfg_file3_level;
+                    
+                send_reply(STATUS_OK, "");
+            }
             if (boost::filesystem::exists(cmd.data))
             {
                 int n_channels;
@@ -501,7 +528,7 @@ void connection::handle_command(command& cmd)
                     {
                         if (boost::filesystem::is_directory(*it))
                         {
-                            list.push_back("..." + it->filename().generic_string());
+                            list.push_back(":" + it->filename().generic_string());
                         }
                         else if (boost::filesystem::is_regular_file(*it))
                         {
