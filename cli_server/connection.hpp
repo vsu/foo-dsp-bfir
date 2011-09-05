@@ -26,8 +26,7 @@
 
 #define FILENAME_NONE "?"
 
-#define DIR_PREFIX    ":"
-#define DIR_DELIM     "|"
+#define PATH_SUB_ROOT "|"
 
 namespace cli
 {

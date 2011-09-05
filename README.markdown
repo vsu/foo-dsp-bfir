@@ -54,11 +54,16 @@ directory as the plug-in DLL for proper operation.
 The plug-in features a command-line interface server for
 remote control of settings.  Commands consist of an
 operation code and data string separated by a space
-and terminated by a carriage return.  If no data string 
-is present, the current setting is returned.  If a data 
-string is present, the current setting is updated and 
-"OK" or "ERR" is returned depending on if the update was 
-successful.  The supported commands are:
+and terminated by a carriage return.  
+
+If no data string is present, the operation code, a space, 
+and the current setting as the data string is returned.  
+
+If a data  string is present, the current setting is updated 
+and "OK" or "ERR" is returned depending on if the update was 
+successful.  
+
+The supported commands are:
 
     EQMx <-10..10>    get/set EQ magnitude where x is the band number (0..30)  
     EQEN <0 | 1>      get/set EQ enable  
@@ -78,17 +83,14 @@ successful.  The supported commands are:
     DIR <dir path>    list directory
     CLOSE             close client connection  
 
+Command-specific notes:
+
 Setting the filename to "?" (without quotes) indicates no file
 and resets metadata and file level.
 
-The directory listing returns a concatenated string with items
-delimited by "|" (without quotes).  The first item is the full
-path to the directory.  Items are file/directory names only
-without the path.  Directories are prefixed with ":" (without 
-quotes) and sorted first.  If the directory path argument
-is omitted, the default directory (the application path) is 
-used.
-
+The directory listing returns a JSON string with directory
+information.  If the directory path argument is omitted, 
+the default directory (the application path) is used.
 
 
 Compilation

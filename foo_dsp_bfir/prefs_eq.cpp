@@ -465,13 +465,9 @@ void prefs_eq::WriteJson(PWSTR filename)
     params_obj.push_back(json_spirit::Pair("cfg_eq_level", cfg_eq_level.get_value()));
     params_obj.push_back(json_spirit::Pair("cfg_eq_mag", cfg_eq_mag.get_ptr()));
 
-    // add to parameters array
-    json_spirit::Array params_array;
-    params_array.push_back(params_obj);
-
     // write to file
     std::ofstream os(filename);
-    json_spirit::write_formatted(params_array, os);
+    json_spirit::write_formatted(params_obj, os);
     os.close();
 }
 
@@ -479,16 +475,14 @@ BOOL prefs_eq::ReadJson(PWSTR filename)
 {
     BOOL status = FALSE;
 
-    std::ifstream is(filename);
-
-    json_spirit::Value value;
-    read(is, value);
-
-    const json_spirit::Array& params_array = value.get_array();
-
-    if (params_array.size() == 1)
+    try
     {
-        const json_spirit::Object& params_obj = params_array[0].get_obj();
+        std::ifstream is(filename);
+
+        json_spirit::Value value;
+        read(is, value);
+
+        const json_spirit::Object& params_obj = value.get_obj();
 
         for (json_spirit::Object::size_type i = 0; i != params_obj.size(); ++i)
         {
@@ -507,10 +501,13 @@ BOOL prefs_eq::ReadJson(PWSTR filename)
             }
         }
 
+        is.close();
+
         status = TRUE;
     }
-
-    is.close();
+    catch (std::exception)
+    {
+    }
 
     return status;
 }

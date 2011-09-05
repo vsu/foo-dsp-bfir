@@ -25,6 +25,7 @@
 #include <algorithm>
 #include "..\brutefir\preprocessor.hpp"
 #include "..\brutefir\util.hpp"
+#include "../json_spirit/json_spirit.h"
 
 
 namespace cli
@@ -482,72 +483,56 @@ void connection::handle_command(command& cmd)
     {
         std:: stringstream out;
 
-        std::string dir = cmd.data;
+        boost::filesystem::path dir_path;
 
-        if (dir.empty())
-        {
-            dir = default_dir_;
-        }
+        // use default directory if no directory path specified
+        dir_path = cmd.data.empty() 
+            ? boost::filesystem::path(default_dir_)
+            : boost::filesystem::path(cmd.data);
 
         try
         {
-            if (boost::filesystem::exists(dir))
+            if (dir_path.generic_string() == PATH_SUB_ROOT)
             {
-                if (boost::filesystem::is_regular_file(dir))
+                // list logical drives
+                wchar_t buf[255];
+
+                // get the drive letters as a set of strings
+                int sz = GetLogicalDriveStrings(sizeof(buf), buf);
+
+                if (sz > 0)
                 {
-                    // regular file: just list the file
-                    out << dir;
-                }
-                else if (boost::filesystem::is_directory(dir))
-                {
-                    // directory: iterate and list
+                    // add subdirectories
+                    json_spirit::Array subdir_array;
 
-                    // Expand and simplify parent directory accessor
-                    if (boost::algorithm::ends_with(dir, "..")) 
+                    // buf now contains a list of all the drive letters. Each drive letter is
+                    // terminated with '\0' and the last one is terminated by two consecutive '\0' bytes.
+                    wchar_t * p1 = buf;
+                    wchar_t * p2;
+                    while (*p1 != '\0' && (p2 = wcschr(p1, '\0')) != NULL)
                     {
-                        boost::filesystem::path temp_path = boost::filesystem::path(dir);
-                        dir = temp_path.parent_path().parent_path().string();
+                        std::string drive_str = util::wstr2str(std::wstring(p1));
+
+                        json_spirit::Object obj;
+                        obj.push_back(json_spirit::Pair("display", drive_str));
+                        obj.push_back(json_spirit::Pair("name", drive_str));
+                        obj.push_back(json_spirit::Pair("path", drive_str));
+                        subdir_array.push_back(obj);
+
+                        p1 = p2 + 1;
                     }
 
-                    // store paths to sort later
-                    typedef std::vector<boost::filesystem::path> vec;
-                    vec v;
+                    // empty file array
+                    json_spirit::Array file_array;
 
-                    std::copy(
-                        boost::filesystem::directory_iterator(dir),
-                        boost::filesystem::directory_iterator(),
-                        std::back_inserter(v));
+                    // create root object
+                    json_spirit::Object root_obj;
+                    root_obj.push_back(json_spirit::Pair("dir", ""));
+                    root_obj.push_back(json_spirit::Pair("subdir", subdir_array));
+                    root_obj.push_back(json_spirit::Pair("file", file_array));
 
-                    // sort since directory iteration may not be ordered
-                    std::sort(v.begin(), v.end());
-
-                    std::vector<std::string> list;
-
-                    // iterate and mark directories
-                    for (vec::const_iterator it(v.begin()), it_end(v.end()); it != it_end; ++it)
-                    {
-                        if (boost::filesystem::is_directory(*it))
-                        {
-                            list.push_back(DIR_PREFIX + it->filename().generic_string());
-                        }
-                        else if (boost::filesystem::is_regular_file(*it))
-                        {
-                            list.push_back(it->filename().generic_string());
-                        }
-                    }
-
-                    // sort directories first
-                    std::sort(list.begin(), list.end());
-
-                    // append the full path to the directory
-                    out << dir << DIR_DELIM;
-
-                    // concatenate to output string
-                    std::vector<std::string>::const_iterator iter;
-                    for (iter = list.begin(); iter < list.end(); ++iter)
-                    {
-                        out << *iter << DIR_DELIM;
-                    }
+                    // write to output
+                    json_spirit::write_formatted(root_obj, out);
                 }
                 else
                 {
@@ -556,7 +541,99 @@ void connection::handle_command(command& cmd)
             }
             else
             {
-                send_reply(STATUS_ERROR, "");
+                // use default directory if path does not exist
+                if (!boost::filesystem::exists(dir_path))
+                {
+                    dir_path = boost::filesystem::path(default_dir_);
+                }
+
+                if (boost::filesystem::is_regular_file(dir_path))
+                {
+                    // regular file: just list the file
+                    out << dir_path;
+                }
+                else if (boost::filesystem::is_directory(dir_path))
+                {
+                    // directory: iterate and list
+
+                    // store paths to sort later
+                    typedef std::vector<boost::filesystem::path> vec;
+                    vec v;
+
+                    std::copy(
+                        boost::filesystem::directory_iterator(dir_path),
+                        boost::filesystem::directory_iterator(),
+                        std::back_inserter(v));
+
+                    // sort since directory iteration may not be ordered
+                    std::sort(v.begin(), v.end());
+
+                    // add subdirectories
+                    json_spirit::Array subdir_array;
+
+                    // add parent directory (..) if it exists
+                    boost::filesystem::path parent_path = dir_path.parent_path();
+
+                    if (boost::filesystem::exists(parent_path))
+                    {
+                        json_spirit::Object obj;
+                        obj.push_back(json_spirit::Pair("display", "[..]"));
+                        obj.push_back(json_spirit::Pair("name", ".."));
+
+                        // if the parent path ends with a colon, we are below
+                        // the root directory of the drive, so indicate this with
+                        // a special string.
+                        if (boost::algorithm::ends_with(parent_path.generic_string(), ":"))
+                        {
+                            obj.push_back(json_spirit::Pair("path", PATH_SUB_ROOT));
+                        }
+                        else
+                        {
+                            obj.push_back(json_spirit::Pair("path", parent_path.generic_string()));
+                        }
+
+                        subdir_array.push_back(obj);
+                    }
+
+                    for (vec::const_iterator it(v.begin()), it_end(v.end()); it != it_end; ++it)
+                    {
+                        if (boost::filesystem::is_directory(*it))
+                        {
+                            json_spirit::Object obj;
+                            obj.push_back(json_spirit::Pair("display", it->filename().generic_string()));
+                            obj.push_back(json_spirit::Pair("name", it->filename().generic_string()));
+                            obj.push_back(json_spirit::Pair("path", it->generic_string()));
+                            subdir_array.push_back(obj);
+                        }
+                    }
+
+                    // add files
+                    json_spirit::Array file_array;
+                    for (vec::const_iterator it(v.begin()), it_end(v.end()); it != it_end; ++it)
+                    {
+                        if (boost::filesystem::is_regular_file(*it))
+                        {
+                            json_spirit::Object obj;
+                            obj.push_back(json_spirit::Pair("display", it->filename().generic_string()));
+                            obj.push_back(json_spirit::Pair("name", it->filename().generic_string()));
+                            obj.push_back(json_spirit::Pair("path", it->generic_string()));
+                            file_array.push_back(obj);
+                        }
+                    }
+
+                    // create root object
+                    json_spirit::Object root_obj;
+                    root_obj.push_back(json_spirit::Pair("dir", dir_path.generic_string()));
+                    root_obj.push_back(json_spirit::Pair("subdir", subdir_array));
+                    root_obj.push_back(json_spirit::Pair("file", file_array));
+
+                    // write to output
+                    json_spirit::write_formatted(root_obj, out);
+                }
+                else
+                {
+                    send_reply(STATUS_ERROR, "");
+                }
             }
         }
         catch (const boost::filesystem::filesystem_error&)
