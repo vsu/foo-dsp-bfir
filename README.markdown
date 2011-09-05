@@ -75,16 +75,20 @@ successful.  The supported commands are:
     F1MD              get file 1 metadata
     F2MD              get file 2 metadata
     F3MD              get file 3 metadata
-    CD                get/set current directory
-    DIR               list current directory
+    DIR <dir path>    list directory
     CLOSE             close client connection  
 
-Setting the filename to ":" (without quotes) indicates no file
+Setting the filename to "?" (without quotes) indicates no file
 and resets metadata and file level.
 
 The directory listing returns a concatenated string with items
-delimited by "|" (without quotes).  Directories are prefixed 
-with ":" (without quotes) and sorted first.
+delimited by "|" (without quotes).  The first item is the full
+path to the directory.  Items are file/directory names only
+without the path.  Directories are prefixed with ":" (without 
+quotes) and sorted first.  If the directory path argument
+is omitted, the default directory (the application path) is 
+used.
+
 
 
 Compilation

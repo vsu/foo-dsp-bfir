@@ -37,7 +37,7 @@ connection::connection(boost::asio::io_service& io_service,
                        const std::string& default_dir)
     : socket_(io_service),
       connection_manager_(manager),
-      current_dir_(default_dir)
+      default_dir_(default_dir)
 {
 }
 
@@ -302,6 +302,7 @@ void connection::handle_command(command& cmd)
                 cfg_file1_filename.set_string("");
                 cfg_file1_metadata.set_string("");
                 cfg_file1_level = default_cfg_file1_level;
+				cfg_file1_enable = 0;
 
                 send_reply(STATUS_OK, "");
             }
@@ -330,6 +331,7 @@ void connection::handle_command(command& cmd)
                     cfg_file1_filename.set_string(cmd.data.c_str());
                     cfg_file1_metadata.set_string((util::wstr2str(info.str())).c_str());
                     cfg_file1_level = (int)(attenuation * FILE_LEVEL_STEPS_PER_DB);
+					cfg_file1_enable = 1;
 
                     send_reply(STATUS_OK, "");
                 }
@@ -358,6 +360,7 @@ void connection::handle_command(command& cmd)
                 cfg_file2_filename.set_string("");
                 cfg_file2_metadata.set_string("");
                 cfg_file2_level = default_cfg_file2_level;
+				cfg_file2_enable = 0;
 
                 send_reply(STATUS_OK, "");
             }
@@ -386,6 +389,7 @@ void connection::handle_command(command& cmd)
                     cfg_file2_filename.set_string(cmd.data.c_str());
                     cfg_file2_metadata.set_string((util::wstr2str(info.str())).c_str());
                     cfg_file2_level = (int)(attenuation * FILE_LEVEL_STEPS_PER_DB);
+					cfg_file2_enable = 1;
 
                     send_reply(STATUS_OK, "");
                 }
@@ -414,6 +418,7 @@ void connection::handle_command(command& cmd)
                 cfg_file3_filename.set_string("");
                 cfg_file3_metadata.set_string("");
                 cfg_file3_level = default_cfg_file3_level;
+				cfg_file3_enable = 0;
 
                 send_reply(STATUS_OK, "");
             }
@@ -442,6 +447,7 @@ void connection::handle_command(command& cmd)
                     cfg_file3_filename.set_string(cmd.data.c_str());
                     cfg_file3_metadata.set_string((util::wstr2str(info.str())).c_str());
                     cfg_file3_level = (int)(attenuation * FILE_LEVEL_STEPS_PER_DB);
+                    cfg_file3_enable = 1;
 
                     send_reply(STATUS_OK, "");
                 }
@@ -472,49 +478,43 @@ void connection::handle_command(command& cmd)
     {
         send_reply(cmd.op, cfg_file3_metadata.get_ptr());
     }
-    else if (cmd.op == "CD")
-    {
-        if (!cmd.data.empty())
-        {
-            if (boost::filesystem::exists(cmd.data) &&
-                boost::filesystem::is_directory(cmd.data))
-            {
-                current_dir_ = cmd.data;
-                send_reply(STATUS_OK, "");
-            }
-            else
-            {
-                send_reply(STATUS_ERROR, "");
-            }
-        }
-        else
-        {
-            send_reply(cmd.op, current_dir_);
-        }
-    }
     else if (cmd.op == "DIR")
     {
         std:: stringstream out;
 
+        std::string dir = cmd.data;
+
+        if (dir.empty())
+        {
+            dir = default_dir_;
+        }
+
         try
         {
-            if (boost::filesystem::exists(current_dir_))
+            if (boost::filesystem::exists(dir))
             {
-                if (boost::filesystem::is_regular_file(current_dir_))
+                if (boost::filesystem::is_regular_file(dir))
                 {
                     // regular file: just list the file
-                    out << current_dir_;
+                    out << dir;
                 }
-                else if (boost::filesystem::is_directory(current_dir_))
+                else if (boost::filesystem::is_directory(dir))
                 {
                     // directory: iterate and list
+
+                    // Expand and simplify parent directory accessor
+                    if (boost::algorithm::ends_with(dir, "..")) 
+                    {
+                        boost::filesystem::path temp_path = boost::filesystem::path(dir);
+                        dir = temp_path.parent_path().parent_path().string();
+                    }
 
                     // store paths to sort later
                     typedef std::vector<boost::filesystem::path> vec;
                     vec v;
 
                     std::copy(
-                        boost::filesystem::directory_iterator(current_dir_),
+                        boost::filesystem::directory_iterator(dir),
                         boost::filesystem::directory_iterator(),
                         std::back_inserter(v));
 
@@ -538,6 +538,9 @@ void connection::handle_command(command& cmd)
 
                     // sort directories first
                     std::sort(list.begin(), list.end());
+
+                    // append the full path to the directory
+                    out << dir << DIR_DELIM;
 
                     // concatenate to output string
                     std::vector<std::string>::const_iterator iter;

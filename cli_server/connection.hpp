@@ -24,7 +24,7 @@
 #define STATUS_OK     "OK"
 #define STATUS_ERROR  "ERR"
 
-#define FILENAME_NONE ":"
+#define FILENAME_NONE "?"
 
 #define DIR_PREFIX    ":"
 #define DIR_DELIM     "|"
@@ -95,8 +95,8 @@ private:
     /// The underlying native socket.
     SOCKET native_socket_;
 
-    /// The current directory.
-    std::string current_dir_;
+    /// The default directory.
+    std::string default_dir_;
 };
 
 typedef boost::shared_ptr<connection> connection_ptr;

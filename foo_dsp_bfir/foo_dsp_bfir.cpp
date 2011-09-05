@@ -44,7 +44,7 @@ class initquit_bfir : public initquit
         // Remove the "file://" prefix
         app_path.erase(0, 7);
         
-        // Create te application file path
+        // Create the application file path
         boost::filesystem::create_directories(app_path);
 
         // Set BruteFIR file path
