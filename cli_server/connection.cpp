@@ -597,27 +597,37 @@ void connection::handle_command(command& cmd)
 
                     for (vec::const_iterator it(v.begin()), it_end(v.end()); it != it_end; ++it)
                     {
-                        if (boost::filesystem::is_directory(*it))
-                        {
-                            json_spirit::Object obj;
-                            obj.push_back(json_spirit::Pair("display", it->filename().generic_string()));
-                            obj.push_back(json_spirit::Pair("name", it->filename().generic_string()));
-                            obj.push_back(json_spirit::Pair("path", it->generic_string()));
-                            subdir_array.push_back(obj);
-                        }
                     }
 
-                    // add files
+                    // add files and subdirectories
                     json_spirit::Array file_array;
                     for (vec::const_iterator it(v.begin()), it_end(v.end()); it != it_end; ++it)
                     {
-                        if (boost::filesystem::is_regular_file(*it))
+                        DWORD dwAttrs;
+
+                        dwAttrs = GetFileAttributes(it->wstring().c_str()); 
+                        if (dwAttrs != INVALID_FILE_ATTRIBUTES)
                         {
-                            json_spirit::Object obj;
-                            obj.push_back(json_spirit::Pair("display", it->filename().generic_string()));
-                            obj.push_back(json_spirit::Pair("name", it->filename().generic_string()));
-                            obj.push_back(json_spirit::Pair("path", it->generic_string()));
-                            file_array.push_back(obj);
+                            if (!(dwAttrs & FILE_ATTRIBUTE_HIDDEN) &&
+                                !(dwAttrs & FILE_ATTRIBUTE_SYSTEM))
+                            {
+                                if (boost::filesystem::is_regular_file(*it))
+                                {
+                                    json_spirit::Object obj;
+                                    obj.push_back(json_spirit::Pair("display", it->filename().generic_string()));
+                                    obj.push_back(json_spirit::Pair("name", it->filename().generic_string()));
+                                    obj.push_back(json_spirit::Pair("path", it->generic_string()));
+                                    file_array.push_back(obj);
+                                }
+                                else if (boost::filesystem::is_directory(*it))
+                                {
+                                    json_spirit::Object obj;
+                                    obj.push_back(json_spirit::Pair("display", it->filename().generic_string()));
+                                    obj.push_back(json_spirit::Pair("name", it->filename().generic_string()));
+                                    obj.push_back(json_spirit::Pair("path", it->generic_string()));
+                                    subdir_array.push_back(obj);
+                                }
+                            }
                         }
                     }
 
