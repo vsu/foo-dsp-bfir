@@ -67,7 +67,7 @@ private:
     void configure_socket();
 
     /// Sends command reply to the native socket.
-    bool send_reply(std::string command, std::string data);
+    bool send_reply(std::string data);
 
     /// Disconnects the client connection.
     void disconnect_client();

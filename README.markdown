@@ -56,12 +56,9 @@ remote control of settings.  Commands consist of an
 operation code and data string separated by a space
 and terminated by a carriage return.  
 
-If no data string is present, the operation code, a space, 
-and the current setting as the data string is returned.  
-
-If a data  string is present, the current setting is updated 
-and "OK" or "ERR" is returned depending on if the update was 
-successful.  
+If there is no data string, the current setting is returned,
+otherwise the current setting is updated and "OK" or "ERR"
+is returned depending on if the update was successful.  
 
 The supported commands are:
 
