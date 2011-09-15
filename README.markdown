@@ -62,12 +62,12 @@ is returned depending on if the update was successful.
 
 The supported commands are:
 
-    EQMx <-10..10>    get/set EQ magnitude where x is the band number (0..30)  
+    EQMx <-200..200>  get/set EQ magnitude where x is the band number (0..30)  
     EQEN <0 | 1>      get/set EQ enable  
     F1EN <0 | 1>      get/set file 1 enable  
     F2EN <0 | 1>      get/set file 2 enable  
     F3EN <0 | 1>      get/set file 3 enable  
-    EQLV <-100..100>  get/set EQ level  
+    EQLV <-200..200>  get/set EQ level  
     F1LV <-200..200>  get/set file 1 level  
     F2LV <-200..200>  get/set file 2 level  
     F3LV <-200..200>  get/set file 3 level  
