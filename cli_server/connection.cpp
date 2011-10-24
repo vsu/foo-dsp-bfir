@@ -9,7 +9,7 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 
-#include "..\foo_dsp_bfir\common.h"
+#include "../foo_dsp_bfir/common.h"
 #include "connection.hpp"
 #include "connection_manager.hpp"
 #include "command_parser.hpp"
@@ -17,14 +17,16 @@
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/classification.hpp>
 #include <string>
 #include <sstream>
 #include <iostream>
 #include <iterator>
 #include <vector>
 #include <algorithm>
-#include "..\brutefir\preprocessor.hpp"
-#include "..\brutefir\util.hpp"
+#include "../brutefir/preprocessor.hpp"
+#include "../brutefir/util.hpp"
 #include "../json_spirit/json_spirit.h"
 
 
@@ -73,8 +75,14 @@ void connection::handle_command(command& cmd)
 
         if (parse_int(cmd.op.substr(3), band))
         {
-            std::vector<std::string> mags = util::split(cfg_eq_mag.get_ptr(), ',');
+            std::vector<std::string> mags;    
 
+            boost::algorithm::split(
+                mags, 
+                std::string(cfg_eq_mag.get_ptr()), 
+                boost::is_any_of(","), 
+                boost::algorithm::token_compress_on);
+        
             if (band < 0) band = 0;
             if (band > (int)mags.size() - 1) band = (int)mags.size() - 1;
 

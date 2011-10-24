@@ -10,6 +10,8 @@
 #include <fstream>
 #include <vector>
 #include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/classification.hpp>
 #include "../brutefir/util.hpp"
 #include "../brutefir/equalizer.hpp"
 #include "../json_spirit/json_spirit.h"
@@ -169,7 +171,13 @@ void prefs_eq::LoadSettings()
 
     m_slider_eq_level.SetPos(-cfg_eq_level);
 
-    std::vector<std::string> mags = util::split(cfg_eq_mag.get_ptr(), ',');
+    std::vector<std::string> mags;
+    
+    boost::algorithm::split(
+        mags, 
+        std::string(cfg_eq_mag.get_ptr()), 
+        boost::is_any_of(","), 
+        boost::algorithm::token_compress_on);
 
     for (unsigned int ix = 0; ix < mags.size(); ix++)
     {
@@ -525,7 +533,13 @@ void prefs_eq::reset()
 
     m_slider_eq_level.SetPos(-default_cfg_eq_level);
 
-    std::vector<std::string> mags = util::split(default_cfg_eq_mag, ',');
+    std::vector<std::string> mags;
+    
+    boost::algorithm::split(
+        mags, 
+        std::string(cfg_eq_mag.get_ptr()), 
+        boost::is_any_of(","), 
+        boost::algorithm::token_compress_on);
 
     for (unsigned int ix = 0; ix < mags.size(); ix++)
     {
@@ -572,7 +586,13 @@ bool prefs_eq::HasChanged()
 {
     bool has_changed = false;
 
-    std::vector<std::string> mags = util::split(cfg_eq_mag.get_ptr(), ',');
+    std::vector<std::string> mags;
+    
+    boost::algorithm::split(
+            mags, 
+            std::string(cfg_eq_mag.get_ptr()), 
+            boost::is_any_of(","), 
+            boost::algorithm::token_compress_on);
 
     for (unsigned int ix = 0; ix < mags.size(); ix++)
     {
@@ -612,7 +632,13 @@ double prefs_eq::get_scale()
 
 void prefs_eq::get_mag(double *mag)
 {
-    std::vector<std::string> mags = util::split(cfg_eq_mag.get_ptr(), ',');
+    std::vector<std::string> mags;
+    
+    boost::algorithm::split(
+        mags, 
+        std::string(cfg_eq_mag.get_ptr()), 
+        boost::is_any_of(","), 
+        boost::algorithm::token_compress_on);
 
     for (unsigned int ix = 0; ix < mags.size(); ix++)
     {

@@ -8,7 +8,6 @@
 #define _UTIL_HPP_
 
 #include <string>
-#include <vector>
 #include <stdint.h>
 
 // dB conversion macros
@@ -23,24 +22,6 @@ namespace util
     uint32_t  
     get_next_multiple(uint32_t value,
                       uint32_t factor);
-
-    std::vector<std::string> & 
-    split(const std::string &s, 
-          char delim, 
-          std::vector<std::string> &elems);
-
-    std::vector<std::wstring> & 
-    split(const std::wstring &s, 
-          wchar_t delim, 
-          std::vector<std::wstring> &elems);
-
-    std::vector<std::string> 
-    split(const std::string &s, 
-          char delim);
-
-    std::vector<std::wstring> 
-    split(const std::wstring &s, 
-          wchar_t delim);
 
     std::wstring 
     str2wstr(std::string str);
