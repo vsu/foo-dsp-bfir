@@ -43,9 +43,9 @@ is enabled, it is also convolved with the specified impulse
 file(s).  The resulting impulse response is cached to disk
 and stored in WAV format.
 
-The equalizer and impulse file configuration may be saved to
-and loaded from disk using the DSP configuration panel.  The
-configuration is stored in JSON format.
+The equalizer configuration may be saved to and loaded from disk 
+using the DSP configuration panel.  The configuration is stored 
+in JSON format.
 
 Note that the FFTW DLL's (libfftw3-3.dll and libfftw3f-3.dll) 
 and the libsndfile DLL (libsndfile-1.dll) must be in the same 
@@ -103,7 +103,9 @@ The JSON Spirit, FFTW and libsndfile libraries are present in the solution
 directory or may be obtained from:
 
 http://www.codeproject.com/KB/recipes/JSON_Spirit.aspx
+
 http://www.fftw.org/
+
 http://www.mega-nerd.com/libsndfile/
 
 Project and solution files are currently for Visual Studio 2010.
