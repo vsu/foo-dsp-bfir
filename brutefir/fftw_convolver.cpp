@@ -80,7 +80,8 @@ fftw_convolver::fftw_convolver(int length,
 
     // create a wisdom filename from convolver parameters
     out << "wisdom-" << length << "-" << realsize;
-    filename.assign(bfir_path::append_path(out.str()));
+
+    filename = bfir_path::append_path(out.str());
 
     if ((err = _wfopen_s(&stream, filename.c_str(), L"rt")) != 0)
     {

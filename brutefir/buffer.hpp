@@ -45,6 +45,11 @@ namespace buffer
                    int n_channels,
                    int sampling_rate);
 
+    std::wstring
+    resample_snd_file(const wchar_t *filename,
+                      int n_channels,
+                      int sampling_rate);
+
     void **
     deinterlace(void *buffer,
                 int n_channels,

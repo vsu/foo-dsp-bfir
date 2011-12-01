@@ -176,11 +176,23 @@ public:
             // Load DRC impulse response files
             filename = util::str2wstr(cfg_file1_filename.get_ptr());
 
-            if ((cfg_file1_enable.get_value() != 0) && (wcslen(filename.c_str()) != 0))
+            if ((cfg_file1_enable.get_value() != 0) && !filename.empty())
             {
-                if (buffer::check_snd_file(filename.c_str(), m_channels, m_srate))
+                if (!buffer::check_snd_file(filename.c_str(), m_channels, m_srate))
                 {
-                    info.filename.assign(filename);
+                    if (cfg_file1_resample.get_value() != 0)
+                    {
+                        filename = buffer::resample_snd_file(filename.c_str(), m_channels, m_srate);
+                    }
+                    else
+                    {
+                        filename.clear();
+                    }
+                }
+
+                if (!filename.empty())
+                {
+                    info.filename = filename;
                     info.scale = prefs_file::get_file1_scale();
                     impulse_info.push_back(info);
                 }
@@ -188,11 +200,23 @@ public:
 
             filename = util::str2wstr(cfg_file2_filename.get_ptr());
 
-            if ((cfg_file2_enable.get_value() != 0) && (wcslen(filename.c_str()) != 0))
+            if ((cfg_file2_enable.get_value() != 0) && !filename.empty())
             {
-                if (buffer::check_snd_file(filename.c_str(), m_channels, m_srate))
+                if (!buffer::check_snd_file(filename.c_str(), m_channels, m_srate))
                 {
-                    info.filename.assign(filename);
+                    if (cfg_file2_resample.get_value() != 0)
+                    {
+                        filename = buffer::resample_snd_file(filename.c_str(), m_channels, m_srate);
+                    }
+                    else
+                    {
+                        filename.clear();
+                    }
+                }
+
+                if (!filename.empty())
+                {
+                    info.filename = filename;
                     info.scale = prefs_file::get_file2_scale();
                     impulse_info.push_back(info);
                 }
@@ -200,22 +224,34 @@ public:
 
             filename = util::str2wstr(cfg_file3_filename.get_ptr());
 
-            if ((cfg_file3_enable.get_value() != 0) && (wcslen(filename.c_str()) != 0))
+            if ((cfg_file3_enable.get_value() != 0) && !filename.empty())
             {
-                if (buffer::check_snd_file(filename.c_str(), m_channels, m_srate))
+                if (!buffer::check_snd_file(filename.c_str(), m_channels, m_srate))
                 {
-                    info.filename.assign(filename);
+                    if (cfg_file3_resample.get_value() != 0)
+                    {
+                        filename = buffer::resample_snd_file(filename.c_str(), m_channels, m_srate);
+                    }
+                    else
+                    {
+                        filename.clear();
+                    }
+                }
+
+                if (!filename.empty())
+                {
+                    info.filename = filename;
                     info.scale = prefs_file::get_file3_scale();
                     impulse_info.push_back(info);
                 }
             }
 
-            filename = L"";
+            filename.clear();
             double scale;
 
             if (impulse_info.size() == 1)
             {
-                filename.assign(impulse_info.front().filename);
+                filename = impulse_info.front().filename;
                 scale = impulse_info.front().scale;
             }
             else if (impulse_info.size() > 1)

@@ -31,11 +31,12 @@ of digital room correction.  The libsndfile library is used to
 read the sound file, so any format that is supported by that 
 library may be used.  
 
-The plug-in supports up to 3 impulse files with the intent that 
-3 versions of the same impulse file at different sampling rates 
-can be used, however, the 3 impulses may be different.  The
-plug-in selects the appropriate impulse file by matching the 
-sampling rate of the impulse file and the playback stream.  
+The plug-in supports up to 3 impulse files.  The plug-in selects 
+the appropriate impulse file by matching the sampling rate of 
+the impulse file to the playback stream.  If the resample checkbox
+is selected for a given file, the impulse file is resampled to
+the sampling rate of the playback stream.  The resample file is
+cached to disk and stored in WAV format.
 
 If more than one impulse file can be used, they are preprocessed 
 by convolving them into a single impulse file.  If the equalizer
@@ -47,9 +48,10 @@ The equalizer configuration may be saved to and loaded from disk
 using the DSP configuration panel.  The configuration is stored 
 in JSON format.
 
-Note that the FFTW DLL's (libfftw3-3.dll and libfftw3f-3.dll) 
-and the libsndfile DLL (libsndfile-1.dll) must be in the same 
-directory as the plug-in DLL for proper operation.
+Note that the FFTW DLL's (libfftw3-3.dll and libfftw3f-3.dll), 
+the libsndfile DLL (libsndfile-1.dll), and the libsamplerate DLL
+(libsamplerate-0.dll) must be in the same directory as the 
+plug-in DLL for proper operation.
 
 The plug-in features a command-line interface server for
 remote control of settings.  Commands consist of an
@@ -99,13 +101,15 @@ Foobar2000 SDK (http://www.foobar2000.org/SDK)
 Include files from the Windows Template Library (http://sourceforge.net/projects/wtl/)  
 Boost C++ libraries (www.boost.org) (You can find pre-built binaries at boostpro.com)  
 
-The JSON Spirit, FFTW and libsndfile libraries are present in the solution
-directory or may be obtained from:
+The JSON Spirit, FFTW, libsndfile, and libsamplerate libraries are present in the 
+solution directory or may be obtained from:
 
 http://www.codeproject.com/KB/recipes/JSON_Spirit.aspx
 
 http://www.fftw.org/
 
 http://www.mega-nerd.com/libsndfile/
+
+http://www.mega-nerd.com/SRC/
 
 Project and solution files are currently for Visual Studio 2010.

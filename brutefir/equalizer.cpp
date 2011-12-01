@@ -158,7 +158,6 @@ equalizer::make_filename(int n_bands,
     long hash_code;
     char *band_data;
     std::wstringstream out;
-    std::wstring filename;
 
     // copy the band data into a single byte array
     band_data = (char *) _alloca(3 * n_bands * sizeof(double));
@@ -177,8 +176,7 @@ equalizer::make_filename(int n_bands,
         << "-" << m_equalizer.sampling_rate
         << ".wav";
 
-    filename.assign(bfir_path::append_temp_path(out.str()));
-    return filename;
+    return bfir_path::append_temp_path(out.str());
 }
 
 float

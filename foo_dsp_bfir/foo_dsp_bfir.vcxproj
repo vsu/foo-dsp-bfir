@@ -78,7 +78,7 @@
     <ClCompile>
       <AdditionalOptions>/D_WIN32_WINNT=0x0600 /D_CRT_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\Program Files\boost\boost_1_46_1;..\brutefir;..\..\wtl\Include;..\..\foobar2000\SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\boost\boost_1_47;..\brutefir;..\..\wtl\Include;..\..\foobar2000\SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -99,10 +99,10 @@
       <Culture>0x0409</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>shared.lib;libfftw3-3.lib;libfftw3f-3.lib;libsndfile-1.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>shared.lib;libfftw3-3.lib;libfftw3f-3.lib;libsndfile-1.lib;libsamplerate-0.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>C:\Program Files\boost\boost_1_46_1\lib;..\..\foobar2000\shared;..\libsndfile;..\fftw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files\boost\boost_1_47\lib;..\..\foobar2000\shared;..\libsndfile;..\libsamplerate;..\fftw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)$(ProjectName).pdb</ProgramDatabaseFile>
@@ -128,7 +128,7 @@
       <Optimization>MinSpace</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>C:\Program Files\boost\boost_1_46_1;..\brutefir;..\..\wtl\Include;..\..\foobar2000\SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\boost\boost_1_47;..\brutefir;..\..\wtl\Include;..\..\foobar2000\SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -152,10 +152,10 @@
       <Culture>0x0409</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>shared.lib;libfftw3-3.lib;libfftw3f-3.lib;libsndfile-1.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>shared.lib;libfftw3-3.lib;libfftw3f-3.lib;libsndfile-1.lib;libsamplerate-0.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>..\..\foobar2000\shared;..\libsndfile;..\fftw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files\boost\boost_1_47\lib;..\..\foobar2000\shared;..\libsndfile;..\libsamplerate;..\fftw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <ProgramDatabaseFile>$(OutDir)$(ProjectName).pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
@@ -179,7 +179,7 @@
       <Optimization>MinSpace</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>C:\Program Files\boost\boost_1_46_1;..\brutefir;..\..\wtl\Include;..\..\foobar2000\SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\boost\boost_1_47;..\brutefir;..\..\wtl\Include;..\..\foobar2000\SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;FOO_INPUT_HVL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -205,7 +205,7 @@
       <AdditionalDependencies>shared.lib;libfftw3-3.lib;libfftw3f-3.lib;libsndfile-1.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>C:\Program Files\boost\boost_1_46_1\lib;..\..\foobar2000\shared;..\libsndfile;..\fftw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files\boost\boost_1_47\lib;..\..\foobar2000\shared;..\libsndfile;..\fftw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)$(ProjectName).pdb</ProgramDatabaseFile>
       <OptimizeReferences>true</OptimizeReferences>
@@ -218,14 +218,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="config.hpp" />
-    <ClInclude Include="foo_dsp_bfir.hpp" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="foo_dsp_bfir.h" />
+    <ClInclude Include="prefs_eq.h" />
+    <ClInclude Include="prefs_file.h" />
+    <ClInclude Include="prefs_gen.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="config.cpp" />
     <ClCompile Include="foo_dsp_bfir.cpp" />
+    <ClCompile Include="prefs_eq.cpp" />
+    <ClCompile Include="prefs_file.cpp" />
+    <ClCompile Include="prefs_gen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="foo_dsp_bfir.rc" />
@@ -253,6 +257,9 @@
     </ProjectReference>
     <ProjectReference Include="..\brutefir\brutefir.vcxproj">
       <Project>{7e929436-d1d0-415a-9648-cccf5e37c323}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\cli_server\cli_server.vcxproj">
+      <Project>{6c5d06b8-a792-4cad-8576-60152fab5452}</Project>
     </ProjectReference>
     <ProjectReference Include="..\json_spirit\json_spirit.vcxproj">
       <Project>{be262a86-cc26-4b25-a877-883ed2688cec}</Project>

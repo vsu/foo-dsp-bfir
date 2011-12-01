@@ -3,20 +3,13 @@
 // Used by foo_dsp_bfir.rc
 //
 #define IDD_EQUALIZER                   101
-#define IDD_IMPULSE_FILE                107
 #define IDD_FILE                        107
 #define IDD_GENERAL                     108
-#define IDC_SLIDER_LABEL_P10DB2         1002
 #define IDC_SLIDER_LABEL_PDB2           1002
-#define IDC_SLIDER_LABEL_P0DB2          1003
 #define IDC_SLIDER_LABEL_ZDB2           1003
-#define IDC_SLIDER_LABEL_M10DB2         1004
 #define IDC_SLIDER_LABEL_NDB2           1004
-#define IDC_SLIDER_LABEL_P10DB1         1005
 #define IDC_SLIDER_LABEL_PDB1           1005
-#define IDC_SLIDER_LABEL_P0DB1          1006
 #define IDC_SLIDER_LABEL_ZDB1           1006
-#define IDC_SLIDER_LABEL_M10DB1         1007
 #define IDC_SLIDER_LABEL_NDB1           1007
 #define IDC_SLIDER_EQ1                  1011
 #define IDC_SLIDER_EQ2                  1012
@@ -113,9 +106,11 @@
 #define IDC_STATIC_FILE2                1107
 #define IDC_STATIC_FILE3                1108
 #define IDC_LABEL_NOTE                  1109
-#define IDC_CHECK1                      1111
 #define IDC_CHECK_CLI_ENABLE            1111
+#define IDC_CHECK_RESAMPLE1             1111
 #define IDC_LABEL_ADJUST                1112
+#define IDC_CHECK_RESAMPLE2             1112
+#define IDC_CHECK_RESAMPLE3             1113
 
 // Next default values for new objects
 // 

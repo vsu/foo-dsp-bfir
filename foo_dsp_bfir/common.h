@@ -30,7 +30,11 @@
 #define default_cfg_file1_enable     0
 #define default_cfg_file2_enable     0
 #define default_cfg_file3_enable     0
- 
+
+#define default_cfg_file1_resample   0
+#define default_cfg_file2_resample   0
+#define default_cfg_file3_resample   0
+
 #define default_cfg_file1_level      0
 #define default_cfg_file2_level      0
 #define default_cfg_file3_level      0
@@ -57,6 +61,10 @@ extern cfg_string cfg_eq_mag;
 extern cfg_int cfg_file1_enable;
 extern cfg_int cfg_file2_enable;
 extern cfg_int cfg_file3_enable;
+
+extern cfg_int cfg_file1_resample;
+extern cfg_int cfg_file2_resample;
+extern cfg_int cfg_file3_resample;
 
 extern cfg_int cfg_file1_level;
 extern cfg_int cfg_file2_level;

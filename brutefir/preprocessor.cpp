@@ -95,7 +95,7 @@ namespace preprocessor
             << "-" << g_sampling_rate
             << ".wav";
 
-        m_out_filename.assign(bfir_path::append_temp_path(out.str()));
+        m_out_filename = bfir_path::append_temp_path(out.str());
 
         // run the impulse convolver if the output file does not already exist
         if (!boost::filesystem::exists(m_out_filename))
@@ -260,12 +260,12 @@ namespace preprocessor
         int filter_blocks;
         int n_coeffs;
 
-        brutefir * filter;
+        brutefir * filter = NULL;
         bool status = false;
 
-        void **coeffs;
-        void *inbuf;
-        void *outbuf;
+        void **coeffs = NULL;
+        void *inbuf = NULL;
+        void *outbuf = NULL;
         numunion_t *realbuf;
 
         *attenuation = 0;
@@ -403,7 +403,10 @@ exit:
             coeffs = NULL;
         }
 
-        delete filter;
+        if (filter != NULL)
+        {
+            delete filter;
+        }
 
         return status;
     }

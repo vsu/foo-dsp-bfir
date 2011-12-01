@@ -14,6 +14,10 @@ cfg_int cfg_file1_enable(guid_cfg_file1_enable, default_cfg_file1_enable);
 cfg_int cfg_file2_enable(guid_cfg_file2_enable, default_cfg_file2_enable);
 cfg_int cfg_file3_enable(guid_cfg_file3_enable, default_cfg_file3_enable);
 
+cfg_int cfg_file1_resample(guid_cfg_file1_resample, default_cfg_file1_resample);
+cfg_int cfg_file2_resample(guid_cfg_file2_resample, default_cfg_file2_resample);
+cfg_int cfg_file3_resample(guid_cfg_file3_resample, default_cfg_file3_resample);
+
 cfg_int cfg_file1_level(guid_cfg_file1_level, default_cfg_file1_level);
 cfg_int cfg_file2_level(guid_cfg_file2_level, default_cfg_file2_level);
 cfg_int cfg_file3_level(guid_cfg_file3_level, default_cfg_file3_level);
@@ -31,6 +35,10 @@ BOOL prefs_file::OnInitDialog(CWindow, LPARAM)
     CheckDlgButton(IDC_CHECK_FILE1, cfg_file1_enable);
     CheckDlgButton(IDC_CHECK_FILE2, cfg_file2_enable);
     CheckDlgButton(IDC_CHECK_FILE3, cfg_file3_enable);
+
+    CheckDlgButton(IDC_CHECK_RESAMPLE1, cfg_file1_resample);
+    CheckDlgButton(IDC_CHECK_RESAMPLE2, cfg_file2_resample);
+    CheckDlgButton(IDC_CHECK_RESAMPLE3, cfg_file3_resample);
 
     m_slider_level1 = GetDlgItem(IDC_SLIDER_LEVEL1);
     m_slider_level1.SetRange(FileLevelRangeMin, FileLevelRangeMax);
@@ -54,17 +62,17 @@ BOOL prefs_file::OnInitDialog(CWindow, LPARAM)
     SetDlgItemText(IDC_EDIT_FILE3, filename3.c_str());
 
     // Convert metadata strings to wchar_t
-    if (wcslen(filename1.c_str()) > 0)
+    if (!filename1.empty())
     {
         SetDlgItemText(IDC_LABEL_INFO1, (util::str2wstr(cfg_file1_metadata.get_ptr())).c_str());
     }
 
-    if (wcslen(filename2.c_str()) > 0)
+    if (!filename2.empty())
     {
         SetDlgItemText(IDC_LABEL_INFO2, (util::str2wstr(cfg_file2_metadata.get_ptr())).c_str());
     }
 
-    if (wcslen(filename3.c_str()) > 0)
+    if (!filename3.empty())
     {
         SetDlgItemText(IDC_LABEL_INFO3, (util::str2wstr(cfg_file3_metadata.get_ptr())).c_str());
     }
@@ -217,6 +225,10 @@ void prefs_file::reset()
     CheckDlgButton(IDC_CHECK_FILE2, default_cfg_file2_enable);
     CheckDlgButton(IDC_CHECK_FILE3, default_cfg_file3_enable);
 
+    CheckDlgButton(IDC_CHECK_RESAMPLE1, default_cfg_file1_resample);
+    CheckDlgButton(IDC_CHECK_RESAMPLE2, default_cfg_file2_resample);
+    CheckDlgButton(IDC_CHECK_RESAMPLE3, default_cfg_file3_resample);
+
     m_slider_level1.SetPos(default_cfg_file1_level);
     m_slider_level2.SetPos(default_cfg_file2_level);
     m_slider_level3.SetPos(default_cfg_file3_level);
@@ -239,6 +251,10 @@ void prefs_file::apply()
     cfg_file1_enable = IsDlgButtonChecked(IDC_CHECK_FILE1);
     cfg_file2_enable = IsDlgButtonChecked(IDC_CHECK_FILE2);
     cfg_file3_enable = IsDlgButtonChecked(IDC_CHECK_FILE3);
+
+    cfg_file1_resample = IsDlgButtonChecked(IDC_CHECK_RESAMPLE1);
+    cfg_file2_resample = IsDlgButtonChecked(IDC_CHECK_RESAMPLE2);
+    cfg_file3_resample = IsDlgButtonChecked(IDC_CHECK_RESAMPLE3);
 
     cfg_file1_level = m_slider_level1.GetPos();
     cfg_file2_level = m_slider_level2.GetPos();
@@ -288,6 +304,9 @@ bool prefs_file::HasChanged()
         (IsDlgButtonChecked(IDC_CHECK_FILE1) != cfg_file1_enable) ||
         (IsDlgButtonChecked(IDC_CHECK_FILE2) != cfg_file2_enable) ||
         (IsDlgButtonChecked(IDC_CHECK_FILE3) != cfg_file3_enable) ||
+        (IsDlgButtonChecked(IDC_CHECK_RESAMPLE1) != cfg_file1_resample) ||
+        (IsDlgButtonChecked(IDC_CHECK_RESAMPLE2) != cfg_file2_resample) ||
+        (IsDlgButtonChecked(IDC_CHECK_RESAMPLE3) != cfg_file3_resample) ||
         (m_slider_level1.GetPos() != cfg_file1_level) ||
         (m_slider_level2.GetPos() != cfg_file2_level) ||
         (m_slider_level3.GetPos() != cfg_file3_level);
