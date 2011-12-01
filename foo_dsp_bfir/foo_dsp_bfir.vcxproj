@@ -152,7 +152,7 @@
       <Culture>0x0409</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>shared.lib;libfftw3-3.lib;libfftw3f-3.lib;libsndfile-1.lib;libsamplerate-0.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>shared.lib;libfftw3-3.lib;libfftw3f-3.lib;libsndfile-1.lib;libsamplerate-0.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>C:\Program Files\boost\boost_1_47\lib;..\..\foobar2000\shared;..\libsndfile;..\libsamplerate;..\fftw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -202,10 +202,10 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>shared.lib;libfftw3-3.lib;libfftw3f-3.lib;libsndfile-1.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>shared.lib;libfftw3-3.lib;libfftw3f-3.lib;libsndfile-1.lib;libsamplerate-0.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>C:\Program Files\boost\boost_1_47\lib;..\..\foobar2000\shared;..\libsndfile;..\fftw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files\boost\boost_1_47\lib;..\..\foobar2000\shared;..\libsndfile;..\libsamplerate;..\fftw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)$(ProjectName).pdb</ProgramDatabaseFile>
       <OptimizeReferences>true</OptimizeReferences>
