@@ -35,7 +35,7 @@ The plug-in supports up to 3 impulse files.  The plug-in selects
 the appropriate impulse file by matching the sampling rate of 
 the impulse file to the playback stream.  If the resample checkbox
 is selected for a given file, the impulse file is resampled to
-the sampling rate of the playback stream.  The resample file is
+the sampling rate of the playback stream.  The resampled file is
 cached to disk and stored in WAV format.
 
 If more than one impulse file can be used, they are preprocessed 
